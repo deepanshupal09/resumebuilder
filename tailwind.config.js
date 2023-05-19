@@ -6,7 +6,8 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      bungee: [['Merriweather', 'serif'], ['Montserrat', 'sans-serif'] ,['Sacramento', 'cursive']]
+      // bungee: [['Bungee', 'cursive'],['Merriweather', 'serif'], ['Montserrat', 'sans-serif'] ,['Sacramento', 'cursive']],
+      poppins: [['Bungee', 'cursive'],['Merriweather', 'serif'],['Montserrat', 'sans-serif'], ['Sacramento', 'cursive']]
     },
     extend: {},
   },
