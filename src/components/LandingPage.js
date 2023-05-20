@@ -11,7 +11,7 @@ function LandingPage() {
         <button className=' rounded-md  font-semibold shadow-lg px-5 text-lg py-3 ]' style={{backgroundImage: 'linear-gradient(90deg,#e8b93f,#d68423)'}}>Click Here</button>
       </div>
      </div>
-     <div className='flex  w-1/2 '><img className='m-auto slideright h-[110%]' src="./resume-img.png" alt="" /></div>
+     <div className='flex justify-end w-1/2 '><img className='mr-[10%] slideright h-[110%]' src="./resume-img.png" alt="" /></div>
     </div>
   )
 }
