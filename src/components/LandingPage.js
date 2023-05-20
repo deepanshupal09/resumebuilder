@@ -2,6 +2,8 @@ import React from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function LandingPage() {
 
@@ -11,9 +13,11 @@ function LandingPage() {
   const scrollLeft = () => {
     document.getElementById('temp').scrollLeft -= 500;
   } 
-
+ 
   return (
+  
     <>
+     {AOS.init()}
     <div className='first-component flex text-white h-[35%]' style={{backgroundImage: 'linear-gradient( 90.1deg,  rgba(84,212,228,1) 0.2%, rgba(68,36,164,1) 99.9% )'}}>
      <div className=' mx-12 slideleft'>
       <div className='relative top-[25%] text-5xl font-bold font-sans'>Craft Your Career Path with Precision..</div>
@@ -25,7 +29,7 @@ function LandingPage() {
      </div>
      <div className='flex justify-end w-1/2 '><img className='mr-[10%] slideright h-[110%]' src="./resume-img.png" alt="" /></div>
     </div>
-    <div className=' second-component mt-[3%] py-[2%] px-[3%]'>
+    <div data-aos="fade-right" className='second-component  py-[2%] px-[3%]' style={{marginTop: '15%'}}>
         <h1 className='text-5xl text-center font-bold font-mons'>Templates For Resume</h1>
 
         <div className='flex '>
