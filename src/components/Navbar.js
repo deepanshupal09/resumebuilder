@@ -16,7 +16,7 @@ function Navbar() {
 
     <div>
       {window.onscroll = test}
-      <div id='nav' className=" shadow-2xl fixed top-0  backdrop-blur-3xl backdrop-filter bg-opacity-25 z-10 w-[100%] flex justify-between h-[7vh] bg-black text-lg  text-white" >
+      <div id='nav' className=" shadow-2xl fixed top-0  backdrop-blur-3xl backdrop-filter bg-opacity-30 z-10 w-[100%] flex justify-between h-[7vh] bg-black text-lg  text-white" >
         <div className="my-auto"> 
           <img
             className="w-[70%]"
@@ -28,7 +28,7 @@ function Navbar() {
         <div className="">
          
           <button className=" px-2 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md py-2 " >
-            <li className="flex mix-blend-difference">
+            <li className="flex ">
               Build Your Resume&nbsp;
               <div id="byr"><FontAwesomeIcon icon={faChevronDown} /></div>
             </li>
