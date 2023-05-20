@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function Navbar() {
   return (
     <div>
-      <div className="shadow-2xl fixed top-0 z-10 w-[100%] flex justify-between h-[3vw]  text-lg  text-white" style={{backgroundImage: 'linear-gradient( 90.1deg,  rgba(84,212,228,1) 0.2%, rgba(68,36,164,1) 99.9% )'}}>
+      <div className="shadow-2xl fixed top-0 z-10 w-[100%] flex justify-between h-[4%]  text-lg  text-white" style={{backgroundImage: 'linear-gradient( 90.1deg,  rgba(84,212,228,1) 0.2%, rgba(68,36,164,1) 99.9% )'}}>
         <div className="my-auto"> 
           <img
             className="w-[70%]"
