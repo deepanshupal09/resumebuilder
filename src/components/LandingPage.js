@@ -17,7 +17,7 @@ function LandingPage() {
   return (
     
     <>
-     {AOS.init()}
+     
     <div className='first-component flex text-white h-[75vh]' style={{backgroundImage: 'linear-gradient( 90.1deg,  rgba(84,212,228,1) 0.2%, rgba(68,36,164,1) 99.9% )'}}>
      <div className=' mx-12 slideleft'>
       <div className='relative top-[25%] text-5xl font-bold font-sans'>Craft Your Career Path with Precision..</div>
@@ -32,18 +32,18 @@ function LandingPage() {
     <div data-aos="fade-right" className='second-component  py-[2%] px-[3%]' style={{marginTop: '25vh'}}>
         <h1 className='text-5xl text-slate-600 text-center font-bold font-mons'>Templates For Resume</h1>
 
-        <div className='flex h-[20%] w-[80%] mx-auto space-x-10'>
+        <div className='flex h-[50vh] w-[80vw] mx-auto space-x-10'>
           <div className='my-auto'>
-            <button className='rounded-[50%] text-center px-4  hover:shadow-lg bg-white bg-opacity-0 hover:bg-opacity-40 text-2xl' onClick={scrollLeft}>&nbsp;<FontAwesomeIcon icon={faChevronLeft} />&nbsp;</button>
+            <button className='rounded-[50%] text-center p-4  hover:shadow-lg bg-white bg-opacity-0 hover:bg-opacity-40 text-2xl' onClick={scrollLeft}><FontAwesomeIcon icon={faChevronLeft} /></button>
           </div>
-          <div className='scroll-smooth template overflow-auto  h-[25%] mx-auto flex space-x-[5%] mt-[5%] flex-nowrap  overflow-x-hidden' id='temp'>
-            <div className='w-[30%] h-[8%]' style={{flex: "0 0 auto"}}> <img src="./resume-1.png"  alt="" /> </div>
-            <div className='w-[30%] h-[8%]' style={{flex: "0 0 auto"}}> <img src="./resume-2.png"  alt="" /> </div>
-            <div className='w-[30%] h-[8%]' style={{flex: "0 0 auto"}}> <img src="./resume-3.png"  alt="" /> </div>
-            <div className='w-[30%] h-[8%]' style={{flex: "0 0 auto"}}> <img src="./resume-4.png"  alt="" /> </div>
+          <div className=' scroll-smooth template overflow-auto   mx-auto flex space-x-[5vw] mt-[5vh] flex-nowrap  overflow-x-hidden' id='temp'>
+            <div className='w-[20vw] ' style={{flex: "0 0 auto"}}> <img src="./resume-1.png" className='h-[100%]'alt="" /> </div>
+            <div className='w-[20vw] ' style={{flex: "0 0 auto"}}> <img src="./resume-2.png" className='h-[100%]' alt="" /> </div>
+            <div className='w-[20vw] ' style={{flex: "0 0 auto"}}> <img src="./resume-3.png" className='h-[100%]' alt="" /> </div>
+            <div className='w-[20vw] ' style={{flex: "0 0 auto"}}> <img src="./resume-4.png" className='h-[100%]' alt="" /> </div>
           </div>
           <div className='my-auto'>
-            <button className='rounded-[50%] text-center px-4   hover:shadow-lg bg-white bg-opacity-0 hover:bg-opacity-40 text-2xl' onClick={scrollRight}>&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faChevronRight} />&nbsp;&nbsp;&nbsp;</button>
+            <button className='rounded-[50%] text-center p-4   hover:shadow-lg bg-white bg-opacity-0 hover:bg-opacity-40 text-2xl' onClick={scrollRight}><FontAwesomeIcon icon={faChevronRight} /></button>
           </div>
         </div>
 
