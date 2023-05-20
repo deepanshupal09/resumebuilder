@@ -13,6 +13,7 @@ function LandingPage() {
      </div>
      <div className='flex justify-end w-1/2 '><img className='mr-[10%] slideright h-[110%]' src="./resume-img.png" alt="" /></div>
     </div>
+    
   )
 }
 
