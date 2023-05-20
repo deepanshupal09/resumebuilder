@@ -29,18 +29,18 @@ function LandingPage() {
      </div>
      <div className='flex justify-end w-1/2 '><img className='mr-[10%] slideright h-[110%]' src="./resume-img.png" alt="" /></div>
     </div>
-    <div data-aos="fade-right" className='second-component  py-[2%] px-[3%]' style={{marginTop: '25vh'}}>
-        <h1 className='text-5xl text-slate-600 text-center font-bold font-mons'>Templates For Resume</h1>
+    <div data-aos="fade-right" className='second-component m-2 h-[100vh] py-[2%] px-[3%]' style={{marginTop: '25vh'}}>
+        <h1 className='text-5xl relative top-[7vh] text-slate-600 text-center font-bold font-mons'>Templates For Resume</h1>
 
-        <div className='flex h-[50vh] w-[80vw] mx-auto space-x-10'>
+        <div className='flex relative top-[10vh] min-h-[70vh] w-[90vw] mx-auto space-x-10'>
           <div className='my-auto'>
             <button className='rounded-[50%] text-center p-4  hover:shadow-lg bg-white bg-opacity-0 hover:bg-opacity-40 text-2xl' onClick={scrollLeft}><FontAwesomeIcon icon={faChevronLeft} /></button>
           </div>
           <div className=' scroll-smooth template overflow-auto   mx-auto flex space-x-[5vw] mt-[5vh] flex-nowrap  overflow-x-hidden' id='temp'>
-            <div className='w-[20vw] ' style={{flex: "0 0 auto"}}> <img src="./resume-1.png" className='h-[100%]'alt="" /> </div>
-            <div className='w-[20vw] ' style={{flex: "0 0 auto"}}> <img src="./resume-2.png" className='h-[100%]' alt="" /> </div>
-            <div className='w-[20vw] ' style={{flex: "0 0 auto"}}> <img src="./resume-3.png" className='h-[100%]' alt="" /> </div>
-            <div className='w-[20vw] ' style={{flex: "0 0 auto"}}> <img src="./resume-4.png" className='h-[100%]' alt="" /> </div>
+            <div className='h-[65vh] ' style={{flex: "0 0 auto"}}> <img src="./resume-1.png" className='w-[500px] h-[100%]'alt="" /> </div>
+            <div className='h-[65vh] ' style={{flex: "0 0 auto"}}> <img src="./resume-2.png" className='w-[500px] h-[100%]' alt="" /> </div>
+            <div className='h-[65vh] ' style={{flex: "0 0 auto"}}> <img src="./resume-3.png" className='w-[500px] h-[100%]' alt="" /> </div>
+            <div className='h-[65vh] ' style={{flex: "0 0 auto"}}> <img src="./resume-4.png" className='w-[500px] h-[100%]' alt="" /> </div>
           </div>
           <div className='my-auto'>
             <button className='rounded-[50%] text-center p-4   hover:shadow-lg bg-white bg-opacity-0 hover:bg-opacity-40 text-2xl' onClick={scrollRight}><FontAwesomeIcon icon={faChevronRight} /></button>
