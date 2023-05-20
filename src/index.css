@@ -1,5 +1,10 @@
 @tailwind base;
 @tailwind components;
+
+.dodge {
+  @apply mix-blend-difference
+}
+
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Merriweather&family=Montserrat&family=Sacramento&display=swap');

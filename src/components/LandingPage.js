@@ -18,7 +18,7 @@ function LandingPage() {
   
     <>
      {AOS.init()}
-    <div className='first-component flex text-white h-[35%]' style={{backgroundImage: 'linear-gradient( 90.1deg,  rgba(84,212,228,1) 0.2%, rgba(68,36,164,1) 99.9% )'}}>
+    <div className='first-component flex text-white h-[75vh]' style={{backgroundImage: 'linear-gradient( 90.1deg,  rgba(84,212,228,1) 0.2%, rgba(68,36,164,1) 99.9% )'}}>
      <div className=' mx-12 slideleft'>
       <div className='relative top-[25%] text-5xl font-bold font-sans'>Craft Your Career Path with Precision..</div>
       <div className='relative top-[32%] text-4xl mt-4 font-bold font-sans'>Your Perfect Resume Starts Here!</div>
@@ -29,8 +29,8 @@ function LandingPage() {
      </div>
      <div className='flex justify-end w-1/2 '><img className='mr-[10%] slideright h-[110%]' src="./resume-img.png" alt="" /></div>
     </div>
-    <div data-aos="fade-right" className='second-component  py-[2%] px-[3%]' style={{marginTop: '15%'}}>
-        <h1 className='text-5xl text-center font-bold font-mons'>Templates For Resume</h1>
+    <div data-aos="fade-right" className='second-component  py-[2%] px-[3%]' style={{marginTop: '25vh'}}>
+        <h1 className='text-5xl text-slate-600 text-center font-bold font-mons'>Templates For Resume</h1>
 
         <div className='flex '>
           <div className='my-auto'>
