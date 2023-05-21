@@ -1,21 +1,10 @@
 import React from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ScrollContainer from 'react-indiana-drag-scroll'
 
 function LandingPage() {
 
-  const scrollRight = () => {
-    document.getElementById('temp').scrollLeft += 1000;
-  } 
-  const scrollLeft = () => {
-    document.getElementById('temp').scrollLeft -= 1000;
-  } 
-  
-  
 
   AOS.init();
   return (
@@ -37,9 +26,7 @@ function LandingPage() {
         <h1 className='text-2xl lg:text-5xl relative top-[7vh] text-slate-600 text-center font-bold font-mons'>Templates For Resume</h1>
 
         <div className='flex relative top-[10vh] h-[100vw] w-[95vw] overflow-x-hidden lg:h-[45vw] lg:w-[95vw]  mx-auto space-x-10'>
-          <div className='my-auto'>
-            <button className='rounded-[50%] text-center p-0 md:p-4 hidden lg:flex hover:shadow-lg bg-white bg-opacity-0 hover:bg-opacity-40 text-2xl' onClick={scrollLeft}><FontAwesomeIcon icon={faChevronLeft} /></button>
-          </div>
+      
           <ScrollContainer vertical={false} horizontal={true} className="scroll-container ">
         
         <div className=' scroll-smooth template   mx-auto flex space-x-[3vw] mt-[5vh] flex-nowrap overflow-y-visible ' id='temp'>
@@ -50,14 +37,10 @@ function LandingPage() {
       </div>
         
       </ScrollContainer>
-          <div className='my-auto'>
-            <button className='rounded-[50%] text-center p-0 md:p-4 hidden lg:flex  hover:shadow-lg bg-white bg-opacity-0 hover:bg-opacity-40 text-2xl' onClick={scrollRight}><FontAwesomeIcon icon={faChevronRight} /></button>
-          </div>
+
         </div>
 
     </div>
-    {/* <img src="./vector.svg" alt="" /> */}
-    {/* <a href="https://iconscout.com/illustrations/data" target="_blank"></a>  <a href="https://iconscout.com/contributors/twiri">Twiri</a> <a href="https://iconscout.com">IconScout</a> */}
     </>
     
   );
