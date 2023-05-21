@@ -24,7 +24,7 @@ function Navbar() {
 <>
     <div>
 
-      <div id='nav' className=" shadow-2xl fixed top-0 justify backdrop-blur-3xl backdrop-filter bg-opacity-30 z-10 w-[100%] flex justify-between h-[7vh] bg-black text-lg  text-white" >
+      <div id='nav' className=" shadow-2xl fixed top-0 justify backdrop-blur-lg backdrop-filter bg-opacity-30 z-10 w-[100%] flex justify-between h-[7vh] bg-black text-lg  text-white" >
         <div className="my-auto"> 
           <img
             className="w-[70%]"
