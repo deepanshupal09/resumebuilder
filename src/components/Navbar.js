@@ -3,6 +3,7 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import './style.css'
 
 function Navbar() {
 
@@ -34,7 +35,9 @@ function Navbar() {
         </div>
         <div className="lg:hidden text-2xl w-[10vw] flex items-center align-baseline justify-center cursor-pointer">
             <button onClick={showMenu}>
-             <FontAwesomeIcon icon={faBars} /> </button>
+             <FontAwesomeIcon className={`${open}?"hidden":"visible"`} icon={faBars} /> 
+    
+             </button>
         </div>
 
         
