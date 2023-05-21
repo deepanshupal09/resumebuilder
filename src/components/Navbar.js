@@ -10,28 +10,20 @@ function Navbar() {
 
   const showMenu = () => {
     if (open === 'false') {
-      console.log(open);
+
       document.getElementById('menu').style.height = '100vh';
       setOpen('true');
     } else {
-      console.log(open);
+
       document.getElementById('menu').style.height = '0';
       setOpen('false');
     }
   }
 
-  const test = () => {
-    var a = window.getComputedStyle( document.body ,null).getPropertyValue('background-color'); 
-    if (a === 'rdb(233,233,233)') {
-      document.getElementById('nav').style.color = 'black';
-    }
-    console.log(a)
-  }
-
   return (
 <>
     <div>
-      {window.onscroll = test}
+
       <div id='nav' className=" shadow-2xl fixed top-0 justify backdrop-blur-3xl backdrop-filter bg-opacity-30 z-10 w-[100%] flex justify-between h-[7vh] bg-black text-lg  text-white" >
         <div className="my-auto"> 
           <img
