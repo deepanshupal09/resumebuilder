@@ -94,22 +94,22 @@ function LandingPage() {
         <h1 className='text-center justify-center  pt-20 text-6xl font-mons font-bold'> Key Features </h1>
         <div className='flex mx-auto mt-8 w-[80vw] content-center'>
           <div data-aos="fade-right" className='flex  flex-col w-1/2 p-4'>
-            <div  className='font-bold  pt-20 px-12 text-4xl'> Easy to Use </div>
-            <div className='leading-10  p-12 text-2xl text-justify letter'> Our user-friendly interface makes creating a professional resume effortless. With intuitive controls and a seamless workflow, you can navigate through the resume-building process with ease, whether you are a seasoned professional or a first-time job seeker. </div>
+            <div  className='font-bold h-[10vh]  pt-[2vh] px-12 text-4xl'> Easy to Use </div>
+            <div className='leading-10 h-[50vh] p-12 text-2xl text-justify letter'> Our user-friendly interface makes creating a professional resume effortless. With intuitive controls and a seamless workflow, you can navigate through the resume-building process with ease, whether you are a seasoned professional or a first-time job seeker. </div>
             </div>
             <div className='easy-to-use mx-auto h-[60vh]' ref={easytouse}></div>
         </div>
         <div className='flex mx-auto mt-8 w-[80vw] content-center'>
         <div className='easy-to-use mx-auto h-[60vh]' ref={multipletemplate}></div>
           <div data-aos="fade-left"  className='flex  flex-col w-1/2 p-4'>
-            <div className='font-bold  pt-20 px-12 text-4xl'> Multuple Template Library</div>
-            <div className='leading-10  p-12 text-2xl text-justify letter'> Choose from a wide range of beautifully designed templates that cater to various industries and career levels. Each template is carefully crafted to ensure a visually appealing layout while maintaining readability and highlighting your key qualifications. </div>
+            <div className='font-bold h-[10vh] pt-[2vh] px-12 text-4xl'> Multuple Template Library</div>
+            <div className='leading-10 h-[50vh] p-12 text-2xl text-justify letter'> Choose from a wide range of beautifully designed templates that cater to various industries and career levels. Each template is carefully crafted to ensure a visually appealing layout while maintaining readability and highlighting your key qualifications. </div>
             </div>
         </div>
         <div  className='flex mx-auto mt-8 w-[80vw] content-center'>
           <div data-aos="fade-right"  className='flex  flex-col w-1/2 p-4'>
-            <div className='font-bold  pt-20 px-12 text-4xl'> Seamless Integration </div>
-            <div className='leading-10  p-12 text-2xl text-justify letter'> Easily export your resume in PDF and share it directly on professional networking platforms like LinkedIn. Our platform ensures your resume looks flawless across all devices and platforms. </div>
+            <div className='font-bold h-[10vh] pt-[2vh] px-12 text-4xl'> Seamless Integration </div>
+            <div className='leading-10 h-[50vh] p-12 text-2xl text-justify letter'> Easily export your resume in PDF and share it directly on professional networking platforms like LinkedIn. Our platform ensures your resume looks flawless across all devices and platforms. </div>
             </div>
             <div className='easy-to-use mx-auto h-[60vh]' ref={integrate}></div>
         </div>
