@@ -215,9 +215,9 @@ function LandingPage() {
           
       </div>
     </div>
-    <div data-aos='fade-up' className="fourth-component py-20 px-10 lg:px-20 bg-white justify-between flex flex-col md:flex-row h-fit ">
-      <div className='flex flex-col w-full lg:w-1/2'> 
-        <div className='text-5xl mx-auto lg:text-6xl font-mons font-bold p-4 leading-[4rem]'> <span className="font-bold text-red-600">F</span>requently <span className="font-bold text-red-600">A</ span>sked <span className="font-bold text-red-600">Q</span>uestions </div> 
+    <div data-aos='fade-up' className="fourth-component py-20 px-10 lg:px-20 bg-white justify-between flex flex-col md:flex-row h-fit  ">
+      <div className=' w-full lg:w-1/2'> 
+        <div className='text-5xl mx-auto  lg:text-6xl font-mons font-bold p-4 leading-[4rem]'> <span className="font-bold text-red-600">F</span>requently <span className="font-bold text-red-600">A</ span>sked <span className="font-bold text-red-600">Q</span>uestions </div> 
         <div className='container h-[50vh] mx-auto lg:hidden ' ref={faq}></div>
         <div className='font-mons mt-8 text-xl lg:text-2xl'>
           <button className='text-left w-full p-4 border border-1 rounded-t-lg border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 'onClick={a1}>
@@ -229,13 +229,13 @@ function LandingPage() {
           <button className='text-left w-full p-4 border border-1  border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 'onClick={a2}>
               <div className='flex justify-between font-bold'> <div> Q. Do I need any prior experience in resume writing to use Resume Builder ? </div> <div id='cd2'><FontAwesomeIcon icon={faChevronDown} /> </div></div>
           </button>
-          <div id='a2' className='overflow-hidden h-0 text-left  transition-all duration-300 w-full p-0 border border-0  border-slate-400 '>
+          <div id='a2' className='overflow-hidden h-0 text-left  transition-all duration-300 w-full p-0  border-0  border-slate-400 '>
                No, Resume Builder is designed to be user-friendly and intuitive, making it accessible to users with any level of experience in resume writing. Our platform provides templates, suggestions, and guidance throughout the process.
           </div>
           <button className='text-left w-full p-4 border border-1  border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 'onClick={a3}>
               <div className='flex justify-between font-bold'> <div> Q. Are the templates provided by Resume Builder customizable? </div> <div id='cd3'><FontAwesomeIcon icon={faChevronDown} /> </div></div>
           </button>
-          <div id='a3' className='overflow-hidden h-0 text-left  transition-all duration-300 w-full p-0 border border-0  border-slate-400 '>
+          <div id='a3' className='overflow-hidden h-0 text-left  transition-all duration-300 w-full p-0  border-0  border-slate-400 '>
           Yes, Resume Builder offers a range of customizable templates to suit different industries and job positions. You can personalize the templates by changing fonts, colors, sections, and layouts to match your preferences.
           </div>
           <button id='q4' className='text-left w-full p-4 border border-1 rounded-b-lg border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 'onClick={a4}>
@@ -247,10 +247,11 @@ function LandingPage() {
         </div>
         
       </div>
-
-      <div className='container w-auto hidden lg:block ' ref={container}></div>
-
+      <div className='flex w-1/2 h-auto  lg:block'>
+      <div className='container  ' ref={container}></div>
+      </div>
     </div>
+
     <div className="footer h-[30vh] bg-[#f9f8f2]"></div>
     </>
     
