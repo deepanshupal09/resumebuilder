@@ -1,35 +1,18 @@
-import React, { useEffect, useRef} from 'react'
+import React, {useEffect, useRef} from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ScrollContainer from 'react-indiana-drag-scroll'
 import Lottie from 'lottie-web';import { faChevronDown ,faChevronUp} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { useState } from 'react';
-
-// const [a1, seta1] = useEffect('true');
-// const [a2, seta2] = useEffect('false');
-// const [a3, seta3] = useEffect('false');
-// const [a4, seta4] = useEffect('false');
 
 function LandingPage() {
 
   const container = useRef(null)
-  const firstpic = useRef(null)
   const easytouse = useRef(null)
   const integrate = useRef(null)
   const multipletemplate = useRef(null)
   const faq = useRef(null)
 
-  useEffect(()=>{
-    const instance = Lottie.loadAnimation({
-      container: firstpic.current,
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      animationData: require('./first-pic.json')
-    })
-    return () => instance.destroy();
-  }, []);
 
   useEffect(()=>{
     const instance = Lottie.loadAnimation({
@@ -89,7 +72,10 @@ function LandingPage() {
     var b = document.getElementById('a2');  
     var c = document.getElementById('a3');  
     var d = document.getElementById('a4');
-    var an=document.getElementById('cd1');
+    var an1=document.getElementById('cd1');
+    var an2=document.getElementById('cd2');
+    var an3=document.getElementById('cd3');
+    var an4=document.getElementById('cd4');
     // an.style.transform = 'rotate(180deg)';
     console.log(a.clientHeight);
 
@@ -100,14 +86,20 @@ function LandingPage() {
       b.style.height = c.style.height = d.style.height = '0';
       b.style.padding = c.style.padding = d.style.padding = '0';
       b.style.border = c.style.border = d.style.border = '0';
-      an.style.transform = 'rotate(0deg)';
-      an.style.transition='0.3s'
+      an1.style.transform = 'rotate(0deg)';
+      an1.style.transition='0.3s';
+      an2.style.transform = 'rotate(0deg)';
+      an2.style.transition='0.3s';
+      an3.style.transform = 'rotate(0deg)';
+      an3.style.transition='0.3s';
+      an4.style.transform = 'rotate(0deg)';
+      an4.style.transition='0.3s';
     } else {
       a.style.height = '0';
       a.style.padding = '0';
       a.style.border = '0';
-      an.style.transform = 'rotate(-180deg)';
-      an.style.transition='0.3s'
+      an1.style.transform = 'rotate(-180deg)';
+      an1.style.transition='0.3s';
     }   
   }
   const a2=()=> {
@@ -115,7 +107,10 @@ function LandingPage() {
     var b = document.getElementById('a2');  
     var c = document.getElementById('a3');  
     var d = document.getElementById('a4');
-    var an=document.getElementById('cd2');
+    var an1=document.getElementById('cd1');
+    var an2=document.getElementById('cd2');
+    var an3=document.getElementById('cd3');
+    var an4=document.getElementById('cd4');
     
     if (b.clientHeight == '0') {
       b.style.height = 'auto';
@@ -124,14 +119,20 @@ function LandingPage() {
       a.style.height = c.style.height = d.style.height = '0';
       a.style.padding = c.style.padding = d.style.padding = '0';
       a.style.border = c.style.border = d.style.border = '0';
-      an.style.transform = 'rotate(180deg)';
-      an.style.transition='0.3s'
+      an1.style.transform = 'rotate(180deg)';
+      an1.style.transition='0.3s';
+      an2.style.transform = 'rotate(180deg)';
+      an2.style.transition='0.3s';
+      an3.style.transform = 'rotate(0deg)';
+      an3.style.transition='0.3s';
+      an4.style.transform = 'rotate(0deg)';
+      an4.style.transition='0.3s';
     } else {
       b.style.height = '0';
       b.style.padding = '0';
       b.style.border = '0';
-      an.style.transform = 'rotate(0deg)';
-      an.style.transition='0.3s'
+      an2.style.transform = 'rotate(0deg)';
+      an2.style.transition='0.3s'
     }   
   }
   const a3=()=> {
@@ -139,7 +140,10 @@ function LandingPage() {
     var b = document.getElementById('a2');  
     var c = document.getElementById('a3');  
     var d = document.getElementById('a4');
-    var an=document.getElementById('cd3');
+    var an1=document.getElementById('cd1');
+    var an2=document.getElementById('cd2');
+    var an3=document.getElementById('cd3');
+    var an4=document.getElementById('cd4');
     
     if (c.clientHeight == '0') {
       c.style.height = 'auto';
@@ -148,14 +152,20 @@ function LandingPage() {
       b.style.height = a.style.height = d.style.height = '0';
       b.style.padding = a.style.padding = d.style.padding = '0';
       b.style.border = a.style.border = d.style.border = '0';
-      an.style.transform = 'rotate(180deg)';
-      an.style.transition='0.3s'
+      an1.style.transform = 'rotate(180deg)';
+      an1.style.transition='0.3s';
+      an2.style.transform = 'rotate(0deg)';
+      an2.style.transition='0.3s';
+      an3.style.transform = 'rotate(180deg)';
+      an3.style.transition='0.3s';
+      an4.style.transform = 'rotate(0deg)';
+      an4.style.transition='0.3s';
     } else {
       c.style.height = '0';
       c.style.padding = '0';
       c.style.border = '0';
-      an.style.transform = 'rotate(0deg)';
-      an.style.transition='0.3s'
+      an3.style.transform = 'rotate(0deg)';
+      an3.style.transition='0.3s'
     }   
   }
   
@@ -165,7 +175,10 @@ function LandingPage() {
     var c = document.getElementById('a3');  
     var d = document.getElementById('a4');
     var q = document.getElementById('q4');
-    var an=document.getElementById('cd4');
+    var an1=document.getElementById('cd1');
+    var an2=document.getElementById('cd2');
+    var an3=document.getElementById('cd3');
+    var an4=document.getElementById('cd4');
     // an.style.transform = 'rotate(180deg)';
     if (d.clientHeight == '0') {
       d.style.height = 'auto';
@@ -175,17 +188,22 @@ function LandingPage() {
       b.style.padding = c.style.padding = a.style.padding = '0';
       b.style.border = c.style.border = a.style.border = '0';
       q.style.borderRadius='0';
-      an.style.transform = 'rotate(180deg)';
-      an.style.transition='1s'
-      an.style.transition='0.3s'
+      an1.style.transform = 'rotate(180deg)';
+      an1.style.transition='0.3s';
+      an2.style.transform = 'rotate(0deg)';
+      an2.style.transition='0.3s';
+      an3.style.transform = 'rotate(0deg)';
+      an3.style.transition='0.3s';
+      an4.style.transform = 'rotate(180deg)';
+      an4.style.transition='0.3s';
     } else {
       d.style.height = '0';
       d.style.padding = '0';
       d.style.border = '0';
       q.style.borderBottomLeftRadius='0.5rem'
       q.style.borderBottomRightRadius='0.5rem'
-      an.style.transform = 'rotate(0deg)';
-      an.style.transition='0.3s'
+      an4.style.transform = 'rotate(0deg)';
+      an4.style.transition='0.3s'
     }   
   }
   AOS.init();
@@ -193,7 +211,7 @@ function LandingPage() {
     
     <>
      
-    <div className='first-component flex text-white h-[90vh]'>
+    <div className='first-component flex text-white h-[75vh]' style={{backgroundImage: 'linear-gradient( 90.1deg,  rgba(84,212,228,1) 0.2%, rgba(68,36,164,1) 99.9% )'}}>
      <div className=' mx-12 slideleft'>
       <div className=' relative top-[25%] text-3xl lg:text-5xl font-bold font-sans'>Craft Your Career Path with Precision..</div>
       <div className=' relative top-[32%] text-2xl lg:text-4xl mt-4 font-bold font-sans'>Your Perfect Resume Starts Here!</div>
@@ -202,10 +220,7 @@ function LandingPage() {
         <button className='px-2 text-md rounded-md  font-semibold shadow-lg lg:px-5 lg:text-lg py-3 ]' style={{backgroundImage: 'linear-gradient(90deg,#e8b93f,#d68423)'}}>Click Here</button>
       </div>
      </div>
-     <div className='md:flex hidden justify-end w-1/2 '>
-      {/* <img className='mr-[10%] slideright h-[110%]' src="./resume-img.png" alt="" /> */}
-      <div  className='container mr-[10%] slideright' ref={firstpic}></div>
-      </div>
+     <div className='md:flex hidden justify-end w-1/2 '><img className='mr-[10%] slideright h-[110%]' src="./resume-img.png" alt="" /></div>
     </div>
     <div data-aos="fade-right" className='second-component m-2 h-[110vh] lg:h-auto  py-[2%] px-[3%]' style={{marginTop: '25vh'}}>
         <h1 className='text-2xl md:text-5xl relative top-[7vh] text-slate-600 text-center font-bold font-mons'>Templates For Resume</h1>
@@ -285,9 +300,9 @@ function LandingPage() {
         </div>
         
       </div>
-
-      <div className='container w-auto hidden lg:block ' ref={container}></div>
-
+      <div className=' w-1/2 h-auto lg:block hidden'>
+      <div className='container' ref={container}></div>
+      </div>
     </div>
 
     <div className="footer h-[30vh] bg-[#f9f8f2]"></div>
