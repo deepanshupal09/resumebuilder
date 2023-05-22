@@ -90,11 +90,13 @@ function LandingPage() {
       b.style.padding = c.style.padding = d.style.padding = '0';
       b.style.border = c.style.border = d.style.border = '0';
       an.style.transform = 'rotate(0deg)';
+      an.style.transition='0.3s'
     } else {
       a.style.height = '0';
       a.style.padding = '0';
       a.style.border = '0';
-      an.style.transform = 'rotate(180deg)';
+      an.style.transform = 'rotate(-180deg)';
+      an.style.transition='0.3s'
     }   
   }
   const a2=()=> {
@@ -112,11 +114,13 @@ function LandingPage() {
       a.style.padding = c.style.padding = d.style.padding = '0';
       a.style.border = c.style.border = d.style.border = '0';
       an.style.transform = 'rotate(180deg)';
+      an.style.transition='0.3s'
     } else {
       b.style.height = '0';
       b.style.padding = '0';
       b.style.border = '0';
       an.style.transform = 'rotate(0deg)';
+      an.style.transition='0.3s'
     }   
   }
   const a3=()=> {
@@ -134,11 +138,13 @@ function LandingPage() {
       b.style.padding = a.style.padding = d.style.padding = '0';
       b.style.border = a.style.border = d.style.border = '0';
       an.style.transform = 'rotate(180deg)';
+      an.style.transition='0.3s'
     } else {
       c.style.height = '0';
       c.style.padding = '0';
       c.style.border = '0';
       an.style.transform = 'rotate(0deg)';
+      an.style.transition='0.3s'
     }   
   }
   
@@ -159,6 +165,8 @@ function LandingPage() {
       b.style.border = c.style.border = a.style.border = '0';
       q.style.borderRadius='0';
       an.style.transform = 'rotate(180deg)';
+      an.style.transition='1s'
+      an.style.transition='0.3s'
     } else {
       d.style.height = '0';
       d.style.padding = '0';
@@ -166,13 +174,13 @@ function LandingPage() {
       q.style.borderBottomLeftRadius='0.5rem'
       q.style.borderBottomRightRadius='0.5rem'
       an.style.transform = 'rotate(0deg)';
+      an.style.transition='0.3s'
     }   
   }
   AOS.init();
   return (
     
     <>
-    @keyframes
      
     <div className='first-component flex text-white h-[75vh]' style={{backgroundImage: 'linear-gradient( 90.1deg,  rgba(84,212,228,1) 0.2%, rgba(68,36,164,1) 99.9% )'}}>
      <div className=' mx-12 slideleft'>
