@@ -119,7 +119,7 @@ function LandingPage() {
       a.style.height = c.style.height = d.style.height = '0';
       a.style.padding = c.style.padding = d.style.padding = '0';
       a.style.border = c.style.border = d.style.border = '0';
-      an1.style.transform = 'rotate(180deg)';
+      an1.style.transform = 'rotate(-180deg)';
       an1.style.transition='0.3s';
       an2.style.transform = 'rotate(180deg)';
       an2.style.transition='0.3s';
@@ -152,7 +152,7 @@ function LandingPage() {
       b.style.height = a.style.height = d.style.height = '0';
       b.style.padding = a.style.padding = d.style.padding = '0';
       b.style.border = a.style.border = d.style.border = '0';
-      an1.style.transform = 'rotate(180deg)';
+      an1.style.transform = 'rotate(-180deg)';
       an1.style.transition='0.3s';
       an2.style.transform = 'rotate(0deg)';
       an2.style.transition='0.3s';
@@ -188,7 +188,7 @@ function LandingPage() {
       b.style.padding = c.style.padding = a.style.padding = '0';
       b.style.border = c.style.border = a.style.border = '0';
       q.style.borderRadius='0';
-      an1.style.transform = 'rotate(180deg)';
+      an1.style.transform = 'rotate(-180deg)';
       an1.style.transition='0.3s';
       an2.style.transform = 'rotate(0deg)';
       an2.style.transition='0.3s';
