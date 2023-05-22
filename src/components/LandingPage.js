@@ -2,7 +2,14 @@ import React, {useEffect, useRef} from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ScrollContainer from 'react-indiana-drag-scroll'
-import Lottie from 'lottie-web';
+import Lottie from 'lottie-web';import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { useState } from 'react';
+
+// const [a1, seta1] = useEffect('true');
+// const [a2, seta2] = useEffect('false');
+// const [a3, seta3] = useEffect('false');
+// const [a4, seta4] = useEffect('false');
 
 function LandingPage() {
 
@@ -10,11 +17,22 @@ function LandingPage() {
   const easytouse = useRef(null)
   const integrate = useRef(null)
   const multipletemplate = useRef(null)
+  const faq = useRef(null)
 
 
   useEffect(()=>{
     const instance = Lottie.loadAnimation({
       container: container.current,
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      animationData: require('./64947-working-man.json')
+    })
+    return () => instance.destroy();
+  }, []);
+  useEffect(()=>{
+    const instance = Lottie.loadAnimation({
+      container: faq.current,
       renderer: 'svg',
       loop: true,
       autoplay: true,
@@ -55,6 +73,86 @@ function LandingPage() {
     return () => instance.destroy();
   }, []);
 
+  const a1=()=> {
+    var a = document.getElementById('a1');  
+    var b = document.getElementById('a2');  
+    var c = document.getElementById('a3');  
+    var d = document.getElementById('a4');
+
+    console.log(a.clientHeight);
+
+    if (a.clientHeight == '0') {
+      a.style.height = 'auto';
+      a.style.padding = "1rem"; 
+      a.style.border = "1px solid #94A3B8";
+      b.style.height = c.style.height = d.style.height = '0';
+      b.style.padding = c.style.padding = d.style.padding = '0';
+      b.style.border = c.style.border = d.style.border = '0';
+      
+    } else {
+      a.style.height = '0';
+      a.style.padding = '0';
+      a.style.border = '0';
+    }   
+  }
+  const a2=()=> {
+    var a = document.getElementById('a1');  
+    var b = document.getElementById('a2');  
+    var c = document.getElementById('a3');  
+    var d = document.getElementById('a4');
+    
+    if (b.clientHeight == '0') {
+      b.style.height = 'auto';
+      b.style.padding = "1rem"; 
+      b.style.border = "1px solid #94A3B8";      
+      a.style.height = c.style.height = d.style.height = '0';
+      a.style.padding = c.style.padding = d.style.padding = '0';
+      a.style.border = c.style.border = d.style.border = '0';
+    } else {
+      b.style.height = '0';
+      b.style.padding = '0';
+      b.style.border = '0';
+    }   
+  }
+  const a3=()=> {
+    var a = document.getElementById('a1');  
+    var b = document.getElementById('a2');  
+    var c = document.getElementById('a3');  
+    var d = document.getElementById('a4');
+    
+    if (c.clientHeight == '0') {
+      c.style.height = 'auto';
+      c.style.padding = "1rem"; 
+      c.style.border = "1px solid #94A3B8";   
+      b.style.height = a.style.height = d.style.height = '0';
+      b.style.padding = a.style.padding = d.style.padding = '0';
+      b.style.border = a.style.border = d.style.border = '0';
+    } else {
+      c.style.height = '0';
+      c.style.padding = '0';
+      c.style.border = '0';
+    }   
+  }
+  
+  const a4=()=> {
+    var a = document.getElementById('a1');  
+    var b = document.getElementById('a2');  
+    var c = document.getElementById('a3');  
+    var d = document.getElementById('a4');
+
+    if (d.clientHeight == '0') {
+      d.style.height = 'auto';
+      d.style.padding = "1rem"; 
+      d.style.border = "1px solid #94A3B8";   
+      b.style.height = c.style.height = a.style.height = '0';
+      b.style.padding = c.style.padding = a.style.padding = '0';
+      b.style.border = c.style.border = a.style.border = '0';
+    } else {
+      d.style.height = '0';
+      d.style.padding = '0';
+      d.style.border = '0';
+    }   
+  }
   AOS.init();
   return (
     
@@ -72,17 +170,17 @@ function LandingPage() {
      <div className='md:flex hidden justify-end w-1/2 '><img className='mr-[10%] slideright h-[110%]' src="./resume-img.png" alt="" /></div>
     </div>
     <div data-aos="fade-right" className='second-component m-2 h-[110vh] lg:h-auto  py-[2%] px-[3%]' style={{marginTop: '25vh'}}>
-        <h1 className='text-2xl lg:text-5xl relative top-[7vh] text-slate-600 text-center font-bold font-mons'>Templates For Resume</h1>
+        <h1 className='text-2xl md:text-5xl relative top-[7vh] text-slate-600 text-center font-bold font-mons'>Templates For Resume</h1>
 
-        <div className='flex relative top-[10vh] h-[100vw] w-[95vw] overflow-x-hidden lg:h-[45vw] lg:w-[95vw]  mx-auto space-x-10'>
+        <div className='flex relative top-[10vh] h-[90vh] w-auto overflow-x-hidden md:h-[90vh] md:w-auto mx-auto space-x-10'>
       
           <ScrollContainer vertical={false} horizontal={true} className="scroll-container h-fit overflow-x-hidden">
         
         <div className=' scroll-smooth template h-full mx-auto flex space-x-[3vw] mt-[5vh] flex-nowrap overflow-y-visible' id='temp'>
-        <div className='h-[100%] w-[72%]  px-1 md:px-2 py-4 md:w-[27%]' style={{flex: "0 0 auto"}}> <img src="./resume-1.jpeg" className='h-[100%] cursor-pointer hover:scale-[110%] transition-all duration-300  w-[100%] shadow-2xl'alt="" /> </div>
-        <div className='h-[100%] w-[72%]  px-1 md:px-2 py-4 md:w-[27%]' style={{flex: "0 0 auto"}}> <img src="./resume-2.jpeg" className='h-[100%] cursor-pointer hover:scale-[110%] transition-all duration-300  w-[100%] shadow-2xl' alt="" /> </div>
-        <div className='h-[100%] w-[72%]  px-1 md:px-2 py-4 md:w-[27%]' style={{flex: "0 0 auto"}}> <img src="./resume-3.jpeg" className='h-[100%] cursor-pointer hover:scale-[110%] transition-all duration-300  w-[100%] shadow-2xl' alt="" /> </div>
-        <div className='h-[100%] w-[72%]  px-1 md:px-2 py-4 md:w-[27%]' style={{flex: "0 0 auto"}}> <img src="./resume-4.jpeg" className='h-[100%]  cursor-pointer hover:scale-[110%] transition-all duration-300 w-[100%] shadow-2xl' alt="" /> </div>
+        <div className='h-[100%] w-[72%] px-1 md:px-2 py-4 md:w-[27%]' style={{flex: "0 0 auto"}}> <img src="./resume-1.jpeg" className='h-[100%] cursor-pointer hover:scale-[110%] transition-all duration-300  w-[100%] shadow-2xl'alt="" /> </div>
+        <div className='h-[100%] w-[72%] px-1 md:px-2 py-4 md:w-[27%]' style={{flex: "0 0 auto"}}> <img src="./resume-2.jpeg" className='h-[100%] cursor-pointer hover:scale-[110%] transition-all duration-300  w-[100%] shadow-2xl' alt="" /> </div>
+        <div className='h-[100%] w-[72%] px-1 md:px-2 py-4 md:w-[27%]' style={{flex: "0 0 auto"}}> <img src="./resume-3.jpeg" className='h-[100%] cursor-pointer hover:scale-[110%] transition-all duration-300  w-[100%] shadow-2xl' alt="" /> </div>
+        <div className='h-[100%] w-[72%] px-1 md:px-2 py-4 md:w-[27%]' style={{flex: "0 0 auto"}}> <img src="./resume-4.jpeg" className='h-[100%]  cursor-pointer hover:scale-[110%] transition-all duration-300 w-[100%] shadow-2xl' alt="" /> </div>
       </div>
         
       </ScrollContainer>
@@ -117,15 +215,43 @@ function LandingPage() {
           
       </div>
     </div>
-    <div className="fourth-component py-20 px-10 bg-white justify-between flex h-[100vh] ">
-      <div className='flex flex-col w-1/2'> 
-        <div className='text-6xl font-mons font-bold p-4 leading-[4rem]'> <span className="font-bold text-red-600">F</span>requently <span className="font-bold text-red-600">A</span>sked <span className="font-bold text-red-600">Q</span>uestions </div> 
-        <div> </div>
+    <div data-aos='fade-up' className="fourth-component py-20 px-10 lg:px-20 bg-white justify-between flex flex-col md:flex-row h-fit ">
+      <div className='flex flex-col w-full lg:w-1/2'> 
+        <div className='text-5xl mx-auto lg:text-6xl font-mons font-bold p-4 leading-[4rem]'> <span className="font-bold text-red-600">F</span>requently <span className="font-bold text-red-600">A</ span>sked <span className="font-bold text-red-600">Q</span>uestions </div> 
+        <div className='container h-[50vh] mx-auto lg:hidden ' ref={faq}></div>
+        <div className='font-mons mt-8 text-xl lg:text-2xl'>
+          <button className='text-left w-full p-4 border border-1 rounded-t-lg border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 'onClick={a1}>
+              <div className='flex justify-between font-bold'> <div> Q. What is Resume Builder ?</div> <div id='cd1'><FontAwesomeIcon  icon={faChevronDown} /> </div></div>
+          </button>
+          <div id='a1' className='overflow-hidden h-auto text-left  transition-all duration-300 w-full p-4 border border-1  border-slate-400 '>
+          Resume Builder is an online platform that assists individuals in creating professional resumes tailored to their skills, achievements, and career aspirations.
+          </div>
+          <button className='text-left w-full p-4 border border-1  border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 'onClick={a2}>
+              <div className='flex justify-between font-bold'> <div> Q. Do I need any prior experience in resume writing to use Resume Builder ? </div> <div id='cd2'><FontAwesomeIcon icon={faChevronDown} /> </div></div>
+          </button>
+          <div id='a2' className='overflow-hidden h-0 text-left  transition-all duration-300 w-full p-0 border border-0  border-slate-400 '>
+               No, Resume Builder is designed to be user-friendly and intuitive, making it accessible to users with any level of experience in resume writing. Our platform provides templates, suggestions, and guidance throughout the process.
+          </div>
+          <button className='text-left w-full p-4 border border-1  border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 'onClick={a3}>
+              <div className='flex justify-between font-bold'> <div> Q. Are the templates provided by Resume Builder customizable? </div> <div id='cd3'><FontAwesomeIcon icon={faChevronDown} /> </div></div>
+          </button>
+          <div id='a3' className='overflow-hidden h-0 text-left  transition-all duration-300 w-full p-0 border border-0  border-slate-400 '>
+          Yes, Resume Builder offers a range of customizable templates to suit different industries and job positions. You can personalize the templates by changing fonts, colors, sections, and layouts to match your preferences.
+          </div>
+          <button id='q4' className='text-left w-full p-4 border border-1 rounded-b-lg border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 'onClick={a4}>
+              <div className='flex justify-between font-bold'> <div>Q. Is there a free trial or a subscription fee for Resume Builder ?</div> <div id='cd4'><FontAwesomeIcon icon={faChevronDown} /> </div></div>
+          </button>
+          <div id='a4' className='overflow-hidden h-0 text-left transition-all duration-300  w-full p-0 border border-0 rounded-b-lg border-slate-400 '>
+          No, Resume Builder is completely free to use. You can create, customize, and download your professional resume without any cost.
+          </div>
+        </div>
+        
       </div>
 
-      <div className='container w-[55vw]' ref={container}></div>
+      <div className='container w-auto hidden lg:block ' ref={container}></div>
 
     </div>
+    <div className="footer h-[30vh] bg-[#f9f8f2]"></div>
     </>
     
   );
