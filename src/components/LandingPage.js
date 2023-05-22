@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef} from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ScrollContainer from 'react-indiana-drag-scroll'
@@ -215,7 +215,7 @@ function LandingPage() {
           
       </div>
     </div>
-    <div data-aos='fade-up' className="fourth-component py-20 px-10 lg:px-20 bg-white justify-between flex flex-col md:flex-row h-fit ">
+    <div data-aos='fade-up' className="fourth-component py-20 px-10 lg:px-20 bg-white justify-between flex flex-col md:flex-row h-auto ">
       <div className='flex flex-col w-full lg:w-1/2'> 
         <div className='text-5xl mx-auto lg:text-6xl font-mons font-bold p-4 leading-[4rem]'> <span className="font-bold text-red-600">F</span>requently <span className="font-bold text-red-600">A</ span>sked <span className="font-bold text-red-600">Q</span>uestions </div> 
         <div className='container h-[50vh] mx-auto lg:hidden ' ref={faq}></div>
@@ -248,7 +248,7 @@ function LandingPage() {
         
       </div>
 
-      <div className='container w-auto hidden lg:block ' ref={container}></div>
+      <div className='container w-auto hidden lg:block' ref={container}></div>
 
     </div>
     <div className="footer h-[30vh] bg-[#f9f8f2]"></div>
