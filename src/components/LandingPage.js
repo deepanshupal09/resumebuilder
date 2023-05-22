@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import ScrollContainer from 'react-indiana-drag-scroll'
-import Lottie from 'lottie-web';import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import Lottie from 'lottie-web';import { faChevronDown ,faChevronUp} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { useState } from 'react';
 
@@ -78,7 +78,8 @@ function LandingPage() {
     var b = document.getElementById('a2');  
     var c = document.getElementById('a3');  
     var d = document.getElementById('a4');
-
+    var an=document.getElementById('cd1');
+    // an.style.transform = 'rotate(180deg)';
     console.log(a.clientHeight);
 
     if (a.clientHeight == '0') {
@@ -88,11 +89,12 @@ function LandingPage() {
       b.style.height = c.style.height = d.style.height = '0';
       b.style.padding = c.style.padding = d.style.padding = '0';
       b.style.border = c.style.border = d.style.border = '0';
-      
+      an.style.transform = 'rotate(0deg)';
     } else {
       a.style.height = '0';
       a.style.padding = '0';
       a.style.border = '0';
+      an.style.transform = 'rotate(180deg)';
     }   
   }
   const a2=()=> {
@@ -100,6 +102,7 @@ function LandingPage() {
     var b = document.getElementById('a2');  
     var c = document.getElementById('a3');  
     var d = document.getElementById('a4');
+    var an=document.getElementById('cd2');
     
     if (b.clientHeight == '0') {
       b.style.height = 'auto';
@@ -108,10 +111,12 @@ function LandingPage() {
       a.style.height = c.style.height = d.style.height = '0';
       a.style.padding = c.style.padding = d.style.padding = '0';
       a.style.border = c.style.border = d.style.border = '0';
+      an.style.transform = 'rotate(180deg)';
     } else {
       b.style.height = '0';
       b.style.padding = '0';
       b.style.border = '0';
+      an.style.transform = 'rotate(0deg)';
     }   
   }
   const a3=()=> {
@@ -119,6 +124,7 @@ function LandingPage() {
     var b = document.getElementById('a2');  
     var c = document.getElementById('a3');  
     var d = document.getElementById('a4');
+    var an=document.getElementById('cd3');
     
     if (c.clientHeight == '0') {
       c.style.height = 'auto';
@@ -127,10 +133,12 @@ function LandingPage() {
       b.style.height = a.style.height = d.style.height = '0';
       b.style.padding = a.style.padding = d.style.padding = '0';
       b.style.border = a.style.border = d.style.border = '0';
+      an.style.transform = 'rotate(180deg)';
     } else {
       c.style.height = '0';
       c.style.padding = '0';
       c.style.border = '0';
+      an.style.transform = 'rotate(0deg)';
     }   
   }
   
@@ -139,7 +147,9 @@ function LandingPage() {
     var b = document.getElementById('a2');  
     var c = document.getElementById('a3');  
     var d = document.getElementById('a4');
-
+    var q = document.getElementById('q4');
+    var an=document.getElementById('cd4');
+    // an.style.transform = 'rotate(180deg)';
     if (d.clientHeight == '0') {
       d.style.height = 'auto';
       d.style.padding = "1rem"; 
@@ -147,16 +157,22 @@ function LandingPage() {
       b.style.height = c.style.height = a.style.height = '0';
       b.style.padding = c.style.padding = a.style.padding = '0';
       b.style.border = c.style.border = a.style.border = '0';
+      q.style.borderRadius='0';
+      an.style.transform = 'rotate(180deg)';
     } else {
       d.style.height = '0';
       d.style.padding = '0';
       d.style.border = '0';
+      q.style.borderBottomLeftRadius='0.5rem'
+      q.style.borderBottomRightRadius='0.5rem'
+      an.style.transform = 'rotate(0deg)';
     }   
   }
   AOS.init();
   return (
     
     <>
+    @keyframes
      
     <div className='first-component flex text-white h-[75vh]' style={{backgroundImage: 'linear-gradient( 90.1deg,  rgba(84,212,228,1) 0.2%, rgba(68,36,164,1) 99.9% )'}}>
      <div className=' mx-12 slideleft'>
@@ -215,39 +231,39 @@ function LandingPage() {
           
       </div>
     </div>
-    <div data-aos='fade-up' className="fourth-component py-20 px-10 lg:px-20 bg-white justify-between flex flex-col md:flex-row h-fit  ">
+    <div data-aos='fade-up' className="fourth-component py-20 px-10 lg:px-20 bg-white justify-between flex flex-col md:flex-row h-auto  ">
       <div className=' w-full lg:w-1/2'> 
         <div className='text-5xl mx-auto  lg:text-6xl font-mons font-bold p-4 leading-[4rem]'> <span className="font-bold text-red-600">F</span>requently <span className="font-bold text-red-600">A</ span>sked <span className="font-bold text-red-600">Q</span>uestions </div> 
         <div className='container h-[50vh] mx-auto lg:hidden ' ref={faq}></div>
         <div className='font-mons mt-8 text-xl lg:text-2xl'>
           <button className='text-left w-full p-4 border border-1 rounded-t-lg border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 'onClick={a1}>
-              <div className='flex justify-between font-bold'> <div> Q. What is Resume Builder ?</div> <div id='cd1'><FontAwesomeIcon  icon={faChevronDown} /> </div></div>
+              <div className='flex justify-between font-bold'> <div> Q. What is Resume Builder ?</div> <div id='cd1' className='my-auto'><FontAwesomeIcon  icon={faChevronUp} /> </div></div>
           </button>
           <div id='a1' className='overflow-hidden h-auto text-left  transition-all duration-300 w-full p-4 border border-1  border-slate-400 '>
           Resume Builder is an online platform that assists individuals in creating professional resumes tailored to their skills, achievements, and career aspirations.
           </div>
           <button className='text-left w-full p-4 border border-1  border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 'onClick={a2}>
-              <div className='flex justify-between font-bold'> <div> Q. Do I need any prior experience in resume writing to use Resume Builder ? </div> <div id='cd2'><FontAwesomeIcon icon={faChevronDown} /> </div></div>
+              <div className='flex justify-between font-bold'> <div> Q. Do I need any prior experience in resume writing to use Resume Builder ? </div> <div id='cd2' className='my-auto'><FontAwesomeIcon icon={faChevronDown} /> </div></div>
           </button>
           <div id='a2' className='overflow-hidden h-0 text-left  transition-all duration-300 w-full p-0  border-0  border-slate-400 '>
                No, Resume Builder is designed to be user-friendly and intuitive, making it accessible to users with any level of experience in resume writing. Our platform provides templates, suggestions, and guidance throughout the process.
           </div>
           <button className='text-left w-full p-4 border border-1  border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 'onClick={a3}>
-              <div className='flex justify-between font-bold'> <div> Q. Are the templates provided by Resume Builder customizable? </div> <div id='cd3'><FontAwesomeIcon icon={faChevronDown} /> </div></div>
+              <div className='flex justify-between font-bold'> <div> Q. Are the templates provided by Resume Builder customizable? </div> <div id='cd3' className='my-auto'><FontAwesomeIcon icon={faChevronDown} /> </div></div>
           </button>
           <div id='a3' className='overflow-hidden h-0 text-left  transition-all duration-300 w-full p-0  border-0  border-slate-400 '>
           Yes, Resume Builder offers a range of customizable templates to suit different industries and job positions. You can personalize the templates by changing fonts, colors, sections, and layouts to match your preferences.
           </div>
-          <button id='q4' className='text-left w-full p-4 border border-1 rounded-b-lg border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 'onClick={a4}>
-              <div className='flex justify-between font-bold'> <div>Q. Is there a free trial or a subscription fee for Resume Builder ?</div> <div id='cd4'><FontAwesomeIcon icon={faChevronDown} /> </div></div>
+          <button id='q4' className='text-left w-full p-4 border border-1  border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 rounded-b-lg 'onClick={a4}>
+              <div className='flex justify-between font-bold'> <div>Q. Is there a free trial or a subscription fee for Resume Builder ?</div> <div id='cd4' className='my-auto'><FontAwesomeIcon icon={faChevronDown} /> </div></div>
           </button>
-          <div id='a4' className='overflow-hidden h-0 text-left transition-all duration-300  w-full p-0 border border-0 rounded-b-lg border-slate-400 '>
+          <div id='a4' className='overflow-hidden h-0 text-left transition-all duration-300  w-full p-0  border-0 rounded-b-lg  border-slate-400 '>
           No, Resume Builder is completely free to use. You can create, customize, and download your professional resume without any cost.
           </div>
         </div>
         
       </div>
-      <div className='flex w-1/2 h-auto  lg:block'>
+      <div className=' w-1/2 h-auto  lg:block hidden'>
       <div className='container  ' ref={container}></div>
       </div>
     </div>
