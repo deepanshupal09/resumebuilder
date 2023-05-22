@@ -14,11 +14,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function LandingPage() {
 
   const container = useRef(null)
+  const firstpic = useRef(null)
   const easytouse = useRef(null)
   const integrate = useRef(null)
   const multipletemplate = useRef(null)
   const faq = useRef(null)
 
+  useEffect(()=>{
+    const instance = Lottie.loadAnimation({
+      container: firstpic.current,
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      animationData: require('./64947-working-man.json')
+    })
+    return () => instance.destroy();
+  }, []);
 
   useEffect(()=>{
     const instance = Lottie.loadAnimation({
@@ -167,7 +178,10 @@ function LandingPage() {
         <button className='px-2 text-md rounded-md  font-semibold shadow-lg lg:px-5 lg:text-lg py-3 ]' style={{backgroundImage: 'linear-gradient(90deg,#e8b93f,#d68423)'}}>Click Here</button>
       </div>
      </div>
-     <div className='md:flex hidden justify-end w-1/2 '><img className='mr-[10%] slideright h-[110%]' src="./resume-img.png" alt="" /></div>
+     <div className='md:flex hidden justify-end w-1/2 '>
+      {/* <img className='mr-[10%] slideright h-[110%]' src="./resume-img.png" alt="" /> */}
+      <div className='container' ref={firstpic}></div>
+      </div>
     </div>
     <div data-aos="fade-right" className='second-component m-2 h-[110vh] lg:h-auto  py-[2%] px-[3%]' style={{marginTop: '25vh'}}>
         <h1 className='text-2xl md:text-5xl relative top-[7vh] text-slate-600 text-center font-bold font-mons'>Templates For Resume</h1>
