@@ -266,8 +266,8 @@ function LandingPage() {
           <h1 className='text-center justify-center  pt-20 text-4xl lg:text-6xl font-mons font-bold'> Key Features </h1>
           <div className='flex flex-col lg:flex-row mx-auto mt-8 w-[80vw] content-center'>
             <div data-aos="fade-right" className='flex  flex-col lg:w-1/2 p-1 lg:p-4'>
-              <div  className='font-bold h-[10vh] pt-[4vh] lg:pt-[2vh] lg:p-12 px-0 text-2xl lg:text-4xl'> Easy to Use </div>
-              <div className=' lg:leading-10 lg:h-[50vh] px-0 py-10 lg:p-12 text-lg lg:text-2xl text-justify'> Our user-friendly interface makes creating a professional resume effortless. With intuitive controls and a seamless workflow, you can navigate through the resume-building process with ease, whether you are a seasoned professional or a first-time job seeker. </div>
+              <div  className='font-bold h-[10vh] pt-[4vh] lg:pt-[2vh] md:p-12 px-0 text-2xl lg:text-4xl'> Easy to Use </div>
+              <div className=' lg:leading-10 lg:h-[50vh] px-0 py-10 md:p-12 text-lg lg:text-2xl text-justify'> Our user-friendly interface makes creating a professional resume effortless. With intuitive controls and a seamless workflow, you can navigate through the resume-building process with ease, whether you are a seasoned professional or a first-time job seeker. </div>
               </div>
               <div className='easy-to-use mx-auto h-[50vh] lg:h-[60vh]' ref={easytouse}></div>
           </div>
