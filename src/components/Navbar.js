@@ -29,7 +29,7 @@ function Navbar() {
         <div className="my-auto"> 
           <img
             className="w-[70%]"
-            src="./resume_builder.png"
+            src="./resumebuilder.png"
             alt="Resume Builder"
           />
         </div>

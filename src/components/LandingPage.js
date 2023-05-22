@@ -26,7 +26,7 @@ function LandingPage() {
       renderer: 'svg',
       loop: true,
       autoplay: true,
-      animationData: require('./64947-working-man.json')
+      animationData: require('./first-pic.json')
     })
     return () => instance.destroy();
   }, []);
@@ -193,7 +193,7 @@ function LandingPage() {
     
     <>
      
-    <div className='first-component flex text-white h-[75vh]' style={{backgroundImage: 'linear-gradient( 90.1deg,  rgba(84,212,228,1) 0.2%, rgba(68,36,164,1) 99.9% )'}}>
+    <div className='first-component flex text-white h-[90vh]'>
      <div className=' mx-12 slideleft'>
       <div className=' relative top-[25%] text-3xl lg:text-5xl font-bold font-sans'>Craft Your Career Path with Precision..</div>
       <div className=' relative top-[32%] text-2xl lg:text-4xl mt-4 font-bold font-sans'>Your Perfect Resume Starts Here!</div>
@@ -204,7 +204,7 @@ function LandingPage() {
      </div>
      <div className='md:flex hidden justify-end w-1/2 '>
       {/* <img className='mr-[10%] slideright h-[110%]' src="./resume-img.png" alt="" /> */}
-      <div className='container' ref={firstpic}></div>
+      <div  className='container mr-[10%] slideright' ref={firstpic}></div>
       </div>
     </div>
     <div data-aos="fade-right" className='second-component m-2 h-[110vh] lg:h-auto  py-[2%] px-[3%]' style={{marginTop: '25vh'}}>
