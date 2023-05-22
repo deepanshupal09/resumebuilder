@@ -25,7 +25,7 @@ function Navbar() {
 <>
     <div>
 
-      <div id='nav' className=" shadow-2xl fixed top-0 justify backdrop-blur-lg backdrop-filter bg-opacity-30 z-10 w-[100%] flex justify-between h-[7vh] bg-black text-lg  text-white" >
+      <div id='nav' className=" lg:shadow-2xl fixed top-0 justify backdrop-blur-lg backdrop-filter bg-opacity-30 z-10 w-screen flex justify-between h-[7vh] bg-black text-lg  text-white" >
         <div className="my-auto"> 
           <img
             className="w-[70%]"
@@ -67,7 +67,7 @@ function Navbar() {
         </ul>
       </div>
     </div>
-    <div className="flex lg:hidden flex-col divide-y-0 text-xl overflow-hidden text-white w-[100%] h-[0] fixed top-[7vh] z-10 transition-all duration-500 bg-black backdrop-blur-3xl backdrop-filter bg-opacity-30 "  id='menu'>
+    <div className="flex lg:hidden flex-col divide-y-0 text-xl overflow-hidden text-white w-[100%] h-[0] fixed top-[7vh] z-10 transition-all duration-500 bg-black backdrop-blur-lg backdrop-filter bg-opacity-30 "  id='menu'>
       <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10 mt-10 ">Build Your Resume</div>
       <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10">FAQ</div>
       <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10">About Us</div>
