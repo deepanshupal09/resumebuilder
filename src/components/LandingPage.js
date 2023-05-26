@@ -325,10 +325,6 @@ function LandingPage() {
       <div className='container' ref={container}></div>
       </div>
     </div>
-
-    
-
-    <div className="footer h-[30vh] bg-[#f9f8f2]"></div>
     </>
     
   );
