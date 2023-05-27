@@ -218,9 +218,8 @@ function LandingPage() {
   }
   AOS.init();
   return (
-    
+
     <>
-     
     <div className='first-component flex text-white h-[90vh]'>
      <div className=' mx-12 slideleft'>
       <div className=' relative top-[25%] text-3xl lg:text-5xl font-bold font-sans'>Craft Your Career Path with Precision..</div>
@@ -281,6 +280,7 @@ function LandingPage() {
           
       </div>
     </div>
+    <div id="FAQ"></div>
     <div data-aos='fade-up' className="fourth-component py-20 px-10 lg:px-20 bg-white justify-between flex flex-col md:flex-row h-auto  ">
       <div className=' w-full lg:w-1/2'> 
         <div className='text-5xl mx-auto  lg:text-6xl font-mons font-bold p-4 leading-[4rem]'> <span className="font-bold text-red-600">F</span>requently <span className="font-bold text-red-600">A</ span>sked <span className="font-bold text-red-600">Q</span>uestions </div> 

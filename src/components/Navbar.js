@@ -52,9 +52,11 @@ function Navbar() {
           </button>
 
           </div>
+          <a href="#FAQ">
           <button className="px-2 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md py-2 ">
             <li>FAQ</li>
           </button>
+          </a>
           <button className="px-2 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md py-2 ">
             <li>About Us</li>
           </button>

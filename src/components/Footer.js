@@ -40,7 +40,7 @@ function footer() {
           <div className='text-5xl text-center font-bold text-[#3df3b3]'>
             Get in touch with Us
           </div>
-          <div className='flex py-10 space-x-6 text-2xl'>
+          <div className='flex justify-center py-10 space-x-6 text-2xl'>
           <FaFacebook className='hover:text-blue-600 cursor-pointer'></FaFacebook>
           <FaInstagram className='hover:text-[#b538cb] cursor-pointer'></FaInstagram>
           <FaTwitter className='hover:text-cyan-400 cursor-pointer'></FaTwitter>
