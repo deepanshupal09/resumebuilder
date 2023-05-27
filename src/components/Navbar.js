@@ -70,8 +70,8 @@ function Navbar() {
       </div>
     </div>
     <div className="flex lg:hidden flex-col divide-y-0 text-xl overflow-hidden text-white w-[100%] h-[0] fixed top-[7vh] z-10 transition-all duration-500 bg-black backdrop-blur-lg backdrop-filter bg-opacity-30 "  id='menu'>
-      <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10 mt-10 ">Build Your Resume</div>
-      <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10">FAQ</div>
+    <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10 mt-10 ">Build Your Resume</div>
+    <a href="#FAQ"><div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10">FAQ</div></a>
       <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10">About Us</div>
       <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10">Login</div>
       <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10">Sign up</div>
