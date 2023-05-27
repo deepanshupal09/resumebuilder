@@ -222,7 +222,7 @@ function LandingPage() {
     <>
      
     <div className='first-component flex text-white h-[90vh]'>
-     <div className=' mr-12 slideleft'>
+     <div className=' mx-12 slideleft'>
       <div className=' relative top-[25%] text-3xl lg:text-5xl font-bold font-sans'>Craft Your Career Path with Precision..</div>
       <div className=' relative top-[32%] text-2xl lg:text-4xl mt-4 font-bold font-sans'>Your Perfect Resume Starts Here!</div>
       <div className='mx-2 flex mt-12 space-x-8 relative top-[27vh] slideleft'>

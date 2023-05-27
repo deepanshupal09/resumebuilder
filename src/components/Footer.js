@@ -12,7 +12,7 @@ import 'aos/dist/aos.css';
 
 function footer() {
   return (
-    <div data-aos='fade-up' className='h-auto py-20 px-10 font-mons flex-col lg:flex-row justify-between text-lg text-slate-300 flex bg-black'>
+    <div data-aos='fade-up' className='h-auto py-20 px-10 font-mons flex-row md:flex-col lg:flex-row justify-between text-lg text-slate-300 flex bg-black'>
       <div className='flex flex-col logo w-[20%]'>
         <div><img src="resumebuilder.png" alt="Resume Builder" /></div>
         <div>
