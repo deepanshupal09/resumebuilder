@@ -11,15 +11,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 ### Intall Dependencies
-npm install -D tailwindcss
-npx tailwindcss init
-npm install lottie-react
-npm install --save react-indiana-drag-scroll
-npm i --save @fortawesome/fontawesome-svg-core
-npm install --save @fortawesome/free-solid-svg-icons
-npm install --save @fortawesome/react-fontawesome
-npm install react-icons
-npm install aos --save
+npm install -D tailwindcss\
+npx tailwindcss init\
+npm install lottie-react\
+npm install --save react-indiana-drag-scroll\
+npm i --save @fortawesome/fontawesome-svg-core\
+npm install --save @fortawesome/free-solid-svg-icons\
+npm install --save @fortawesome/react-fontawesome\
+npm install react-icons\
+npm install aos --save\
+npm install react-router-dom\
 
 ### `npm start`
 
