@@ -11,8 +11,9 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 function footer() {
+  AOS.init();
   return (
-    <div data-aos='fade-up' className='h-auto py-20 w-[100%]   lg:px-10 font-mons flex-col lg:flex-row justify-between text-lg text-slate-300 flex bg-black'>
+    <div data-aos='fade-up' className='h-auto py-20 w-[100%] z-10  lg:px-10 font-mons flex-col lg:flex-row justify-between text-lg text-slate-300 flex bg-black'>
       <div className='flex  flex-col logo lg:w-[20%]'>
         <div><img src="resumebuilder.png" className='mx-auto' alt="Resume Builder" /></div>
         <div>
