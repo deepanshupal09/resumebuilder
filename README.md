@@ -15,7 +15,7 @@ In the project directory, you can run:
 `npx tailwindcss init`\
 `npm install lottie-react`\
 `npm install --save react-indiana-drag-scroll`\
-`npm i --save @fortawesome/fontawesome-svg-core\
+`npm i --save @fortawesome/fontawesome-svg-core`\
 `npm install --save @fortawesome/free-solid-svg-icons`\
 `npm install --save @fortawesome/react-fontawesome`\
 `npm install react-icons`\
