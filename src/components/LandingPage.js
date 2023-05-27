@@ -4,12 +4,7 @@ import 'aos/dist/aos.css';
 import ScrollContainer from 'react-indiana-drag-scroll'
 import Lottie from 'lottie-web';import { faChevronDown ,faChevronUp} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { useState } from 'react';
 
-// const [a1, seta1] = useEffect('true');
-// const [a2, seta2] = useEffect('false');
-// const [a3, seta3] = useEffect('false');
-// const [a4, seta4] = useEffect('false');
 
 function LandingPage() {
 
@@ -93,7 +88,6 @@ function LandingPage() {
     var an2=document.getElementById('cd2');
     var an3=document.getElementById('cd3');
     var an4=document.getElementById('cd4');
-    // an.style.transform = 'rotate(180deg)';
     console.log(a.clientHeight);
 
     if (a.clientHeight == '0') {
@@ -196,7 +190,6 @@ function LandingPage() {
     var an2=document.getElementById('cd2');
     var an3=document.getElementById('cd3');
     var an4=document.getElementById('cd4');
-    // an.style.transform = 'rotate(180deg)';
     if (d.clientHeight == '0') {
       d.style.height = 'auto';
       d.style.padding = "1rem"; 
@@ -229,7 +222,7 @@ function LandingPage() {
     <>
      
     <div className='first-component flex text-white h-[90vh]'>
-     <div className=' mx-12 slideleft'>
+     <div className=' mr-12 slideleft'>
       <div className=' relative top-[25%] text-3xl lg:text-5xl font-bold font-sans'>Craft Your Career Path with Precision..</div>
       <div className=' relative top-[32%] text-2xl lg:text-4xl mt-4 font-bold font-sans'>Your Perfect Resume Starts Here!</div>
       <div className='mx-2 flex mt-12 space-x-8 relative top-[27vh] slideleft'>
@@ -325,10 +318,6 @@ function LandingPage() {
       <div className='container' ref={container}></div>
       </div>
     </div>
-
-    
-
-    <div className="footer h-[30vh] bg-[#f9f8f2]"></div>
     </>
     
   );

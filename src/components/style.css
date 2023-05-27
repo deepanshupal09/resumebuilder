@@ -1,6 +1,7 @@
 .first-component {
   
   background-image: url(background_hd.4a75645.svg);
+  background-image: -webkit-image-set(url(background_hd.4a75645.svg));
   /* background-size: 100% 100%; */
   background-repeat: repeat;
   background-position: center bottom;
