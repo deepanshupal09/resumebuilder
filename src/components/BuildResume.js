@@ -2,9 +2,9 @@ import React from 'react'
 import footer from './Footer'
 
 function BuildResume() {
-  return (<>
-
-
+  return (
+    <>
+    <div className=''></div>
     </>
   )
 }
