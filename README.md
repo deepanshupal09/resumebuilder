@@ -20,7 +20,10 @@ In the project directory, you can run:
 `npm install --save @fortawesome/react-fontawesome`\
 `npm install react-icons`\
 `npm install aos --save`\
-`npm install react-router-dom`.
+`npm install react-router-dom`\
+`npm install @mui/material @emotion/react @emotion/styled`\
+`npm install @mui/x-date-pickers`\
+`npm install dayjs`.
 
 ### `npm start`
 
