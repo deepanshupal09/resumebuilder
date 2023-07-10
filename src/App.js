@@ -9,15 +9,9 @@ function App() {
     <div>
       <Navbar></Navbar>
 
-<<<<<<< HEAD
-      {/* <LandingPage></LandingPage>  */}
-      <BuildResume></BuildResume>
-=======
       <LandingPage></LandingPage>
       {/* <BuildResume></BuildResume> */}
->>>>>>> a921b572b77805f5d6c04689707535a5c12a7423
       <Footer></Footer>
-      
     </div>
   );
 }
