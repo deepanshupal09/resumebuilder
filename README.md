@@ -11,6 +11,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 ### Intall Dependencies
+`npm i`\
 `npm install -D tailwindcss`\
 `npx tailwindcss init`\
 `npm install lottie-react`\
@@ -23,7 +24,7 @@ In the project directory, you can run:
 `npm install react-router-dom`\
 `npm install @mui/material @emotion/react @emotion/styled`\
 `npm install @mui/x-date-pickers`\
-`npm install dayjs`.
+`npm install dayjs`
 
 ### `npm start`
 

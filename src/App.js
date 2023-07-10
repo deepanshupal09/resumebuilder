@@ -9,8 +9,8 @@ function App() {
     <div>
       <Navbar></Navbar>
 
-      <LandingPage></LandingPage>
-      {/* <BuildResume></BuildResume> */}
+      {/* <LandingPage></LandingPage>  */}
+      <BuildResume></BuildResume>
       <Footer></Footer>
       
     </div>

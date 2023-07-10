@@ -3,30 +3,37 @@ import footer from "./Footer";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import dayjs from "dayjs";
-import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { grey, pink } from "@mui/material/colors";
+import { grey, red } from "@mui/material/colors";
 import Checkbox from "@mui/material/Checkbox";
 import { useState } from "react";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import RemoveIcon from "@mui/icons-material/Remove";
-// import ScrollContainer from "react-indiana-drag-scroll";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import Slide from "@mui/material/Slide";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { List } from "@mui/material";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import Divider from '@mui/material/Divider';
 
 const steps = ["Personal Info", "Job History", "Education", "Skills", "Finish"];
 
@@ -44,10 +51,54 @@ function BuildResume() {
     setActiveStep((ACTIVESTEP) => ACTIVESTEP - 1);
   };
 
+  // const Transition = React.forwardRef(function Transition(props, ref) {
+  //   return <Slide direction="up" ref={ref} {...props} />;
+  // });
+
+  const [open, setOpen] = React.useState(false);
+  const [resolveFunction, setResolveFunction] = useState(false);
+  const [ed, setEd] = useState(false);
+  const [res, setres] = useState(false);
+
+  function handleYes() {
+    setOpen(false);
+    // del = true;
+    if (res === true) handleReset();
+    if (ed === true) handleSubE();
+    else handleSub();
+    // resolveFunction(true);
+    // console.log(del);
+  }
+
+  const handleDelete = () => {
+    setEd(false);
+    setres(false);
+    setOpen(true);
+  };
+  const handleDeleteE = () => {
+    setEd(true);
+    setres(false);
+    setOpen(true);
+  };
+  const handleDeleteR = () => {
+    setEd(false);
+    setres(true);
+    setOpen(true);
+  };
+  function handleNo() {
+    setOpen(false);
+    // del = false;
+    // resolveFunction(false);
+    // console.log(del);
+  }
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleReset = () => {
     setActiveStep(0);
     setAdd(0);
     setWorking(0);
+    setAddE(0);
     setfname("");
     setlname("");
     setcity("");
@@ -57,9 +108,6 @@ function BuildResume() {
     setphone("");
     setpincode("");
     setstate("");
-    // setjobtitle1("");
-    // setjobtitle2("");
-    // setjobtitle3("");
     setenddate2(dayjs(date));
     setstartdate2(dayjs(date));
     setjobtitle2("");
@@ -78,6 +126,26 @@ function BuildResume() {
     setemployer1("");
     setcityj1("");
     setcountryj1("");
+    setenddateE2(dayjs(date));
+    setstartdateE2(dayjs(date));
+    setschoolname2("");
+    setdegree2("");
+    setcitye2("");
+    setcountrye2("");
+    setenddateE3(dayjs(date));
+    setstartdateE3(dayjs(date));
+    setschoolname3("");
+    setdegree3("");
+    setcitye3("");
+    setcountrye3("");
+    setschoolname1("");
+    setdegree1("");
+    setcitye2("");
+    setcountrye2("");
+    setstartdateE1(dayjs(date));
+    setenddateE3(dayjs(date));
+    setcitye1("");
+    setcountrye1("");
   };
 
   const [working, setWorking] = useState(false);
@@ -116,11 +184,35 @@ function BuildResume() {
   };
   const [city, setcity] = useState("");
   const handlecity = (e) => {
-    setcity(e.targetcountryue);
+    setcity(e.target.value);
   };
   const [country, setcountry] = useState("");
   const handlecountry = (e) => {
     setcountry(e.target.value);
+  };
+  const [citye1, setcitye1] = useState("");
+  const handlecitye1 = (e) => {
+    setcitye1(e.target.value);
+  };
+  const [countrye1, setcountrye1] = useState("");
+  const handlecountrye1 = (e) => {
+    setcountrye1(e.target.value);
+  };
+  const [citye2, setcitye2] = useState("");
+  const handlecitye2 = (e) => {
+    setcitye2(e.target.value);
+  };
+  const [countrye2, setcountrye2] = useState("");
+  const handlecountrye2 = (e) => {
+    setcountrye2(e.target.value);
+  };
+  const [citye3, setcitye3] = useState("");
+  const handlecitye3 = (e) => {
+    setcitye3(e.target.value);
+  };
+  const [countrye3, setcountrye3] = useState("");
+  const handlecountrye3 = (e) => {
+    setcountrye3(e.target.value);
   };
   const [employer1, setemployer1] = useState("");
   const handleemployer1 = (e) => {
@@ -133,6 +225,30 @@ function BuildResume() {
   const [employer3, setemployer3] = useState("");
   const handleemployer3 = (e) => {
     setemployer3(e.target.value);
+  };
+  const [degree1, setdegree1] = useState("");
+  const handledegree1 = (e) => {
+    setdegree1(e.target.value);
+  };
+  const [degree2, setdegree2] = useState("");
+  const handledegree2 = (e) => {
+    setdegree2(e.target.value);
+  };
+  const [degree3, setdegree3] = useState("");
+  const handledegree3 = (e) => {
+    setdegree3(e.target.value);
+  };
+  const [schoolname1, setschoolname1] = useState("");
+  const handleschoolname1 = (e) => {
+    setschoolname1(e.target.value);
+  };
+  const [schoolname2, setschoolname2] = useState("");
+  const handleschoolname2 = (e) => {
+    setschoolname2(e.target.value);
+  };
+  const [schoolname3, setschoolname3] = useState("");
+  const handleschoolname3 = (e) => {
+    setschoolname3(e.target.value);
   };
   const [startdate1, setstartdate1] = React.useState(dayjs(date));
   const handlestartdate1 = (e) => {
@@ -157,6 +273,30 @@ function BuildResume() {
   const [enddate3, setenddate3] = React.useState(dayjs(date));
   const handleenddate3 = (e) => {
     setenddate3(e);
+  };
+  const [startdateE1, setstartdateE1] = React.useState(dayjs(date));
+  const handlestartdateE1 = (e) => {
+    setstartdateE1(e);
+  };
+  const [startdateE2, setstartdateE2] = React.useState(dayjs(date));
+  const handlestartdateE2 = (e) => {
+    setstartdateE2(e);
+  };
+  const [startdateE3, setstartdateE3] = React.useState(dayjs(date));
+  const handlestartdateE3 = (e) => {
+    setstartdateE3(e);
+  };
+  const [enddateE1, setenddateE1] = React.useState(dayjs(date));
+  const handleenddateE1 = (e) => {
+    setenddateE1(e);
+  };
+  const [enddateE2, setenddateE2] = React.useState(dayjs(date));
+  const handleenddateE2 = (e) => {
+    setenddateE2(e);
+  };
+  const [enddateE3, setenddateE3] = React.useState(dayjs(date));
+  const handleenddateE3 = (e) => {
+    setenddateE3(e);
   };
   const [cityj1, setcityj1] = useState("");
   const handlecityj1 = (e) => {
@@ -201,7 +341,7 @@ function BuildResume() {
       setAdd(add + 1);
     }
   };
-  const handleSub = () => {
+  function handleSub() {
     if (add == 2) {
       setenddate3(dayjs(date));
       setstartdate3(dayjs(date));
@@ -221,6 +361,70 @@ function BuildResume() {
     if (add > 0) {
       setAdd(add - 1);
     }
+
+    // del = false;
+  }
+  const [addE, setAddE] = useState(0);
+  const handleAddE = () => {
+    if (addE < 2) {
+      setAddE(addE + 1);
+    }
+  };
+  const handleSubE = () => {
+    console.log("HANDLE SUBE called");
+    if (addE == 2) {
+      setenddateE3(dayjs(date));
+      setstartdateE3(dayjs(date));
+      setschoolname3("");
+      setdegree3("");
+      setcitye3("");
+      setcountrye3("");
+    }
+    if (addE == 1) {
+      setenddateE2(dayjs(date));
+      setstartdateE2(dayjs(date));
+      setschoolname2("");
+      setdegree2("");
+      setcitye2("");
+      setcountrye2("");
+    }
+    if (addE > 0) {
+      setAddE(addE - 1);
+    }
+  };
+
+  const [items, setItems] = useState([]);
+  const [newItem, setNewItem] = useState("");
+  const [openskill, setopenskill] = useState(false);
+
+  const handleInputChange = (e) => {
+    setNewItem(e.target.value);
+  };
+
+  const addskill =() => {
+    setopenskill(true);
+  }
+
+  const handleCloseskill = () => {
+    setopenskill(false);
+  }
+
+  const handleAddItem = () => {
+    
+    setopenskill(false);
+    // if (newItem.trim() !== "") {
+      const updatedItems = [...items, newItem];
+      setItems(updatedItems);
+      setNewItem("");
+    // }
+  };
+
+  const handleDeleteItem = (index) => {
+    setItems((prevItems) => {
+      const updatedItems = [...prevItems];
+      updatedItems.splice(index, 1);
+      return updatedItems;
+    });
   };
 
   return (
@@ -244,11 +448,14 @@ function BuildResume() {
             horizontal={false}
             className="scroll-container"
           > */}
-          <div className="overflow-y-scroll ">
-            {activeStep === steps.length ? (
-              ""
-            ) : activeStep === 0 ? (
-              <React.Fragment>
+          <div className="overflow-y-auto overflow-x-hidden">
+            <React.Fragment>
+              <Slide
+                direction="right"
+                in={activeStep === 0}
+                mountOnEnter
+                unmountOnExit
+              >
                 <div className="flex flex-col p-10">
                   <Typography
                     sx={{ mt: 2, mb: 2 }}
@@ -350,9 +557,15 @@ function BuildResume() {
                     />
                   </div>
                 </div>
-              </React.Fragment>
-            ) : activeStep === 1 ? (
-              <React.Fragment>
+              </Slide>
+            </React.Fragment>
+            <React.Fragment>
+              <Slide
+                direction="left"
+                in={activeStep === 1}
+                mountOnEnter
+                unmountOnExit
+              >
                 <div className="flex flex-col p-10">
                   <Typography
                     sx={{ mt: 2, mb: 2 }}
@@ -366,7 +579,7 @@ function BuildResume() {
                     <TextField
                       id="jobtitle11"
                       fullWidth
-                      label="Job Title"
+                      label="School Name"
                       variant="outlined"
                       value={jobtitle1}
                       onChange={handlejobtitle1}
@@ -429,7 +642,7 @@ function BuildResume() {
                           }}
                         />
                       }
-                      label="Currenty Working"
+                      label="Currently Working"
                       sx={{
                         color: grey[600],
                       }}
@@ -494,7 +707,6 @@ function BuildResume() {
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
                               label="End Date"
-                              disabled={working}
                               slotProps={{ textField: { fullWidth: true } }}
                               value={enddate2}
                               onChange={handleenddate2}
@@ -565,7 +777,6 @@ function BuildResume() {
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
                               label="End Date"
-                              disabled={working}
                               slotProps={{ textField: { fullWidth: true } }}
                               value={enddate3}
                               onChange={handleenddate3}
@@ -579,12 +790,14 @@ function BuildResume() {
                   )}
                   <div className="flex space-x-5 px-4 py-2 justify-end">
                     <Fab
-                      color="primary"
+                      sx={{
+                        color: red[600],
+                      }}
                       disabled={add == 0}
                       aria-label="minus"
-                      onClick={handleSub}
+                      onClick={handleDelete}
                     >
-                      <RemoveIcon />
+                      <DeleteForeverIcon />
                     </Fab>
                     <Fab
                       color="primary"
@@ -596,7 +809,314 @@ function BuildResume() {
                     </Fab>
                   </div>
                 </div>
-              </React.Fragment>
+              </Slide>
+            </React.Fragment>
+            <React.Fragment>
+              <Slide
+                direction="left"
+                in={activeStep === 2}
+                mountOnEnter
+                unmountOnExit
+              >
+                <div className="flex flex-col p-10">
+                  <Typography
+                    sx={{ mt: 2, mb: 2 }}
+                    variant="h6"
+                    color={"primary"}
+                  >
+                    {schoolname1 === "" ? "School Name" : schoolname1}
+                  </Typography>
+                  <div className="flex space-x-4">
+                    <TextField
+                      id="schoolname1"
+                      fullWidth
+                      label="School Name"
+                      variant="outlined"
+                      value={schoolname1}
+                      onChange={handleschoolname1}
+                    />
+                    <TextField
+                      id="degree1"
+                      fullWidth
+                      label="Degree"
+                      variant="outlined"
+                      value={degree1}
+                      onChange={handledegree1}
+                    />
+                  </div>
+                  <div className="flex space-x-4 my-4">
+                    <TextField
+                      id="citye11"
+                      fullWidth
+                      label="City"
+                      variant="outlined"
+                      value={citye1}
+                      onChange={handlecitye1}
+                    />
+                    <TextField
+                      id="countrye11"
+                      fullWidth
+                      label="Country"
+                      variant="outlined"
+                      value={countrye1}
+                      onChange={handlecountrye1}
+                    />
+                  </div>
+                  {/* <div className="w-[100%]"> */}
+                  <div className="flex space-x-4">
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        label="Start Date"
+                        slotProps={{ textField: { fullWidth: true } }}
+                        value={startdateE1}
+                        onChange={handlestartdateE1}
+                      />
+                    </LocalizationProvider>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        label="End Date"
+                        slotProps={{ textField: { fullWidth: true } }}
+                        value={enddateE1}
+                        onChange={handleenddateE1}
+                      />
+                    </LocalizationProvider>
+                  </div>
+                  {/* <div className="flex justify-end mt-2">
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={working}
+                          onChange={handleWorking}
+                          sx={{
+                            color: grey[600],
+                          }}
+                        />
+                      }
+                      label="Currently Working"
+                      sx={{
+                        color: grey[600],
+                      }}
+                    />
+                  </div> */}
+                  {addE > 0 ? (
+                    <React.Fragment>
+                      <div className="flex flex-col ">
+                        <Typography
+                          sx={{ mt: 2, mb: 2 }}
+                          variant="h6"
+                          color={"primary"}
+                        >
+                          {schoolname2 === "" ? "School Name" : schoolname2}
+                        </Typography>
+                        <div className="flex space-x-4">
+                          <TextField
+                            id="schoolname2"
+                            fullWidth
+                            label="School Name"
+                            variant="outlined"
+                            value={schoolname2}
+                            onChange={handleschoolname2}
+                          />
+                          <TextField
+                            id="degree2"
+                            fullWidth
+                            label="Degree"
+                            variant="outlined"
+                            value={degree2}
+                            onChange={handledegree2}
+                          />
+                        </div>
+                        <div className="flex space-x-4 my-4">
+                          <TextField
+                            id="citye12"
+                            fullWidth
+                            label="City"
+                            variant="outlined"
+                            value={citye2}
+                            onChange={handlecitye2}
+                          />
+                          <TextField
+                            id="countrye12"
+                            fullWidth
+                            label="Country"
+                            variant="outlined"
+                            value={countrye2}
+                            onChange={handlecountrye2}
+                          />
+                        </div>
+                        <div className="flex space-x-4">
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                              label="Start Date"
+                              slotProps={{ textField: { fullWidth: true } }}
+                              value={startdateE2}
+                              onChange={handlestartdateE2}
+                            />
+                          </LocalizationProvider>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                              label="End Date"
+                              slotProps={{ textField: { fullWidth: true } }}
+                              value={enddateE2}
+                              onChange={handleenddateE2}
+                            />
+                          </LocalizationProvider>
+                        </div>
+                      </div>
+                    </React.Fragment>
+                  ) : (
+                    ""
+                  )}
+                  {addE > 1 ? (
+                    <React.Fragment>
+                      <div className="flex mt-4 flex-col ">
+                        <Typography
+                          sx={{ mt: 2, mb: 2 }}
+                          variant="h6"
+                          color={"primary"}
+                        >
+                          {schoolname3 === "" ? "School Name" : schoolname3}
+                        </Typography>
+                        <div className="flex space-x-4">
+                          <TextField
+                            id="schoolname3"
+                            fullWidth
+                            label="School Name"
+                            variant="outlined"
+                            value={schoolname3}
+                            onChange={handleschoolname3}
+                          />
+                          <TextField
+                            id="degree3"
+                            fullWidth
+                            label="Degree"
+                            variant="outlined"
+                            value={degree3}
+                            onChange={handledegree3}
+                          />
+                        </div>
+                        <div className="flex space-x-4 my-4">
+                          <TextField
+                            id="citye13"
+                            fullWidth
+                            label="City"
+                            variant="outlined"
+                            value={citye3}
+                            onChange={handlecitye3}
+                          />
+                          <TextField
+                            id="countrye13"
+                            fullWidth
+                            label="Country"
+                            variant="outlined"
+                            value={countrye3}
+                            onChange={handlecountrye3}
+                          />
+                        </div>
+                        <div className="flex space-x-4">
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                              label="Start Date"
+                              slotProps={{ textField: { fullWidth: true } }}
+                              value={startdateE3}
+                              onChange={handlestartdateE3}
+                            />
+                          </LocalizationProvider>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                              label="End Date"
+                              slotProps={{ textField: { fullWidth: true } }}
+                              value={enddateE3}
+                              onChange={handleenddateE3}
+                            />
+                          </LocalizationProvider>
+                        </div>
+                      </div>
+                    </React.Fragment>
+                  ) : (
+                    ""
+                  )}
+                  <div className="flex space-x-5 px-4 py-2 justify-end">
+                    <Fab
+                      sx={{
+                        color: red[600],
+                      }}
+                      disabled={addE === 0}
+                      aria-label="minus"
+                      onClick={handleDeleteE}
+                    >
+                      <DeleteForeverIcon />
+                    </Fab>
+                    <Fab
+                      color="primary"
+                      disabled={addE === 2}
+                      aria-label="add"
+                      onClick={handleAddE}
+                    >
+                      <AddIcon />
+                    </Fab>
+                  </div>
+                </div>
+              </Slide>
+            </React.Fragment>
+
+            <Slide
+              direction="right"
+              in={activeStep === 3}
+              mountOnEnter
+              unmountOnExit
+            >
+              <div className="flex flex-col p-10">
+                <Typography
+                  sx={{ mt: 2, mb: 2 }}
+                  variant="h6"
+                  color={"primary"}
+                >
+                  Click on the button to add one or more skills
+                </Typography>
+                <div className={`flex flex-col my-4 ${items.length===0?"h-0":"h-auto"}`}>
+                  <List  sx={{ width: '100%', bgcolor: '#e9e9e9'}}>
+                    {items.map((item, index) => (
+                      <ListItem key={index} >
+                        <ListItemText primary={item} />
+                        <IconButton
+                          edge="end"
+                          onClick={() => handleDeleteItem(index)}
+                          aria-label="delete"
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                        <Divider />
+                      </ListItem>
+                    ))}
+                  </List>
+                  
+                </div>
+                  {/* <TextField
+                    label="Add Item"
+                    value={newItem}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                    margin="normal"
+                  /> */}
+                  <div className="flex justify-end">
+                  <Fab
+                    variant="contained"
+                    color="primary"
+                    onClick={addskill}
+                  >
+                     <AddIcon></AddIcon>
+                  </Fab>
+                  </div>
+              </div>
+            </Slide>
+
+            {activeStep === steps.length ? (
+              ""
+            ) : activeStep === 0 ? (
+              ""
+            ) : activeStep === 1 ? (
+              ""
             ) : activeStep === 2 ? (
               <React.Fragment>
                 <div></div>
@@ -610,7 +1130,7 @@ function BuildResume() {
           {/* </ScrollContainer> */}
 
           <div className="flex  px-10 space-x-3 justify-end">
-            <Button variant="contained" size="large" onClick={handleReset}>
+            <Button variant="contained" size="large" onClick={handleDeleteR}>
               Reset
             </Button>
             <Button
@@ -628,6 +1148,52 @@ function BuildResume() {
           </div>
         </div>
       </div>
+      <Dialog
+        open={open}
+        // TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle>
+          {res === true ? "Reset Confirmation" : "Delete Confirmation"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            {res === true
+              ? "Are you sure you want to reset?"
+              : "Are you sure you want to delete?"}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button color="primary" variant={"contained"} onClick={handleYes}>
+            Yes
+          </Button>
+          <Button color="primary" variant={"outlined"} onClick={handleNo}>
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={openskill} onClose={handleCloseskill}>
+        <DialogTitle>ADD SKILL</DialogTitle>
+        <DialogContent>
+          
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Skill"
+            value={newItem}
+            onChange={handleInputChange}
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseskill}>cancel</Button>
+          <Button onClick={handleAddItem}>add</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
