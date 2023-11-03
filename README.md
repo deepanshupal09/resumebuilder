@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # resumebuilder
 fheih# resumebuilder
 =======
@@ -24,7 +24,8 @@ In the project directory, you can run:
 `npm install react-router-dom`\
 `npm install @mui/material @emotion/react @emotion/styled`\
 `npm install @mui/x-date-pickers`\
-`npm install dayjs`
+`npm install dayjs`\
+`npm install react-router-dom`
 
 ### `npm start`
 
@@ -88,4 +89,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
->>>>>>> c1518079012824a6c473fd04eb0b7eb1a99d9b66
