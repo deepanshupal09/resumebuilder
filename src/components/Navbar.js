@@ -5,7 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import resbuil from "../images/resumebuilder.png";
 import "./style.css";
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
+import { useEffect } from "react";
 function Navbar() {
   const [open, setOpen] = useState("false");
 
@@ -39,27 +42,32 @@ function Navbar() {
           </div>
 
           <ul className="hidden lg:flex  space-x-11 mr-16 my-auto ">
-            <div className="">
-              <button className=" px-2 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md py-2 ">
-                <li className="flex ">
-                  Build Your Resume&nbsp;
-                  <div id="byr">
-                    <FontAwesomeIcon icon={faChevronDown} />
-                  </div>
-                </li>
-              </button>
-            </div>
-            <a href="#FAQ">
+            <HashLink smooth to={"/#Templates"}>
+              <div className="">
+                <button className=" px-2 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md py-2 ">
+                  <li className="flex ">
+                    Build Your Resume&nbsp;
+                    <div id="byr">
+                      <FontAwesomeIcon icon={faChevronDown} />
+                    </div>
+                  </li>
+                </button>
+              </div>
+            </HashLink>
+            <HashLink smooth to={"/#FAQ"}>
               <button className="px-2 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md py-2 ">
                 <li>FAQ</li>
               </button>
-            </a>
+            </HashLink>
             <button className="px-2 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md py-2 ">
               <li>About Us</li>
             </button>
-            <button className="px-2 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md py-2 ">
+            <HashLink
+              to={"/Login#l"}
+              className="px-2 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md py-2 "
+            >
               <li>Login</li>
-            </button>
+            </HashLink>
             <button className="px-2 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md py-2 ">
               <li>Signup</li>
             </button>
@@ -70,9 +78,11 @@ function Navbar() {
         className="flex lg:hidden flex-col divide-y-0 text-xl overflow-hidden text-white w-[100%] h-[0] fixed top-[7vh] z-10 transition-all duration-500 bg-black backdrop-blur-lg backdrop-filter bg-opacity-30 "
         id="menu"
       >
-        <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10 mt-10 ">
-          Build Your Resume
-        </div>
+        <a href="#Templates">
+          <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10 mt-10 ">
+            Build Your Resume
+          </div>
+        </a>
         <a href="#FAQ">
           <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10">
             FAQ

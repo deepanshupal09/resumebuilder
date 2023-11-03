@@ -219,6 +219,7 @@ function LandingPage() {
       an4.style.transition = "0.3s";
     }
   };
+
   AOS.init();
   return (
     <>
@@ -231,22 +232,23 @@ function LandingPage() {
             Your Perfect Resume Starts Here!
           </div>
           <div className="mx-2 flex mt-12 space-x-8 relative top-[27vh] slideleft">
-            <button
-              className="px-2 text-md rounded-md  font-semibold shadow-lg lg:px-5 lg:text-lg py-3 "
+            <a
+              href="/#Templates"
+              className="px-3 text-md rounded-md  font-semibold shadow-lg lg:px-5 lg:text-lg py-4 "
               style={{
                 backgroundImage: "linear-gradient(90deg,#e8b93f,#d68423)",
               }}
             >
-              Start Now
-            </button>
-            <button
+              Create My Resume
+            </a>
+            {/* <button
               className="px-2 text-md rounded-md  font-semibold shadow-lg lg:px-5 lg:text-lg py-3 ]"
               style={{
                 backgroundImage: "linear-gradient(90deg,#e8b93f,#d68423)",
               }}
             >
               Click Here
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="md:flex hidden justify-end w-1/2 ">
@@ -259,6 +261,7 @@ function LandingPage() {
         className="second-component m-2 h-[110vh] lg:h-auto  py-[2%] px-[3%]"
         style={{ marginTop: "25vh" }}
       >
+        <div id="Templates"></div>
         <h1 className="text-2xl md:text-5xl relative top-[7vh] text-slate-600 text-center font-bold font-mons">
           Templates For Resume
         </h1>
