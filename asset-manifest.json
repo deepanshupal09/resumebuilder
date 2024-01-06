@@ -1,8 +1,12 @@
 {
   "files": {
-    "main.css": "/resumebuilder/static/css/main.e9e90a8a.css",
-    "main.js": "/resumebuilder/static/js/main.f5f456a7.js",
+    "main.css": "/resumebuilder/static/css/main.808e3a5e.css",
+    "main.js": "/resumebuilder/static/js/main.cdfac7b3.js",
     "static/js/787.8b7042b1.chunk.js": "/resumebuilder/static/js/787.8b7042b1.chunk.js",
+    "static/media/resume-4.jpeg": "/resumebuilder/static/media/resume-4.a2fb2f720f72b84f9184.jpeg",
+    "static/media/resume-1.jpeg": "/resumebuilder/static/media/resume-1.18604b0e2059fef51546.jpeg",
+    "static/media/resume-2.jpeg": "/resumebuilder/static/media/resume-2.b659e72200f93e81fbec.jpeg",
+    "static/media/resume-3.jpeg": "/resumebuilder/static/media/resume-3.d21ff487a3deedb1a24d.jpeg",
     "static/media/roboto-latin-500-normal.woff2": "/resumebuilder/static/media/roboto-latin-500-normal.f25d774ecfe0996f8eb5.woff2",
     "static/media/roboto-latin-700-normal.woff2": "/resumebuilder/static/media/roboto-latin-700-normal.227c93190fe7f82de3f8.woff2",
     "static/media/roboto-latin-400-normal.woff2": "/resumebuilder/static/media/roboto-latin-400-normal.b009a76ad6afe4ebd301.woff2",
@@ -62,12 +66,12 @@
     "static/media/roboto-greek-ext-400-normal.woff": "/resumebuilder/static/media/roboto-greek-ext-400-normal.f708607d2a7290fb8bfa.woff",
     "static/media/roboto-greek-ext-700-normal.woff": "/resumebuilder/static/media/roboto-greek-ext-700-normal.249853776d22a271b2b5.woff",
     "static/media/wave-haikei.svg": "/resumebuilder/static/media/wave-haikei.4ffc8084ec5e56b4d342.svg",
-    "main.e9e90a8a.css.map": "/resumebuilder/static/css/main.e9e90a8a.css.map",
-    "main.f5f456a7.js.map": "/resumebuilder/static/js/main.f5f456a7.js.map",
+    "main.808e3a5e.css.map": "/resumebuilder/static/css/main.808e3a5e.css.map",
+    "main.cdfac7b3.js.map": "/resumebuilder/static/js/main.cdfac7b3.js.map",
     "787.8b7042b1.chunk.js.map": "/resumebuilder/static/js/787.8b7042b1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e9e90a8a.css",
-    "static/js/main.f5f456a7.js"
+    "static/css/main.808e3a5e.css",
+    "static/js/main.cdfac7b3.js"
   ]
 }
