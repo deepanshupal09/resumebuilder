@@ -7,14 +7,21 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function App() {
   return (
-    <Router>
-      <Navbar></Navbar>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/Login" element={<Login />} />
-      </Routes>
-      <Footer></Footer>
-    </Router>
+    <>
+      //{" "}
+      <Router>
+        <Navbar></Navbar>
+        <LandingPage></LandingPage>
+        //{" "}
+        <Routes>
+          // <Route path="/" element={<LandingPage />} />
+          // <Route path="/Login" element={<Login />} />
+          //{" "}
+        </Routes>
+        <Footer></Footer>
+        //{" "}
+      </Router>
+    </>
   );
 }
 
