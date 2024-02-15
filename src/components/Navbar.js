@@ -63,7 +63,7 @@ function Navbar() {
               <li>About Us</li>
             </button>
             <HashLink
-              to={"/Login#l"}
+              to={"/login"}
               className="px-2 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md py-2 "
             >
               <li>Login</li>
