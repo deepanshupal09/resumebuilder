@@ -33,7 +33,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
-import Divider from '@mui/material/Divider';
+import Divider from "@mui/material/Divider";
 
 const steps = ["Personal Info", "Job History", "Education", "Skills", "Finish"];
 
@@ -401,21 +401,20 @@ function BuildResume() {
     setNewItem(e.target.value);
   };
 
-  const addskill =() => {
+  const addskill = () => {
     setopenskill(true);
-  }
+  };
 
   const handleCloseskill = () => {
     setopenskill(false);
-  }
+  };
 
   const handleAddItem = () => {
-    
     setopenskill(false);
     // if (newItem.trim() !== "") {
-      const updatedItems = [...items, newItem];
-      setItems(updatedItems);
-      setNewItem("");
+    const updatedItems = [...items, newItem];
+    setItems(updatedItems);
+    setNewItem("");
     // }
   };
 
@@ -1074,10 +1073,14 @@ function BuildResume() {
                 >
                   Click on the button to add one or more skills
                 </Typography>
-                <div className={`flex flex-col my-4 ${items.length===0?"h-0":"h-auto"}`}>
-                  <List  sx={{ width: '100%', bgcolor: '#e9e9e9'}}>
+                <div
+                  className={`flex flex-col my-4 ${
+                    items.length === 0 ? "h-0" : "h-auto"
+                  }`}
+                >
+                  <List sx={{ width: "100%", bgcolor: "#e9e9e9" }}>
                     {items.map((item, index) => (
-                      <ListItem key={index} >
+                      <ListItem key={index}>
                         <ListItemText primary={item} />
                         <IconButton
                           edge="end"
@@ -1090,24 +1093,19 @@ function BuildResume() {
                       </ListItem>
                     ))}
                   </List>
-                  
                 </div>
-                  {/* <TextField
+                {/* <TextField
                     label="Add Item"
                     value={newItem}
                     onChange={handleInputChange}
                     variant="outlined"
                     margin="normal"
                   /> */}
-                  <div className="flex justify-end">
-                  <Fab
-                    variant="contained"
-                    color="primary"
-                    onClick={addskill}
-                  >
-                     <AddIcon></AddIcon>
+                <div className="flex justify-end">
+                  <Fab variant="contained" color="primary" onClick={addskill}>
+                    <AddIcon></AddIcon>
                   </Fab>
-                  </div>
+                </div>
               </div>
             </Slide>
 
@@ -1177,7 +1175,6 @@ function BuildResume() {
       <Dialog open={openskill} onClose={handleCloseskill}>
         <DialogTitle>ADD SKILL</DialogTitle>
         <DialogContent>
-          
           <TextField
             autoFocus
             margin="dense"
