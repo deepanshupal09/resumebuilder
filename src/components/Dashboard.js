@@ -1,13 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import { getCookie } from '../cookies'
 
 export default function Dashboard() {
-
-    const user = JSON.parse(getCookie("auth"));
+    const [user,setUser] = useState();
+    useEffect(()=>{
+        if(getCookie("auth")) {
+            setUser(JSON.parse(getCookie("auth")));
+        }
+    },[])
 
     return (
     <div className='mt-[7vh] h-[100vh]'>
-        hello {user.name}
+        {/* {console.log(user)} */}
+        
+        <img className='rounded-full' src={user?.picture} />
+        hello {user?.name}
 
     </div>
     )

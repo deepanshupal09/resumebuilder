@@ -4,6 +4,8 @@ const controller = require("./controller")
 const router = Router();
 
 router.get("/", controller.getData);
+router.get("/:email",controller.getUserByEmail)
+router.post("/",controller.addUser)
 
 
 

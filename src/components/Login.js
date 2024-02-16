@@ -8,6 +8,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import googleOneTap from 'google-one-tap';
 import {jwtDecode} from 'jwt-decode';
 import { setCookieWithExpiry } from "../cookies";
+import axios from "axios";
 
 
 
@@ -42,7 +43,14 @@ function Login() {
   
   function handleCallBackResponse(e) {
     console.log(jwtDecode(e.credential))
-    setCookieWithExpiry("auth",jwtDecode(e.credential),2);
+    const user = jwtDecode(e.credential);
+    setCookieWithExpiry("auth",user,2);
+
+    axios.post('http://localhost:3001/api/data/',user).then((res)=>{
+      console.log("logged in! ",res)
+    }).catch((error)=>{
+      console.log("error ",error)
+    })
     navigate("/Dashboard");
     
   }
