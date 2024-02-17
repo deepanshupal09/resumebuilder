@@ -27,6 +27,8 @@ function App() {
         </Routes>
         <Footer></Footer>
       </Router>
+      {/* </BuildResume> */}
+      {/* <Footer></Footer> */}
     </>
   );
 }
