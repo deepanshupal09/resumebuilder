@@ -83,8 +83,11 @@ function Navbar() {
                 >
                   <li>Login</li>
                 </HashLink>
+                
                 <button className="px-2 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md py-2 ">
+                  <Link to="/signup">
                   <li>Signup</li>
+                  </Link>
                 </button>
               </>
             ) : (

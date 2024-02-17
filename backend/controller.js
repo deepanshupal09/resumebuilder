@@ -18,7 +18,7 @@ const getUserByEmail = (req,res) => {
 }
 
 const addUser = (req,res) => {
-    const {email,name,picture} = req.body;
+    const {email,name,picture,password} = req.body;
 
     console.log(`email: ${email} name: ${name} pic: ${picture}`)
 
@@ -27,7 +27,7 @@ const addUser = (req,res) => {
             console.log("user already exists");
             res.send("user already exists");
         } else {
-            pool.query(queries.addUser, [email,name,picture], (error,results) => {
+            pool.query(queries.addUser, [email,name,picture,password], (error,results) => {
                 if (error) throw error
                 res.status(201).send("User added successfully");
             })

@@ -43,8 +43,9 @@ function Login() {
   
   function handleCallBackResponse(e) {
     console.log(jwtDecode(e.credential))
-    const user = jwtDecode(e.credential);
+    let user = jwtDecode(e.credential);
     setCookieWithExpiry("auth",user,2);
+    user = {...user,"password":null}
 
     axios.post('http://localhost:3001/api/data/',user).then((res)=>{
       console.log("logged in! ",res)
@@ -52,7 +53,6 @@ function Login() {
       console.log("error ",error)
     })
     navigate("/Dashboard");
-    
   }
 //   const options = {
 //     client_id: "953816291178-931blpsdt9nm709ellqqpjo55bsoodj7.apps.googleusercontent.com", // required
@@ -71,6 +71,30 @@ function Login() {
   //     return new Promise((resolve) => setTimeout(resolve, ms));
   //   }
   async function handleLogin() {
+
+    const url = `http://localhost:3001/api/data/${Email}`;
+    axios.get(url).then((res)=> {
+      if (res.data.length < 1) {
+        console.log("Email Id not found");
+        setError(true);
+        setHelperText("Email Not found")
+      } else {
+        res.data = res.data[0]
+        console.log(res.data.password)
+        if (res.data.password !== Password) {
+          console.log("Incorrect Password");
+          setError(true);
+          setHelperText("Incorrect Password");
+        } else {
+          console.log("Logged In");
+          const user = res.data;
+          setCookieWithExpiry("auth",user,2);
+          navigate("/Dashboard");
+        } 
+      }
+    }).catch((error)=> {
+      console.log("error: ", error)
+    })
     // setLoading(true);
     // try {
     //   await signIn(Email, Password);
