@@ -448,116 +448,16 @@ function BuildResume() {
             className="scroll-container"
           > */}
           <div className="overflow-y-auto overflow-x-hidden">
-            <React.Fragment>
+            {/* <React.Fragment>
               <Slide
                 direction="right"
                 in={activeStep === 0}
                 mountOnEnter
                 unmountOnExit
               >
-                <div className="flex flex-col p-10">
-                  <Typography
-                    sx={{ mt: 2, mb: 2 }}
-                    variant="h6"
-                    color={"primary"}
-                  >
-                    {" "}
-                    Personal Information{" "}
-                  </Typography>
-                  <div className="flex space-x-[2vw] ">
-                    <TextField
-                      id="fname"
-                      fullWidth
-                      label="First Name"
-                      variant="outlined"
-                      required
-                      value={fname}
-                      onChange={handlefname}
-                    />
-                    <TextField
-                      id="lname"
-                      fullWidth
-                      required
-                      label="Last Name"
-                      variant="outlined"
-                      value={lname}
-                      onChange={handlelname}
-                    />
-                  </div>
-                  <div className="flex space-x-[2vw] mt-4 ">
-                    <TextField
-                      id="email"
-                      required
-                      fullWidth
-                      label="Email"
-                      variant="outlined"
-                      value={email}
-                      onChange={handleemail}
-                    />
-                    <TextField
-                      id="phone"
-                      fullWidth
-                      required
-                      label="Phone"
-                      variant="outlined"
-                      value={phone}
-                      onChange={handlephone}
-                    />
-                  </div>
-                  <div className="flex my-4 ">
-                    <TextField
-                      id="address"
-                      fullWidth
-                      required
-                      label="Address"
-                      variant="outlined"
-                      value={address}
-                      onChange={handleaddress}
-                    />
-                  </div>
-                  <div className="flex space-x-[2vw] my-2 ">
-                    <TextField
-                      id="state"
-                      fullWidth
-                      required
-                      label="State"
-                      variant="outlined"
-                      value={state}
-                      onChange={handlestate}
-                    />
-                    <TextField
-                      id="city"
-                      fullWidth
-                      required
-                      label="City"
-                      variant="outlined"
-                      value={city}
-                      onChange={handlecity}
-                    />
-                  </div>
-                  <div className="flex space-x-[2vw] my-2 ">
-                    <TextField
-                      id="pincode"
-                      fullWidth
-                      required
-                      label="Pincode"
-                      variant="outlined"
-                      value={pincode}
-                      onChange={handlepincode}
-                    />
-                    <TextField
-                      id="country"
-                      fullWidth
-                      required
-                      label="Country"
-                      variant="outlined"
-                      value={country}
-                      onChange={handlecountry}
-                    />
-                  </div>
-                </div>
+                
               </Slide>
-            </React.Fragment>
+            </React.Fragment> */}
             <React.Fragment>
               <Slide
                 direction="left"
