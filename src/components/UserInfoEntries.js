@@ -17,7 +17,12 @@ import Checkbox from "@mui/material/Checkbox";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-
+import { List } from "@mui/material";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import DeleteIcon from "@mui/icons-material/Delete";
+import IconButton from "@mui/material/IconButton";
+import Divider from "@mui/material/Divider";
 
 const steps = ['Personal Info', 'Job History', 'Education', 'Skills', 'Finish'];
 
@@ -43,7 +48,9 @@ export default function HorizontalLinearStepper() {
         education: [
             { school: "", degree: "", schoolCity: "", schoolCountry: "", schoolStartDate: "", schoolEndDate: "" }, 
         ],
-        skills: [],
+        skills: [{
+            skillName: ""
+        }],
         count: 1,
     })
 
@@ -77,7 +84,7 @@ export default function HorizontalLinearStepper() {
     };
 
     //for education
-    const handleEduDelete = () => {
+    const handleDeleteEdu = () => {
         setUserInfo(prevUserInfo => {
             if (prevUserInfo.education.length > 1) {
                 let newEducation = [...prevUserInfo.education];
@@ -89,7 +96,7 @@ export default function HorizontalLinearStepper() {
         });
     };
     
-    const handleEduAdd = () => {
+    const handleAddEdu = () => {
         if (userInfo.education.length < 3) {
             let newEducation = [...userInfo.education];
             newEducation.push({
@@ -104,50 +111,68 @@ export default function HorizontalLinearStepper() {
         }
     };
     
-    
-    
-
-
-    const isStepOptional = (step) => {
-        return step === 1;
+    //for skills
+    const handleAddSkill = () => {
+        let newSkills = [...userInfo.skills];
+        newSkills.push({skillName: ""});
+        setUserInfo({ ...userInfo, skills: newSkills });
     };
 
-    const isStepSkipped = (step) => {
-        return skipped.has(step);
+    const handleDeleteSkill = () => {
+        setUserInfo(prevUserInfo => {
+            if (prevUserInfo.skills.length > 1) {
+                let newSkills = [...prevUserInfo.skills];
+                newSkills.pop();  // Remove the last skills
+                return { ...prevUserInfo, skills: newSkills };
+            } else {
+                return prevUserInfo;  // Return the current state if there are no skill to delete
+            }
+        });
     };
 
+
+    // for next button
     const handleNext = () => {
-        let newSkipped = skipped;
-        if (isStepSkipped(activeStep)) {
-        newSkipped = new Set(newSkipped.values());
-        newSkipped.delete(activeStep);
-        }
-
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped(newSkipped);
-        console.log(userInfo);
+        setActiveStep((prevActiveStep) => {
+            if (prevActiveStep >= steps.length - 1) {
+                console.log(userInfo);
+            }
+            return prevActiveStep + 1;
+        });
     };
 
+    //for previuos button
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const handleSkip = () => {
-        if (!isStepOptional(activeStep)) {
-        throw new Error("You can't skip a step that isn't optional.");
-        }
 
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped((prevSkipped) => {
-        const newSkipped = new Set(prevSkipped.values());
-        newSkipped.add(activeStep);
-        return newSkipped;
-        });
-    };
-
+    // for reset button
     const handleReset = () => {
         setActiveStep(0);
+        setUserInfo({
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            address: "",
+            state: "",
+            city: "",
+            country: "",
+            pincode: "",
+            workExperiences: [
+                { company: "", designation: "", workCity: "", workCountry: "", startDate: "", endDate: "", working: false },
+            ],
+            education: [
+                { school: "", degree: "", schoolCity: "", schoolCountry: "", schoolStartDate: "", schoolEndDate: "" }, 
+            ],
+            skills: [{
+                skillName: ""
+            }],
+            count: 1,
+        });
     };
+    
 
     return (
         <div className="flex my-5 bg-white pt-[10vh] w-full p-8 h-[100vh]">
@@ -165,7 +190,7 @@ export default function HorizontalLinearStepper() {
                 );
                 })}
             </Stepper>
-            <div className="flex flex-col space-y-5 pb-5 justify-between my-5 h-[80vh]">
+            <div className="flex flex-col space-y-5 pb-20 justify-between my-5 h-[80vh]">
                 <div className="overflow-y-auto overflow-x-hidden">
                     <React.Fragment>
                     <Slide
@@ -174,7 +199,7 @@ export default function HorizontalLinearStepper() {
                         mountOnEnter
                         unmountOnExit
                     >
-                        <div className="flex flex-col p-10">
+                        <div className="flex flex-col p-10 py-3 ">
                             <Typography
                                 sx={{ mt: 2, mb: 2 }}
                                 variant="h6"
@@ -267,13 +292,7 @@ export default function HorizontalLinearStepper() {
                         unmountOnExit
                     >
                         <div className="flex flex-col p-10">
-                            <React.Fragment>
-                            <Slide
-                                direction="right"
-                                in={activeStep === 1}
-                                mountOnEnter
-                                unmountOnExit
-                            >
+                            
                                 <div className="flex flex-col">
                                     <Typography
                                         sx={{ mt: 2, mb: 2 }}
@@ -402,8 +421,7 @@ export default function HorizontalLinearStepper() {
                                     ))}
                                     
                                 </div>
-                                </Slide>
-                            </React.Fragment>
+                                
                             <div className="flex space-x-5 px-4 py-2 justify-end">
                                 <Fab
                                 sx={{
@@ -429,19 +447,13 @@ export default function HorizontalLinearStepper() {
                     </React.Fragment>
                     <React.Fragment>
                     <Slide
-                        direction="left"
+                        direction="right"
                         in={activeStep === 2}
                         mountOnEnter
                         unmountOnExit
                     >
                         <div className="flex flex-col p-10 ">
-                            <React.Fragment>
-                            <Slide
-                                direction="left"
-                                in={activeStep === 2}
-                                mountOnEnter
-                                unmountOnExit
-                            >
+                            
                                 <div className="flex flex-col">
                                     <Typography
                                         sx={{ mt: 2, mb: 2 }}
@@ -457,7 +469,7 @@ export default function HorizontalLinearStepper() {
                                                 <TextField
                                                     id={`schoolname${index}`}
                                                     fullWidth
-                                                    label="School Name"
+                                                    label="Institution Name"
                                                     variant="outlined"
                                                     value={education.school}
                                                     onChange={(e) => {
@@ -483,7 +495,7 @@ export default function HorizontalLinearStepper() {
                                                 <TextField
                                                     id={`schoolCity${index}`}
                                                     fullWidth
-                                                    label="schoolCity"
+                                                    label="Institution City"
                                                     variant="outlined"
                                                     value={education.schoolCity}
                                                     onChange={(e) => {
@@ -495,7 +507,7 @@ export default function HorizontalLinearStepper() {
                                                 <TextField
                                                     id={`schoolCountry${index}`}
                                                     fullWidth
-                                                    label="schoolCountry"
+                                                    label="Institution Country"
                                                     variant="outlined"
                                                     value={education.schoolCountry}
                                                     onChange={(e) => {
@@ -514,7 +526,7 @@ export default function HorizontalLinearStepper() {
                                                         // onChange={(e) => setUserInfo({ ...userInfo, endDate3: e })}
                                                         value={education.schoolStartDate}
                                                         onChange={(e) => {
-                                                            let newEducation = [...userInfo.workExperiences];
+                                                            let newEducation = [...userInfo.education];
                                                             newEducation[index].schoolStartDate = e;
                                                             setUserInfo({ ...userInfo, education: newEducation });
                                                         }}
@@ -528,7 +540,7 @@ export default function HorizontalLinearStepper() {
                                                         // onChange={(e) => setUserInfo({ ...userInfo, endDate3: e })}
                                                         value={education.schoolEndDate}
                                                         onChange={(e) => {
-                                                            let newEducation = [...userInfo.workExperiences];
+                                                            let newEducation = [...userInfo.education];
                                                             newEducation[index].schoolEndDate = e;
                                                             setUserInfo({ ...userInfo, education: newEducation });
                                                         }}
@@ -540,8 +552,7 @@ export default function HorizontalLinearStepper() {
                                     ))}
                                     
                                 </div>
-                                </Slide>
-                            </React.Fragment>
+                                
                             <div className="flex space-x-5 px-4 py-2 justify-end">
                                 <Fab
                                 sx={{
@@ -549,7 +560,7 @@ export default function HorizontalLinearStepper() {
                                 }}
                                     // disabled={userInfo.count == 0}
                                     aria-label="minus"
-                                    onClick={handleEduDelete}
+                                    onClick={handleDeleteEdu}
                                 >
                                 <DeleteForeverIcon />
                                 </Fab>
@@ -557,7 +568,7 @@ export default function HorizontalLinearStepper() {
                                     color="primary"
                                     // disabled={userInfo.count == 2}
                                     aria-label="add"
-                                    onClick={handleEduAdd}
+                                    onClick={handleAddEdu}
                                 >
                                 <AddIcon />
                                 </Fab>
@@ -565,58 +576,91 @@ export default function HorizontalLinearStepper() {
                         </div>
                     </Slide>
                     </React.Fragment> 
+                    <React.Fragment>
+                    <Slide
+                        direction="right"
+                        in={activeStep === 3}
+                        mountOnEnter
+                        unmountOnExit
+                        >
+                        <div className="flex flex-col p-10">
+                            <Typography
+                                sx={{ mt: 2, mb: 2 }}
+                                variant="h6"
+                                color={"primary"}
+                            >
+                                Skills
+                            </Typography>
+                            {userInfo.skills.map((skills, index) => (
+                                <TextField
+                                    key={index}
+                                    label={`Skill ${index + 1}`}
+                                    value={skills.skillName}
+                                    onChange={(e) => {
+                                        let newSkills = [...userInfo.skills];
+                                        newSkills[index].skillName = e.target.value;
+                                        setUserInfo({ ...userInfo, skills: newSkills });
+                                    }}
+                                    variant="outlined"
+                                    margin="normal"
+                                />
+                            ))}
+                            <div className="flex space-x-5 px-4 py-2 justify-end">
+                                <Fab
+                                    sx={{ color: '#e53935' }}
+                                    // disabled={userInfo.skills.length == 0}
+                                    aria-label="minus"
+                                    onClick={handleDeleteSkill}
+                                >
+                                    <DeleteForeverIcon />
+                                </Fab>
+                                <Fab
+                                    color="primary"
+                                    // disabled={userInfo.skills.length == 3}
+                                    aria-label="add"
+                                    onClick={handleAddSkill}
+                                >
+                                    <AddIcon />
+                                </Fab>
+                            </div>
+                        </div>
+
+                        </Slide>
+                    </React.Fragment>
                 </div>
+                {activeStep === steps.length ? (
+                    <React.Fragment>
+                    <Typography sx={{ mt: 2, mb: 1 }}>
+                        All steps completed - you're finished
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                        <Box sx={{ flex: '1 1 auto' }} />
+                        <Button onClick={handleReset}>Reset</Button>
+                    </Box>
+                    </React.Fragment>
+                    ) : (
+                        <React.Fragment>
+                            <div className="flex space-x-3 px-10 justify-end">
+                                <Button variant="contained" size="large" onClick={handleReset}>
+                                Reset
+                                </Button>
+                                <Button
+                                size="large"
+                                variant="outlined"
+                                disabled={activeStep === 0}
+                                onClick={handleBack}
+                                >
+                                Back
+                                </Button>
+
+                                <Button size="large" variant="contained" onClick={handleNext}>
+                                    {activeStep >= steps.length - 1 ? "Finish" : "Next"}
+                                </Button>
+                            </div>
+                        </React.Fragment>     
+                    )}
             </div>
             
-                    
-
-            
-            {activeStep === steps.length ? (
-                <React.Fragment>
-                <Typography sx={{ mt: 2, mb: 1 }}>
-                    All steps completed - you're finished
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                    <Box sx={{ flex: '1 1 auto' }} />
-                    <Button onClick={handleReset}>Reset</Button>
-                </Box>
-                </React.Fragment>
-                 ) : (
-                <React.Fragment>
-                <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                    <div className="flex flex-col w-full">
-                    
-                    
-                    
-                    
-                    
-                    {/* Add more TextField components as needed... */}
-                    </div>
-                    <Button
-                    color="inherit"
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    sx={{ mr: 1 }}
-                    >
-                    Back
-                    </Button>
-                    <Box sx={{ flex: '1 1 auto' }} />
-                    {isStepOptional(activeStep) && (
-                    <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                        Skip
-                    </Button>
-                    )}
-                    <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mr: 1 }}
-                    >
-                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                    </Button>
-                </Box>
-                </React.Fragment>
-            )}
             </Box>
         </div>
         </div>
