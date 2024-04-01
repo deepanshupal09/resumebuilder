@@ -5,7 +5,7 @@ import { getCookie } from "./cookies";
 
 export default function PrivateRoute() {
 
-    const user = useState(getCookie("auth"));
+    const user = getCookie("auth");
     return (
         user ? <Outlet /> : <Navigate to="/login" />
     )

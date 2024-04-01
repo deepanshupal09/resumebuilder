@@ -11,24 +11,17 @@ import Signup from "./components/Signup";
 function App() {
   return (
     <>
-      {/* <Navbar></Navbar> */}
-      {/* <BuildResume> */}{" "}
       <Router>
-        <Navbar></Navbar>
-        {/* <LandingPage></LandingPage>{" "} */}
-        {/* <BuildResume></BuildResume> */}
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route element={<PrivateRoute />}>
-            <Route path="/Dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Route>
         </Routes>
         <Footer></Footer>
       </Router>
-      {/* </BuildResume> */}
-      {/* <Footer></Footer> */}
     </>
   );
 }

@@ -9,6 +9,7 @@ import res1 from "../images/resume-1.jpeg";
 import res2 from "../images/resume-2.jpeg";
 import res3 from "../images/resume-3.jpeg";
 import res4 from "../images/resume-4.jpeg";
+import Navbar from "./Navbar";
 
 function LandingPage() {
   const container = useRef(null);
@@ -223,7 +224,8 @@ function LandingPage() {
   AOS.init();
   return (
     <>
-      <div className="first-component flex text-white h-[90vh]">
+    <Navbar />
+      <div className=" first-component flex text-white h-[90vh]">
         <div className=" mx-12 slideleft">
           <div className=" relative top-[25%] text-3xl lg:text-5xl font-bold font-sans">
             Craft Your Career Path with Precision..
