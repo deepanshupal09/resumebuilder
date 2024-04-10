@@ -19,6 +19,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Navbar from './Navbar';
 import Footer from "./Footer";
 
+const v=1;
 const steps = ['Personal Info', 'Education', 'Job History', 'Projects', 'Skills', 'Achievements', 'Finish'];
 
 export default function UserInfoEntries() {
