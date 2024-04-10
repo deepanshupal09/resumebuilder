@@ -6,7 +6,6 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-// import Slide from "@mui/material/Slide";
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -19,12 +18,6 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Navbar from './Navbar';
 import Footer from "./Footer";
-import { List } from "@mui/material";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
-import Divider from "@mui/material/Divider";
 
 const steps = ['Personal Info', 'Education', 'Job History', 'Projects', 'Skills', 'Achievements', 'Finish'];
 
@@ -47,16 +40,24 @@ export default function UserInfoEntries() {
         workExperiences: [
             { company: "", designation: "", workCity: "", workCountry: "", startDate: "", endDate: "", description: "",  working: false },
         ],
+        projects: [
+            { name: "", startDate: "", endDate: "",  link: "", description: ""},
+        ],
+        achievements: [{
+            description: ""
+        }],
         education: [
             { school: "", degree: "", schoolCity: "", schoolCountry: "", schoolStartDate: "", schoolEndDate: "" },
         ],
         skills: [{
             skillName: ""
         }],
-        count: 1,
     })
 
     //for work experience
+
+    const isAnyWorkExperienceActive = userInfo.workExperiences.some(workExperience => workExperience.working);
+
     const handleDelete = () => {
         setUserInfo(prevUserInfo => {
             if (prevUserInfo.workExperiences.length > 1) {
@@ -114,6 +115,29 @@ export default function UserInfoEntries() {
         }
     };
 
+    //for projects
+    const handleProjectDelete = () => {
+        setUserInfo(prevUserInfo => {
+            if (prevUserInfo.projects.length > 1) {
+                let newProjects = [...prevUserInfo.projects];
+                newProjects.pop();  // Remove the last project
+                return { ...prevUserInfo, projects: newProjects };
+            } else {
+                return prevUserInfo;  // Return the current state if there are no projects to delete
+            }
+        });
+    };
+
+    const handleProjectAdd = () => {
+        if (userInfo.projects.length < 3) {
+            let newProjects = [...userInfo.projects];
+            newProjects.push({
+                name: "", startDate: "", endDate: "",  link: "", description: ""
+            });  // Add a new project with default values
+            setUserInfo({ ...userInfo, projects: newProjects });
+        }
+    };
+
     //for skills
     const handleAddSkill = () => {
         let newSkills = [...userInfo.skills];
@@ -133,6 +157,24 @@ export default function UserInfoEntries() {
         });
     };
 
+    //achievements
+    const handleAddAchievements = () => {
+        let newAchievements = [...userInfo.achievements];
+        newAchievements.push({ description: "" });
+        setUserInfo({ ...userInfo, achievements: newAchievements });
+    };
+
+    const handleDeleteAchievements = () => {
+        setUserInfo(prevUserInfo => {
+            if (prevUserInfo.achievements.length > 1) {
+                let newAchievements = [...prevUserInfo.achievements];
+                newAchievements.pop();  // Remove the last achievement
+                return { ...prevUserInfo, achievements: newAchievements };
+            } else {
+                return prevUserInfo;  // Return the current state if there are no skill to delete
+            }
+        });
+    };
 
     // for next button
     const handleNext = () => {
@@ -166,13 +208,18 @@ export default function UserInfoEntries() {
             workExperiences: [
                 { company: "", designation: "", workCity: "", workCountry: "", startDate: "", endDate: "",description: "", working: false },
             ],
+            projects: [
+                { name: "", startDate: "", endDate: "",  link: "", description: "" },
+            ],
+            achievements: [{
+                description: ""
+            }],
             education: [
                 { school: "", degree: "", schoolCity: "", schoolCountry: "", schoolStartDate: "", schoolEndDate: "" },
             ],
             skills: [{
                 skillName: ""
             }],
-            count: 1,
         });
     };
 
@@ -203,12 +250,8 @@ export default function UserInfoEntries() {
                                 <React.Fragment>
                                     <div
                                         className={`${activeStep === 0 ? '' : 'hidden'}`}
-                                    // direction="right"
-                                    // in={activeStep === 0}
-                                    // mountOnEnter
-                                    // unmountOnExit
                                     >
-                                        <div className="flex flex-col p-10 py-3 ">
+                                        <div className="flex flex-col ">
                                             <Typography
                                                 sx={{ mt: 2, mb: 2 }}
                                                 variant="h6"
@@ -300,8 +343,9 @@ export default function UserInfoEntries() {
                                         mountOnEnter
                                         unmountOnExit
                                     >
-                                        <div className="flex flex-col p-10 ">
+                                        <div className="flex flex-col p-4 ">
 
+                                            {userInfo.education.map((education, index) => (
                                             <div className="flex flex-col">
                                                 <Typography
                                                     sx={{ mt: 2, mb: 2 }}
@@ -309,10 +353,9 @@ export default function UserInfoEntries() {
                                                     color={"primary"}
                                                 >
                                                     {" "}
-                                                    Education{" "}
+                                                    Education {index+1}
                                                 </Typography>
-                                                {userInfo.education.map((education, index) => (
-                                                    <div key={index} className="flex flex-col p-5">
+                                                    <div key={index} className="flex flex-col">
                                                         <div className="flex space-x-4">
                                                             <TextField
                                                                 id={`schoolname${index}`}
@@ -339,7 +382,7 @@ export default function UserInfoEntries() {
                                                                 }}
                                                             />
                                                         </div>
-                                                        <div className="flex space-x-4 my-4">
+                                                        <div className="flex space-x-4 my-2">
                                                             <TextField
                                                                 id={`schoolCity${index}`}
                                                                 fullWidth
@@ -365,7 +408,7 @@ export default function UserInfoEntries() {
                                                                 }}
                                                             />
                                                         </div>
-                                                        <div className="flex space-x-4">
+                                                        <div className="flex space-x-4 my-4">
                                                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                                 <DatePicker
                                                                     label="Start Date"
@@ -397,9 +440,9 @@ export default function UserInfoEntries() {
                                                         </div>
                                                         {/* Add more fields for each education experience as needed */}
                                                     </div>
-                                                ))}
 
-                                            </div>
+                                                </div>
+                                            ))}
 
                                             <div className="flex space-x-5 px-4 py-2 justify-end">
                                                 <Fab
@@ -431,8 +474,9 @@ export default function UserInfoEntries() {
                                         mountOnEnter
                                         unmountOnExit
                                     >
-                                        <div className="flex flex-col p-10">
+                                        <div className="flex flex-col p-4">
 
+                                            {userInfo.workExperiences.map((workExperience, index) => (
                                             <div className="flex flex-col">
                                                 <Typography
                                                     sx={{ mt: 2, mb: 2 }}
@@ -440,9 +484,8 @@ export default function UserInfoEntries() {
                                                     color={"primary"}
                                                 >
                                                     {" "}
-                                                    Work Experience{" "}
+                                                    Work Experience {index+1}
                                                 </Typography>
-                                                {userInfo.workExperiences.map((workExperience, index) => (
                                                     <div key={index}>
                                                         <div className="flex space-x-4">
                                                             <TextField
@@ -559,6 +602,7 @@ export default function UserInfoEntries() {
                                                                             newWorkExperiences[index].working = !newWorkExperiences[index].working;
                                                                             setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
                                                                         }}
+                                                                        disabled={isAnyWorkExperienceActive && !workExperience.working}
                                                                         sx={{ color: '#757575' }}
                                                                     />
 
@@ -572,9 +616,9 @@ export default function UserInfoEntries() {
                                                         </div>
                                                         {/* Add more fields for each work experience as needed */}
                                                     </div>
-                                                ))}
 
-                                            </div>
+                                                </div>
+                                            ))}
 
                                             <div className="flex space-x-5 px-4 py-2 justify-end">
                                                 <Fab
@@ -606,7 +650,129 @@ export default function UserInfoEntries() {
                                         mountOnEnter
                                         unmountOnExit
                                     >
-                                        <div className="flex flex-col p-10">
+                                        <div className="flex flex-col p-4">
+
+                                            {userInfo.projects.map((project, index) => (
+                                            <div className="flex flex-col">
+                                                <Typography
+                                                    sx={{ mt: 2, mb: 2 }}
+                                                    variant="h6"
+                                                    color={"primary"}
+                                                >
+                                                    {" "}
+                                                    Project {index+1}
+                                                </Typography>
+                                                    <div key={index}>
+                                        
+                                                        <div className="flex space-x-4">
+                                                            <TextField
+                                                                id={`name${index}`}
+                                                                fullWidth
+                                                                label="Project Name"
+                                                                variant="outlined"
+                                                                value={project.name}
+                                                                onChange={(e) => {
+                                                                    let newProject = [...userInfo.projects];
+                                                                    newProject[index].name = e.target.value;
+                                                                    setUserInfo({ ...userInfo, projects: newProject });
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div className="flex my-4 ">
+                                                            <TextField
+                                                                id={`link${index}`}
+                                                                label="Project Link"
+                                                                variant="outlined"
+                                                                fullWidth
+                                                                value={project.link}
+                                                                onChange={(e) => {
+                                                                    let newProject = [...userInfo.projects];
+                                                                    newProject[index].link = e.target.value;
+                                                                    setUserInfo({ ...userInfo, projects: newProject });
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div className="flex space-x-4 my-4">
+                                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                                <DatePicker
+                                                                    id={`startDate${index}`}
+                                                                    label="Start Date"
+                                                                    slotProps={{ textField: { fullWidth: true } }}
+                                                                    // value={userInfo.startDate3}
+                                                                    // onChange={(e) => setUserInfo({ ...userInfo, startDate3: e })}
+                                                                    value={project.startDate}
+                                                                    onChange={(e) => {
+                                                                        let newProject = [...userInfo.projects];
+                                                                        newProject[index].startDate = e;
+                                                                        setUserInfo({ ...userInfo, projects: newProject });
+                                                                    }}
+                                                                />
+                                                            </LocalizationProvider>
+                                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                                <DatePicker
+                                                                    id={`endDate${index}`}
+                                                                    label="End Date"
+                                                                    slotProps={{ textField: { fullWidth: true } }}
+                                                                    value={project.endDate}
+                                                                    onChange={(e) => {
+                                                                        let newProject = [...userInfo.projects];
+                                                                        newProject[index].endDate = e;
+                                                                        setUserInfo({ ...userInfo, projects: newProject });
+                                                                    }}
+                                                                />
+                                                            </LocalizationProvider>
+                                                        </div>
+                                                        <div className="flex my-4 ">
+                                                            <TextField
+                                                                id={`description${index}`}
+                                                                label="Project Description"
+                                                                variant="outlined"
+                                                                fullWidth
+                                                                value={project.description}
+                                                                onChange={(e) => {
+                                                                    let newProject = [...userInfo.projects];
+                                                                    newProject[index].description = e.target.value;
+                                                                    setUserInfo({ ...userInfo, projects: newProject });
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        {/* Add more fields for each work experience as needed */}
+                                                    </div>
+
+                                                </div>
+                                            ))}
+
+                                            <div className="flex space-x-5 px-4 py-2 justify-end">
+                                                <Fab
+                                                    sx={{
+                                                        color: '#e53935',
+                                                    }}
+                                                    // disabled={userInfo.count == 0}
+                                                    aria-label="minus"
+                                                    onClick={handleProjectDelete}
+                                                >
+                                                    <DeleteForeverIcon />
+                                                </Fab>
+                                                <Fab
+                                                    color="primary"
+                                                    // disabled={userInfo.count == 2}
+                                                    aria-label="add"
+                                                    onClick={handleProjectAdd}
+                                                >
+                                                    <AddIcon />
+                                                </Fab>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </React.Fragment>
+                                <React.Fragment>
+                                    <div
+                                        direction="right"
+                                        className={`${activeStep === 4 ? '' : 'hidden'}`}
+                                        mountOnEnter
+                                        unmountOnExit
+                                    >
+                                        <div className="flex flex-col p-4">
                                             <Typography
                                                 sx={{ mt: 2, mb: 2 }}
                                                 variant="h6"
@@ -642,6 +808,57 @@ export default function UserInfoEntries() {
                                                     // disabled={userInfo.skills.length == 3}
                                                     aria-label="add"
                                                     onClick={handleAddSkill}
+                                                >
+                                                    <AddIcon />
+                                                </Fab>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </React.Fragment>
+                                <React.Fragment>
+                                    <div
+                                        direction="right"
+                                        className={`${activeStep === 5 ? '' : 'hidden'}`}
+                                        mountOnEnter
+                                        unmountOnExit
+                                    >
+                                        <div className="flex flex-col p-4">
+                                            <Typography
+                                                sx={{ mt: 2, mb: 2 }}
+                                                variant="h6"
+                                                color={"primary"}
+                                            >
+                                                Achievements
+                                            </Typography>
+                                            {userInfo.achievements.map((achievements, index) => (
+                                                <TextField
+                                                    key={index}
+                                                    label={`Achievement ${index + 1}`}
+                                                    value={achievements.description}
+                                                    onChange={(e) => {
+                                                        let newAchievement = [...userInfo.achievements];
+                                                        newAchievement[index].description = e.target.value;
+                                                        setUserInfo({ ...userInfo, achievements: newAchievement });
+                                                    }}
+                                                    variant="outlined"
+                                                    margin="normal"
+                                                />
+                                            ))}
+                                            <div className="flex space-x-5 px-4 py-2 justify-end">
+                                                <Fab
+                                                    sx={{ color: '#e53935' }}
+                                                    // disabled={userInfo.skills.length == 0}
+                                                    aria-label="minus"
+                                                    onClick={handleDeleteAchievements}
+                                                >
+                                                    <DeleteForeverIcon />
+                                                </Fab>
+                                                <Fab
+                                                    color="primary"
+                                                    // disabled={userInfo.skills.length == 3}
+                                                    aria-label="add"
+                                                    onClick={handleAddAchievements}
                                                 >
                                                     <AddIcon />
                                                 </Fab>
