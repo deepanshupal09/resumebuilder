@@ -9,7 +9,8 @@ module.exports = {
       // bungee: [['Bungee', 'cursive'],['Merriweather', 'serif'], ['Montserrat', 'sans-serif'] ,['Sacramento', 'cursive']],
       mons: [['Montserrat', 'sans-serif'], ['Sacramento', 'cursive']],
       poppins: ['Poppins', 'sans-serif'],
-      manrope: ['Manrope', 'sans-serif']
+      manrope: ['Manrope', 'sans-serif'],
+      tinos: ['Tinos'],
     },
     extend: {},
   },

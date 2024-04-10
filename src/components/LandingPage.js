@@ -10,6 +10,7 @@ import res2 from "../images/resume-2.jpeg";
 import res3 from "../images/resume-3.jpeg";
 import res4 from "../images/resume-4.jpeg";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 function LandingPage() {
   const container = useRef(null);
@@ -519,6 +520,7 @@ function LandingPage() {
           <div className="container" ref={container}></div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

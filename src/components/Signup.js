@@ -10,6 +10,7 @@ import { jwtDecode } from "jwt-decode";
 import { setCookieWithExpiry } from "../cookies";
 import axios from "axios";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 function Signup() {
   const [Name, setName] = useState("");
@@ -409,6 +410,7 @@ function Signup() {
           <CircularProgress color="inherit" />
         </Backdrop>
       </div>
+      <Footer />
     </>
   );
 }

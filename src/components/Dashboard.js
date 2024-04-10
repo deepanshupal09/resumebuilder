@@ -3,6 +3,7 @@ import { getCookie } from "../cookies";
 import Navbar from "./Navbar";
 import temp from "../images/template.png";
 import { Button } from "@mui/joy";
+import Footer from "./Footer";
 
 export default function Dashboard() {
   const [user, setUser] = useState();
@@ -77,6 +78,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
