@@ -26,7 +26,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import Divider from "@mui/material/Divider";
 
-const steps = ['Personal Info', 'Job History', 'Education', 'Skills', 'Finish'];
+const steps = ['Personal Info', 'Education', 'Job History', 'Projects', 'Skills', 'Achievements', 'Finish'];
 
 export default function UserInfoEntries() {
     const [activeStep, setActiveStep] = React.useState(0);
@@ -45,7 +45,7 @@ export default function UserInfoEntries() {
         country: "",
         pincode: "",
         workExperiences: [
-            { company: "", designation: "", workCity: "", workCountry: "", startDate: "", endDate: "", working: false },
+            { company: "", designation: "", workCity: "", workCountry: "", startDate: "", endDate: "", description: "",  working: false },
         ],
         education: [
             { school: "", degree: "", schoolCity: "", schoolCountry: "", schoolStartDate: "", schoolEndDate: "" },
@@ -79,6 +79,7 @@ export default function UserInfoEntries() {
                 workCountry: "",
                 startDate: "",
                 endDate: "",
+                description: "",
                 working: false
             });  // Add a new work experience with default values
             setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
@@ -163,7 +164,7 @@ export default function UserInfoEntries() {
             country: "",
             pincode: "",
             workExperiences: [
-                { company: "", designation: "", workCity: "", workCountry: "", startDate: "", endDate: "", working: false },
+                { company: "", designation: "", workCity: "", workCountry: "", startDate: "", endDate: "",description: "", working: false },
             ],
             education: [
                 { school: "", degree: "", schoolCity: "", schoolCountry: "", schoolStartDate: "", schoolEndDate: "" },
@@ -180,7 +181,7 @@ export default function UserInfoEntries() {
         <>
             <Navbar />
             <div className="flex my-5 bg-white pt-[10vh] w-full p-8 h-[100vh]">
-                <div className="w-[60vw]">
+                <div className="w-[50vw]">
                     <Box sx={{ width: '100%' }}>
                         <Stepper activeStep={activeStep}>
                             {steps.map((label, index) => {
@@ -189,7 +190,10 @@ export default function UserInfoEntries() {
 
                                 return (
                                     <Step key={label} {...stepProps}>
-                                        <StepLabel {...labelProps}>{label}</StepLabel>
+                                        <StepLabel {...labelProps}>
+                                            {/* {label} */}
+                                            {activeStep === index ? label : ""}
+                                        </StepLabel>
                                     </Step>
                                 );
                             })}
@@ -293,167 +297,6 @@ export default function UserInfoEntries() {
                                     <div
                                         direction="right"
                                         className={`${activeStep === 1 ? '' : 'hidden'}`}
-                                        mountOnEnter
-                                        unmountOnExit
-                                    >
-                                        <div className="flex flex-col p-10">
-
-                                            <div className="flex flex-col">
-                                                <Typography
-                                                    sx={{ mt: 2, mb: 2 }}
-                                                    variant="h6"
-                                                    color={"primary"}
-                                                >
-                                                    {" "}
-                                                    Work Experience{" "}
-                                                </Typography>
-                                                {userInfo.workExperiences.map((workExperience, index) => (
-                                                    <div key={index}>
-                                                        <div className="flex space-x-4">
-                                                            <TextField
-                                                                id={`job${index}`}
-                                                                fullWidth
-                                                                label="Company Name"
-                                                                variant="outlined"
-                                                                value={workExperience.company}
-                                                                onChange={(e) => {
-                                                                    let newWorkExperiences = [...userInfo.workExperiences];
-                                                                    newWorkExperiences[index].company = e.target.value;
-                                                                    setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
-                                                                }}
-                                                            />
-                                                            <TextField
-                                                                id={`designation${index}`}
-                                                                fullWidth
-                                                                label="Designation"
-                                                                variant="outlined"
-                                                                // value={userInfo.designation3}
-                                                                // onChange={(e) => setUserInfo({ ...userInfo, designation3: e.target.value })}
-                                                                value={workExperience.designation}
-                                                                onChange={(e) => {
-                                                                    let newWorkExperiences = [...userInfo.workExperiences];
-                                                                    newWorkExperiences[index].designation = e.target.value;
-                                                                    setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
-                                                                }}
-                                                            />
-                                                        </div>
-                                                        <div className="flex space-x-4 my-4">
-                                                            <TextField
-                                                                id={`workCity${index}`}
-                                                                fullWidth
-                                                                label="City"
-                                                                variant="outlined"
-                                                                // value={userInfo.workCity3}
-                                                                // onChange={(e) => setUserInfo({ ...userInfo, workCity3: e.target.value })}
-                                                                value={workExperience.workCity}
-                                                                onChange={(e) => {
-                                                                    let newWorkExperiences = [...userInfo.workExperiences];
-                                                                    newWorkExperiences[index].workCity = e.target.value;
-                                                                    setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
-
-                                                                }}
-                                                            />
-
-                                                            <TextField
-                                                                id={`workCountry${index}`}
-                                                                fullWidth
-                                                                label="Country"
-                                                                variant="outlined"
-                                                                // value={userInfo.workCountry3}
-                                                                // onChange={(e) => setUserInfo({ ...userInfo, workCountry3: e.target.value })}
-                                                                value={workExperience.workCountry}
-                                                                onChange={(e) => {
-                                                                    let newWorkExperiences = [...userInfo.workExperiences];
-                                                                    newWorkExperiences[index].workCountry = e.target.value;
-                                                                    setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
-                                                                }}
-                                                            />
-                                                        </div>
-                                                        <div className="flex space-x-4">
-                                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                                <DatePicker
-                                                                    label="Start Date"
-                                                                    slotProps={{ textField: { fullWidth: true } }}
-                                                                    // value={userInfo.startDate3}
-                                                                    // onChange={(e) => setUserInfo({ ...userInfo, startDate3: e })}
-                                                                    value={workExperience.startDate}
-                                                                    onChange={(e) => {
-                                                                        let newWorkExperiences = [...userInfo.workExperiences];
-                                                                        newWorkExperiences[index].startDate = e;
-                                                                        setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
-                                                                    }}
-                                                                />
-                                                            </LocalizationProvider>
-                                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                                                <DatePicker
-                                                                    label="End Date"
-                                                                    slotProps={{ textField: { fullWidth: true } }}
-                                                                    // value={userInfo.endDate3}
-                                                                    // onChange={(e) => setUserInfo({ ...userInfo, endDate3: e })}
-                                                                    value={workExperience.endDate}
-                                                                    onChange={(e) => {
-                                                                        let newWorkExperiences = [...userInfo.workExperiences];
-                                                                        newWorkExperiences[index].endDate = e;
-                                                                        setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
-                                                                    }}
-                                                                />
-                                                            </LocalizationProvider>
-                                                        </div>
-                                                        <div className="flex justify-end mt-2">
-
-                                                            <FormControlLabel
-                                                                control={
-                                                                    <Checkbox
-                                                                        checked={workExperience.working}
-                                                                        onChange={() => {
-                                                                            let newWorkExperiences = [...userInfo.workExperiences];
-                                                                            newWorkExperiences[index].working = !newWorkExperiences[index].working;
-                                                                            setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
-                                                                        }}
-                                                                        sx={{ color: '#757575' }}
-                                                                    />
-
-                                                                }
-                                                                label="Currently Working"
-                                                                sx={{
-                                                                    color: '#757575',
-                                                                }}
-                                                            />
-
-                                                        </div>
-                                                        {/* Add more fields for each work experience as needed */}
-                                                    </div>
-                                                ))}
-
-                                            </div>
-
-                                            <div className="flex space-x-5 px-4 py-2 justify-end">
-                                                <Fab
-                                                    sx={{
-                                                        color: '#e53935',
-                                                    }}
-                                                    // disabled={userInfo.count == 0}
-                                                    aria-label="minus"
-                                                    onClick={handleDelete}
-                                                >
-                                                    <DeleteForeverIcon />
-                                                </Fab>
-                                                <Fab
-                                                    color="primary"
-                                                    // disabled={userInfo.count == 2}
-                                                    aria-label="add"
-                                                    onClick={handleAdd}
-                                                >
-                                                    <AddIcon />
-                                                </Fab>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </React.Fragment>
-                                <React.Fragment>
-                                    <div
-                                        direction="right"
-                                        className={`${activeStep === 2 ? '' : 'hidden'}`}
                                         mountOnEnter
                                         unmountOnExit
                                     >
@@ -574,6 +417,181 @@ export default function UserInfoEntries() {
                                                     // disabled={userInfo.count == 2}
                                                     aria-label="add"
                                                     onClick={handleAddEdu}
+                                                >
+                                                    <AddIcon />
+                                                </Fab>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </React.Fragment>
+                                <React.Fragment>
+                                    <div
+                                        direction="right"
+                                        className={`${activeStep === 2 ? '' : 'hidden'}`}
+                                        mountOnEnter
+                                        unmountOnExit
+                                    >
+                                        <div className="flex flex-col p-10">
+
+                                            <div className="flex flex-col">
+                                                <Typography
+                                                    sx={{ mt: 2, mb: 2 }}
+                                                    variant="h6"
+                                                    color={"primary"}
+                                                >
+                                                    {" "}
+                                                    Work Experience{" "}
+                                                </Typography>
+                                                {userInfo.workExperiences.map((workExperience, index) => (
+                                                    <div key={index}>
+                                                        <div className="flex space-x-4">
+                                                            <TextField
+                                                                id={`job${index}`}
+                                                                fullWidth
+                                                                label="Company Name"
+                                                                variant="outlined"
+                                                                value={workExperience.company}
+                                                                onChange={(e) => {
+                                                                    let newWorkExperiences = [...userInfo.workExperiences];
+                                                                    newWorkExperiences[index].company = e.target.value;
+                                                                    setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
+                                                                }}
+                                                            />
+                                                            <TextField
+                                                                id={`designation${index}`}
+                                                                fullWidth
+                                                                label="Designation"
+                                                                variant="outlined"
+                                                                // value={userInfo.designation3}
+                                                                // onChange={(e) => setUserInfo({ ...userInfo, designation3: e.target.value })}
+                                                                value={workExperience.designation}
+                                                                onChange={(e) => {
+                                                                    let newWorkExperiences = [...userInfo.workExperiences];
+                                                                    newWorkExperiences[index].designation = e.target.value;
+                                                                    setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div className="flex space-x-4 my-4">
+                                                            <TextField
+                                                                id={`workCity${index}`}
+                                                                fullWidth
+                                                                label="City"
+                                                                variant="outlined"
+                                                                // value={userInfo.workCity3}
+                                                                // onChange={(e) => setUserInfo({ ...userInfo, workCity3: e.target.value })}
+                                                                value={workExperience.workCity}
+                                                                onChange={(e) => {
+                                                                    let newWorkExperiences = [...userInfo.workExperiences];
+                                                                    newWorkExperiences[index].workCity = e.target.value;
+                                                                    setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
+
+                                                                }}
+                                                            />
+
+                                                            <TextField
+                                                                id={`workCountry${index}`}
+                                                                fullWidth
+                                                                label="Country"
+                                                                variant="outlined"
+                                                                // value={userInfo.workCountry3}
+                                                                // onChange={(e) => setUserInfo({ ...userInfo, workCountry3: e.target.value })}
+                                                                value={workExperience.workCountry}
+                                                                onChange={(e) => {
+                                                                    let newWorkExperiences = [...userInfo.workExperiences];
+                                                                    newWorkExperiences[index].workCountry = e.target.value;
+                                                                    setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div className="flex space-x-4">
+                                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                                <DatePicker
+                                                                    label="Start Date"
+                                                                    slotProps={{ textField: { fullWidth: true } }}
+                                                                    // value={userInfo.startDate3}
+                                                                    // onChange={(e) => setUserInfo({ ...userInfo, startDate3: e })}
+                                                                    value={workExperience.startDate}
+                                                                    onChange={(e) => {
+                                                                        let newWorkExperiences = [...userInfo.workExperiences];
+                                                                        newWorkExperiences[index].startDate = e;
+                                                                        setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
+                                                                    }}
+                                                                />
+                                                            </LocalizationProvider>
+                                                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                                                <DatePicker
+                                                                    label="End Date"
+                                                                    slotProps={{ textField: { fullWidth: true } }}
+                                                                    // value={userInfo.endDate3}
+                                                                    // onChange={(e) => setUserInfo({ ...userInfo, endDate3: e })}
+                                                                    value={workExperience.endDate}
+                                                                    onChange={(e) => {
+                                                                        let newWorkExperiences = [...userInfo.workExperiences];
+                                                                        newWorkExperiences[index].endDate = e;
+                                                                        setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
+                                                                    }}
+                                                                />
+                                                            </LocalizationProvider>
+                                                        </div>
+                                                        <div className="flex my-4 ">
+                                                            <TextField
+                                                                id={`description${index}`}
+                                                                label="Job Description"
+                                                                variant="outlined"
+                                                                fullWidth
+                                                                value={workExperience.description}
+                                                                onChange={(e) => {
+                                                                    let newWorkExperiences = [...userInfo.workExperiences];
+                                                                    newWorkExperiences[index].description = e.target.value;
+                                                                    setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div className="flex justify-end mt-2">
+
+                                                            <FormControlLabel
+                                                                control={
+                                                                    <Checkbox
+                                                                        checked={workExperience.working}
+                                                                        onChange={() => {
+                                                                            let newWorkExperiences = [...userInfo.workExperiences];
+                                                                            newWorkExperiences[index].working = !newWorkExperiences[index].working;
+                                                                            setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
+                                                                        }}
+                                                                        sx={{ color: '#757575' }}
+                                                                    />
+
+                                                                }
+                                                                label="Currently Working"
+                                                                sx={{
+                                                                    color: '#757575',
+                                                                }}
+                                                            />
+
+                                                        </div>
+                                                        {/* Add more fields for each work experience as needed */}
+                                                    </div>
+                                                ))}
+
+                                            </div>
+
+                                            <div className="flex space-x-5 px-4 py-2 justify-end">
+                                                <Fab
+                                                    sx={{
+                                                        color: '#e53935',
+                                                    }}
+                                                    // disabled={userInfo.count == 0}
+                                                    aria-label="minus"
+                                                    onClick={handleDelete}
+                                                >
+                                                    <DeleteForeverIcon />
+                                                </Fab>
+                                                <Fab
+                                                    color="primary"
+                                                    // disabled={userInfo.count == 2}
+                                                    aria-label="add"
+                                                    onClick={handleAdd}
                                                 >
                                                     <AddIcon />
                                                 </Fab>
