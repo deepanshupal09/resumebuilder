@@ -72,7 +72,7 @@ const getDetailsByDetailId =(req,res) => {
     pool.query(queries.getDetailsByDetailId,[email,detailId],(error,results)=>{
         if (error) throw error
 
-        res.status(200).json(results);
+        res.status(200).json(results.row);
     })
 }
 
