@@ -19,6 +19,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Navbar from './Navbar';
 import Footer from "./Footer";
 
+const v=1;
 const steps = ['Personal Info', 'Education', 'Job History', 'Projects', 'Skills', 'Achievements', 'Finish'];
 
 export default function UserInfoEntries() {
@@ -55,7 +56,6 @@ export default function UserInfoEntries() {
     })
 
     //for work experience
-
     const isAnyWorkExperienceActive = userInfo.workExperiences.some(workExperience => workExperience.working);
 
     const handleDelete = () => {
