@@ -11,6 +11,9 @@ app.use(express.json());
 app.use(cors())
 app.use('/api/data/', routes)
 
+// app.get('/', (req,res) => {
+//   res.send("Hello W!");
+// })
 
 app.get('/', async (req, res) => {
   

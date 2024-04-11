@@ -36,8 +36,52 @@ const addUser = (req,res) => {
 
 }
 
+
+const updateDetailsByDetailId = (req, res) => {
+    const { details, detailId } = req.body;
+
+    console.log(`Updating details: ${details} for detailId: ${detailId}`)
+
+    pool.query(queries.updateDetailsByDetailId, [details, detailId], (error, results) => {
+        if (error) throw error;
+        res.status(200).send("Details updated successfully");
+    });
+}
+
+const addDetails =(req,res) => {
+    console.log(req.body);
+    const {email, detailId, details} = req.body;
+    pool.query(queries.addDetails, [email, detailId, details], (error,results)=>{
+        if(error) throw error
+        res.status(201).send("Details added successfully!")
+    })
+}
+
+const getAllDetailsByEmail =(req,res) => {
+    const email = req.headers.email;
+    pool.query(queries.getAllDetailsByEmail,[email],(error,results)=>{
+        if (error) throw error
+
+        res.status(200).json(results.rows);
+    })
+}
+
+const getDetailsByDetailId =(req,res) => {
+    const email = req.headers.email;
+    const detailId = req.headers.detailId;
+    pool.query(queries.getDetailsByDetailId,[email,detailId],(error,results)=>{
+        if (error) throw error
+
+        res.status(200).json(results);
+    })
+}
+
 module.exports = {
     getData,
     getUserByEmail,
-    addUser
+    addUser,
+    updateDetailsByDetailId,
+    getDetailsByDetailId,
+    getAllDetailsByEmail,
+    addDetails
 }
