@@ -2,6 +2,7 @@ const pool = require('./db')
 const queries = require('./queries')
 
 const getData = (req,res) => {
+    console.log("here")
     pool.query(queries.getData,(error,results)=> {
         if(error) throw error
         res.status(200).json(results.rows);
@@ -9,7 +10,7 @@ const getData = (req,res) => {
 }
 
 const getUserByEmail = (req,res) => {
-    const email = req.params.email;
+    const email = req.headers.email;
     pool.query(queries.getUserByEmail,[email],(error,results)=>{
         if (error) throw error
 
@@ -39,6 +40,7 @@ const addUser = (req,res) => {
 
 const updateDetailsByDetailId = (req, res) => {
     const { details, detailId } = req.body;
+    console.log("detailId: ", detailId)
 
     console.log(`Updating details: ${details} for detailId: ${detailId}`)
 
@@ -59,6 +61,8 @@ const addDetails =(req,res) => {
 
 const getAllDetailsByEmail =(req,res) => {
     const email = req.headers.email;
+    console.log("email: ",email);
+    // res.send("abc");
     pool.query(queries.getAllDetailsByEmail,[email],(error,results)=>{
         if (error) throw error
 
