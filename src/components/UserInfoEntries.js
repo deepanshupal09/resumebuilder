@@ -53,7 +53,6 @@ export default function UserInfoEntries() {
     })
 
     //for work experience
-
     const isAnyWorkExperienceActive = userInfo.workExperiences.some(workExperience => workExperience.working);
 
     const handleDelete = () => {
