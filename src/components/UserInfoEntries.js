@@ -18,6 +18,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Navbar from './Navbar';
 import Footer from "./Footer";
+import Resume from './Resume';
 
 const v=1;
 const steps = ['Personal Info', 'Education', 'Job History', 'Projects', 'Skills', 'Achievements', 'Finish'];
@@ -39,20 +40,16 @@ export default function UserInfoEntries() {
         country: "",
         pincode: "",
         workExperiences: [
-            { company: "", designation: "", workCity: "", workCountry: "", startDate: "", endDate: "", description: "",  working: false },
+            { company: "", designation: "", workCity: "", workCountry: "", startDate: "", endDate: "", description: [""],  working: false, },
         ],
         projects: [
-            { name: "", startDate: "", endDate: "",  link: "", description: ""},
+            { name: "", startDate: "", endDate: "",  link: "", description: [""]},
         ],
-        achievements: [{
-            description: ""
-        }],
+        achievements: [""],
         education: [
             { school: "", degree: "", schoolCity: "", schoolCountry: "", schoolStartDate: "", schoolEndDate: "" },
         ],
-        skills: [{
-            skillName: ""
-        }],
+        skills: [""],
     })
 
     //for work experience
@@ -132,7 +129,7 @@ export default function UserInfoEntries() {
         if (userInfo.projects.length < 3) {
             let newProjects = [...userInfo.projects];
             newProjects.push({
-                name: "", startDate: "", endDate: "",  link: "", description: ""
+                name: "", startDate: "", endDate: "",  link: "", description: [""]
             });  // Add a new project with default values
             setUserInfo({ ...userInfo, projects: newProjects });
         }
@@ -141,8 +138,9 @@ export default function UserInfoEntries() {
     //for skills
     const handleAddSkill = () => {
         let newSkills = [...userInfo.skills];
-        newSkills.push({ skillName: "" });
-        setUserInfo({ ...userInfo, skills: newSkills });
+        newSkills.push("");
+        console.log(newSkills)
+        setUserInfo({ ...userInfo, skills:newSkills });
     };
 
     const handleDeleteSkill = () => {
@@ -160,7 +158,7 @@ export default function UserInfoEntries() {
     //achievements
     const handleAddAchievements = () => {
         let newAchievements = [...userInfo.achievements];
-        newAchievements.push({ description: "" });
+        newAchievements.push("");
         setUserInfo({ ...userInfo, achievements: newAchievements });
     };
 
@@ -206,20 +204,16 @@ export default function UserInfoEntries() {
             country: "",
             pincode: "",
             workExperiences: [
-                { company: "", designation: "", workCity: "", workCountry: "", startDate: "", endDate: "",description: "", working: false },
+                { company: "", designation: "", workCity: "", workCountry: "", startDate: "", endDate: "",description: [""], working: false },
             ],
             projects: [
-                { name: "", startDate: "", endDate: "",  link: "", description: "" },
+                { name: "", startDate: "", endDate: "",  link: "", description: [""] },
             ],
-            achievements: [{
-                description: ""
-            }],
+            achievements: [""],
             education: [
                 { school: "", degree: "", schoolCity: "", schoolCountry: "", schoolStartDate: "", schoolEndDate: "" },
             ],
-            skills: [{
-                skillName: ""
-            }],
+            skills: [""],
         });
     };
 
@@ -780,14 +774,15 @@ export default function UserInfoEntries() {
                                             >
                                                 Skills
                                             </Typography>
-                                            {userInfo.skills.map((skills, index) => (
+                                            {userInfo.skills.map((skill, index) => (
                                                 <TextField
                                                     key={index}
                                                     label={`Skill ${index + 1}`}
-                                                    value={skills.skillName}
+                                                    value={skill}
                                                     onChange={(e) => {
+                                                        console.log(e.target.value);
                                                         let newSkills = [...userInfo.skills];
-                                                        newSkills[index].skillName = e.target.value;
+                                                        newSkills[index] = e.target.value;
                                                         setUserInfo({ ...userInfo, skills: newSkills });
                                                     }}
                                                     variant="outlined"
@@ -831,14 +826,14 @@ export default function UserInfoEntries() {
                                             >
                                                 Achievements
                                             </Typography>
-                                            {userInfo.achievements.map((achievements, index) => (
+                                            {userInfo.achievements.map((achievement, index) => (
                                                 <TextField
                                                     key={index}
                                                     label={`Achievement ${index + 1}`}
-                                                    value={achievements.description}
+                                                    value={achievement}
                                                     onChange={(e) => {
                                                         let newAchievement = [...userInfo.achievements];
-                                                        newAchievement[index].description = e.target.value;
+                                                        newAchievement[index] = e.target.value;
                                                         setUserInfo({ ...userInfo, achievements: newAchievement });
                                                     }}
                                                     variant="outlined"
@@ -902,6 +897,9 @@ export default function UserInfoEntries() {
                         </div>
 
                     </Box>
+                </div>
+                    <div className="w-[50vw] h-[85vh] px-10">
+                    <Resume user={userInfo} />
                 </div>
             </div>
             <Footer />
