@@ -53,13 +53,11 @@ const steps = [
   "Achievements",
   "Finish",
 ];
-
 export default function UserInfoEntries() {
   const completed = useRef(null);
   const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
   const [open, setOpen] = React.useState(false);
   const [pdfData, setPdfData] = useState(null);
   const [resumeName, setResumeName] = useState("");
@@ -84,6 +82,7 @@ export default function UserInfoEntries() {
   };
 
   useEffect(() => {
+    console.log(getCurrentDate().format('YYYY-MM-DD'))
     if (getCookie("auth")) {
       setUser(JSON.parse(getCookie("auth")));
     }
@@ -96,7 +95,7 @@ export default function UserInfoEntries() {
       axios.get("http://localhost:4000/api/data/getDetailsByDetailId",{headers: {email: user.email, detailid: detailId.detailid}}).then((result)=>{
         
         console.log(result.data[0])
-        setUserInfo(JSON.parse(result.data[0].details));
+        // setUserInfo(JSON.parse(result.data[0].details));
       }).catch((error)=>{
           
       })
@@ -219,8 +218,8 @@ export default function UserInfoEntries() {
         designation: "",
         workCity: "",
         workCountry: "",
-        startDate: getCurrentDate(),
-        endDate: getCurrentDate(),
+        startDate: ('2024-11-11'),
+        endDate: getCurrentDate().format('YYYY-MM-DD'),
         description: [""],
         working: false,
       },
@@ -228,8 +227,8 @@ export default function UserInfoEntries() {
     projects: [
       {
         name: "",
-        startDate: getCurrentDate(),
-        endDate: getCurrentDate(),
+        startDate: getCurrentDate().format('YYYY-MM-DD'),
+        endDate: getCurrentDate().format('YYYY-MM-DD'),
         link: "",
         description: [""],
       },
@@ -241,8 +240,8 @@ export default function UserInfoEntries() {
         degree: "",
         schoolCity: "",
         schoolCountry: "",
-        schoolStartDate: getCurrentDate(),
-        schoolEndDate: getCurrentDate(),
+        schoolStartDate: getCurrentDate().format('YYYY-MM-DD'),
+        schoolEndDate:getCurrentDate().format('YYYY-MM-DD'),
       },
     ],
     skills: [""],
@@ -288,8 +287,8 @@ export default function UserInfoEntries() {
         designation: "",
         workCity: "",
         workCountry: "",
-        startDate: "",
-        endDate: "",
+        startDate: getCurrentDate().format('YYYY-MM-DD'),
+        endDate:getCurrentDate().format('YYYY-MM-DD'),
         description: "",
         working: false,
       }); // Add a new work experience with default values
@@ -318,8 +317,8 @@ export default function UserInfoEntries() {
         degree: "",
         schoolCity: "",
         schoolCountry: "",
-        schoolStartDate: "",
-        schoolEndDate: "",
+        schoolStartDate: getCurrentDate().format('YYYY-MM-DD'),
+        schoolEndDate: getCurrentDate().format('YYYY-MM-DD'),
       }); // Add a new work experience with default values
       setUserInfo({ ...userInfo, education: newEducation });
     }
@@ -343,8 +342,8 @@ export default function UserInfoEntries() {
       let newProjects = [...userInfo.projects];
       newProjects.push({
         name: "",
-        startDate: "",
-        endDate: "",
+        startDate: getCurrentDate().format('YYYY-MM-DD'),
+        endDate:getCurrentDate().format('YYYY-MM-DD'),
         link: "",
         description: [""],
       }); // Add a new project with default values
@@ -433,8 +432,8 @@ export default function UserInfoEntries() {
           designation: "",
           workCity: "",
           workCountry: "",
-          startDate: getCurrentDate(),
-          endDate: getCurrentDate(),
+          startDate: getCurrentDate().format('YYYY-MM-DD'),
+          endDate: getCurrentDate().format('YYYY-MM-DD'),
           description: [""],
           working: false,
         },
@@ -442,8 +441,8 @@ export default function UserInfoEntries() {
       projects: [
         {
           name: "",
-          startDate: getCurrentDate(),
-          endDate: getCurrentDate(),
+          startDate: getCurrentDate().format('YYYY-MM-DD'),
+          endDate: getCurrentDate().format('YYYY-MM-DD'),
           link: "",
           description: [""],
         },
@@ -455,8 +454,8 @@ export default function UserInfoEntries() {
           degree: "",
           schoolCity: "",
           schoolCountry: "",
-          schoolStartDate: getCurrentDate(),
-          schoolEndDate: getCurrentDate(),
+          schoolStartDate: getCurrentDate().format('YYYY-MM-DD'),
+          schoolEndDate: getCurrentDate().format('YYYY-MM-DD'),
         },
       ],
       skills: [""],
@@ -730,10 +729,10 @@ export default function UserInfoEntries() {
                                   }}
                                   // value={userInfo.endDate3}
                                   // onChange={(e) => setUserInfo({ ...userInfo, endDate3: e })}
-                                  value={education.schoolStartDate}
+                                  value={dayjs(education.schoolStartDate)}
                                   onChange={(e) => {
                                     let newEducation = [...userInfo.education];
-                                    newEducation[index].schoolStartDate = e;
+                                    newEducation[index].schoolStartDate = e.format('YYYY-MM-DD');
                                     setUserInfo({
                                       ...userInfo,
                                       education: newEducation,
@@ -751,10 +750,10 @@ export default function UserInfoEntries() {
                                   }}
                                   // value={userInfo.endDate3}
                                   // onChange={(e) => setUserInfo({ ...userInfo, endDate3: e })}
-                                  value={education.schoolEndDate}
+                                  value={dayjs(education.schoolEndDate)}
                                   onChange={(e) => {
                                     let newEducation = [...userInfo.education];
-                                    newEducation[index].schoolEndDate = e;
+                                    newEducation[index].schoolEndDate = e.format('YYYY-MM-DD');
                                     setUserInfo({
                                       ...userInfo,
                                       education: newEducation,
@@ -909,12 +908,12 @@ export default function UserInfoEntries() {
                                   }}
                                   // value={userInfo.startDate3}
                                   // onChange={(e) => setUserInfo({ ...userInfo, startDate3: e })}
-                                  value={workExperience.startDate}
+                                  value={dayjs(workExperience.startDate)}
                                   onChange={(e) => {
                                     let newWorkExperiences = [
                                       ...userInfo.workExperiences,
                                     ];
-                                    newWorkExperiences[index].startDate = e;
+                                    newWorkExperiences[index].startDate = e.format('YYYY-MM-DD');
                                     setUserInfo({
                                       ...userInfo,
                                       workExperiences: newWorkExperiences,
@@ -930,15 +929,15 @@ export default function UserInfoEntries() {
                                       fullWidth: true,
                                     },
                                   }}
-                                  disabled={workExperience.working}
+                                  disabled={dayjs(workExperience.working)}
                                   // value={userInfo.endDate3}
                                   // onChange={(e) => setUserInfo({ ...userInfo, endDate3: e })}
-                                  value={workExperience.endDate}
+                                  value={dayjs(workExperience.endDate)}
                                   onChange={(e) => {
                                     let newWorkExperiences = [
                                       ...userInfo.workExperiences,
                                     ];
-                                    newWorkExperiences[index].endDate = e;
+                                    newWorkExperiences[index].endDate = e.format('YYYY-MM-DD');
                                     setUserInfo({
                                       ...userInfo,
                                       workExperiences: newWorkExperiences,
@@ -1098,10 +1097,10 @@ export default function UserInfoEntries() {
                                   }}
                                   // value={userInfo.startDate3}
                                   // onChange={(e) => setUserInfo({ ...userInfo, startDate3: e })}
-                                  value={project.startDate}
+                                  value={dayjs(project.startDate)}
                                   onChange={(e) => {
                                     let newProject = [...userInfo.projects];
-                                    newProject[index].startDate = e;
+                                    newProject[index].startDate = e.format('YYYY-MM-DD');
                                     setUserInfo({
                                       ...userInfo,
                                       projects: newProject,
@@ -1118,13 +1117,13 @@ export default function UserInfoEntries() {
                                       fullWidth: true,
                                     },
                                   }}
-                                  value={project.endDate}
-                                  onChange={(e) => {
-                                    let newProject = [...userInfo.projects];
-                                    newProject[index].endDate = e;
+                                  value={dayjs(project.endDate)}
+                                  onChange={(e) =>  {
+                                    let newProjects = [...userInfo.projects];
+                                    newProjects[index].endDate = e.format('YYYY-MM-DD');
                                     setUserInfo({
                                       ...userInfo,
-                                      projects: newProject,
+                                      projects: newProjects,
                                     });
                                   }}
                                 />
