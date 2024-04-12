@@ -39,12 +39,12 @@ const addUser = (req,res) => {
 
 
 const updateDetailsByDetailId = (req, res) => {
-    const { email, details, detailId } = req.body;
+    const { email, details, detailId, modified } = req.body;
     console.log("detailId: ", detailId)
 
     console.log(`Updating details: ${details} for detailId: ${detailId} for email: ${email}`)
 
-    pool.query(queries.updateDetailsByDetailId, [details, detailId, email], (error, results) => {
+    pool.query(queries.updateDetailsByDetailId, [details, detailId, email, modified], (error, results) => {
         if (error) throw error;
         res.status(200).send("Details updated successfully");
     });
@@ -52,8 +52,8 @@ const updateDetailsByDetailId = (req, res) => {
 
 const addDetails =(req,res) => {
     console.log(req.body);
-    const {email, detailId, details} = req.body;
-    pool.query(queries.addDetails, [email, detailId, details], (error,results)=>{
+    const {email, detailId, details, modified} = req.body;
+    pool.query(queries.addDetails, [email, detailId, details, modified], (error,results)=>{
         if(error) throw error
         res.status(201).send("Details added successfully!")
     })
@@ -70,15 +70,21 @@ const getAllDetailsByEmail =(req,res) => {
     })
 }
 
-const getDetailsByDetailId =(req,res) => {
+const getDetailsByDetailId = (req, res) => {
     const email = req.headers.email;
-    const detailId = req.headers.detailId;
-    pool.query(queries.getDetailsByDetailId,[email,detailId],(error,results)=>{
-        if (error) throw error
-
-        res.status(200).json(results);
-    })
-}
+    const detailid = req.headers.detailid;
+    console.log(email,  detailid);
+    
+    pool.query(queries.getDetailsByDetailId, [email, detailid], (error, results) => {
+        if (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return; // Return to avoid executing further code
+        }
+        
+        res.status(200).json(results.rows);
+    });
+};
 
 module.exports = {
     getData,

@@ -20,7 +20,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/buildresume" element={<UserInfoEntries />} />
+            <Route path="/buildresume/:detailid" element={<UserInfoEntries />} />
             <Route path="/resume" element={<Resume />} />
           </Route>
         </Routes>
