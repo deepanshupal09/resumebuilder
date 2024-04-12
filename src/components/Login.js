@@ -49,7 +49,7 @@ function Login() {
     user = { ...user, password: null };
 
     axios
-      .post("http://localhost:3001/api/data/", user)
+      .post("http://localhost:4000/api/data/", user)
       .then((res) => {
         console.log("logged in! ", res);
       })
@@ -75,7 +75,7 @@ function Login() {
   //     return new Promise((resolve) => setTimeout(resolve, ms));
   //   }
   async function handleLogin() {
-    const url = `http://localhost:3001/api/data/${Email}`;
+    const url = `http://localhost:4000/api/data/${Email}`;
     axios
       .get(url)
       .then((res) => {

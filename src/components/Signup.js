@@ -52,7 +52,7 @@ function Signup() {
     setCookieWithExpiry("auth", user, 2);
 
     axios
-      .post("http://localhost:3001/api/data/", user)
+      .post("http://localhost:4000/api/data/", user)
       .then((res) => {
         console.log("logged in! ", res);
       })
@@ -101,7 +101,7 @@ function Signup() {
       return;
     }
 
-    const url = `http://localhost:3001/api/data/${Email}`;
+    const url = `http://localhost:4000/api/data/${Email}`;
     console.log("URL: ", url);
 
     axios
@@ -121,7 +121,7 @@ function Signup() {
             password: Password,
           };
           axios
-            .post("http://localhost:3001/api/data/", user)
+            .post("http://localhost:4000/api/data/", user)
             .then((res) => {
               setCookieWithExpiry("auth", user, 2);
               console.log("logged in! ", res);

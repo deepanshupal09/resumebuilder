@@ -39,12 +39,12 @@ const addUser = (req,res) => {
 
 
 const updateDetailsByDetailId = (req, res) => {
-    const { details, detailId } = req.body;
+    const { email, details, detailId } = req.body;
     console.log("detailId: ", detailId)
 
-    console.log(`Updating details: ${details} for detailId: ${detailId}`)
+    console.log(`Updating details: ${details} for detailId: ${detailId} for email: ${email}`)
 
-    pool.query(queries.updateDetailsByDetailId, [details, detailId], (error, results) => {
+    pool.query(queries.updateDetailsByDetailId, [details, detailId, email], (error, results) => {
         if (error) throw error;
         res.status(200).send("Details updated successfully");
     });

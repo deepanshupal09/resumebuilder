@@ -6,13 +6,16 @@ import {
   View,
   StyleSheet,
   Font,
+  Link,
   PDFViewer,
+  PDFDownloadLink
 } from "@react-pdf/renderer";
 import ReactPDF from "@react-pdf/renderer";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 
-const Resume = (props) => {
+const Resume = React.memo((props) => {
   const user = props.user;
+  const setPdfData = props.setPdfData;
 
   Font.register({
     family: "Roboto",
@@ -137,8 +140,8 @@ const Resume = (props) => {
                     </View>
                     <Text>
                       {" "}
-                      {/* {console.log(element.schoolStartDate.$y)} {" "} */}
-                      {element.schoolStartDate.$y}-{element.schoolEndDate.$y}{" "}
+                      {/* {console.log()} {" "} */}
+                      {element.schoolStartDate?.$y}-{element.schoolEndDate?.$y}{" "}
                     </Text>
                   </View>
                 );
@@ -165,7 +168,7 @@ const Resume = (props) => {
                   <View style={styles.exp}>
                     <Text style={styles.bold}> {element.designation} </Text>
                     <Text>
-                      {element.startDate} - {element.endDate}
+                    {element.startDate?.format('MMMM')},  {element.startDate?.$y} - {element.working?" Present":` ${element.endDate?.format('MMMM')}, ${element.endDate.$y}`}
                     </Text>
                   </View>
                   <View style={styles.expSub}>
@@ -193,10 +196,10 @@ const Resume = (props) => {
                     <Text style={styles.bold}>{project.name}</Text>
                     <Text>
                       {" "}
-                      {project.startDate} - {project.endDate}{" "}
+                      {project.startDate?.format('MMMM')},  {project.startDate?.$y} - {project.endDate?.format('MMMM')}, {project.endDate?.$y}
                     </Text>
                   </View>
-                  <Text style={{ fontSize: "9px" }}> {project.link} </Text>
+                  <Link src={project.link} style={{ fontSize: "9px" }}>{project.link}</Link>
                   {project.description.map((element, index) => {
                     return <Text style={styles.listItem}>- {element}</Text>;
                   })}
@@ -220,11 +223,18 @@ const Resume = (props) => {
 
   return (
     <>
+        <PDFDownloadLink document={<MyDocument />} fileName="resume.pdf">
+      {({ blob, url, loading, error }) => {
+        if (loading) return 'Loading...';
+        if (error) return 'Error occurred';
+        setPdfData(blob); // Set PDF data when available
+      }}
+    </PDFDownloadLink>
       <PDFViewer style={{ width: "100%", height: "100%" }}>
         <MyDocument />
       </PDFViewer>
     </>
   );
-};
+});
 
 export default Resume;

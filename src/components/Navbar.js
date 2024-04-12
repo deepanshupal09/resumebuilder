@@ -13,7 +13,7 @@ import LaunchIcon from "@mui/icons-material/Launch";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-function Navbar() {
+const Navbar = React.memo(() => {
   const [open, setOpen] = useState("false");
   const [user, setUser] = useState();
   const [isOpen, setIsOpen] = useState(false);
@@ -203,6 +203,6 @@ function Navbar() {
       </div>
     </>
   );
-}
+});
 
 export default Navbar;

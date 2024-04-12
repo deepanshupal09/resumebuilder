@@ -9,7 +9,6 @@ import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import Signup from "./components/Signup";
 import Resume from "./components/Resume";
-import something from "./components/something";
 
 function App() {
   return (
