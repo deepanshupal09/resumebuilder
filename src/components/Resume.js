@@ -12,6 +12,7 @@ import {
 } from "@react-pdf/renderer";
 import ReactPDF from "@react-pdf/renderer";
 import "react-pdf/dist/esm/Page/TextLayer.css";
+import dayjs from "dayjs";
 
 const Resume = React.memo((props) => {
   const user = props.user;
@@ -52,32 +53,32 @@ const Resume = React.memo((props) => {
     page: {
       fontFamily: "Roboto",
       padding: 20,
-      fontSize: "11px",
-      fontWeight: "300",
+      fontSize: 11,
+      fontWeight: 300,
     },
     heading: {
       textAlign: "center",
-      fontWeight: "500",
+      fontWeight: 500,
       textTransform: "uppercase",
-      fontSize: "20px",
+      fontSize: 20,
     },
     contact: {
       textAlign: "center",
-      fontSize: "11px",
+      fontSize: 11,
     },
     subHeading: {
-      fontWeight: "500",
-      fontSize: "12px",
-      marginTop: "6px",
+      fontWeight: 500,
+      fontSize: 12,
+      marginTop: 6,
     },
     divider: {
-      height: "0.5px",
+      height: 0.5,
       backgroundColor: "black",
       width: "100%",
-      marginVertical: "8px",
+      marginVertical: 8,
     },
     bold: {
-      fontWeight: "400",
+      fontWeight: 400,
     },
     flex: {
       display: "flex",
@@ -87,7 +88,7 @@ const Resume = React.memo((props) => {
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
-      marginVertical: "6px",
+      marginVertical: 6,
     },
     exp: {
       display: "flex",
@@ -98,15 +99,14 @@ const Resume = React.memo((props) => {
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
-      // fontStyle: "italic",
-      fontSize: "9px",
+      fontSize: 9,
     },
     listItem: {
       display: "flex",
       flexDirection: "row",
       alignItems: "center",
-      marginLeft: "10px",
-      marginVertical: "1px",
+      marginLeft: 10,
+      marginVertical: 1,
     },
   });
 
@@ -140,8 +140,7 @@ const Resume = React.memo((props) => {
                     </View>
                     <Text>
                       {" "}
-                      {/* {console.log()} {" "} */}
-                      {element.schoolStartDate?.$y}-{element.schoolEndDate?.$y}{" "}
+                      {dayjs(element.schoolStartDate).format('MMMM YYYY')} - {dayjs(element.schoolEndDate).format('MMMM YYYY')}{" "}
                     </Text>
                   </View>
                 );
@@ -164,11 +163,11 @@ const Resume = React.memo((props) => {
             <View style={styles.divider}></View>
             {user.workExperiences.map((element, index) => {
               return (
-                <View style={{ marginBottom: "6px" }}>
+                <View style={{ marginBottom: 6 }}>
                   <View style={styles.exp}>
                     <Text style={styles.bold}> {element.designation} </Text>
                     <Text>
-                    {element.startDate?.format('MMMM')},  {element.startDate?.$y} - {element.working?" Present":` ${element.endDate?.format('MMMM')}, ${element.endDate.$y}`}
+                    {dayjs(element.startDate).format('MMMM YYYY')} - {element.working ? 'Present' : dayjs(element.endDate).format('MMMM YYYY')}
                     </Text>
                   </View>
                   <View style={styles.expSub}>
@@ -191,15 +190,15 @@ const Resume = React.memo((props) => {
             <View style={styles.divider}></View>
             {user.projects.map((project, index) => {
               return (
-                <View style={{ marginBottom: "6px" }}>
+                <View style={{ marginBottom: 6 }}>
                   <View style={styles.exp}>
                     <Text style={styles.bold}>{project.name}</Text>
                     <Text>
                       {" "}
-                      {project.startDate?.format('MMMM')},  {project.startDate?.$y} - {project.endDate?.format('MMMM')}, {project.endDate?.$y}
+                      {dayjs(project.startDate).format('MMMM YYYY')} - {dayjs(project.endDate).format('MMMM YYYY')}
                     </Text>
                   </View>
-                  <Link src={project.link} style={{ fontSize: "9px" }}>{project.link}</Link>
+                  <Link src={project.link} style={{ fontSize: 9 }}>{project.link}</Link>
                   {project.description.map((element, index) => {
                     return <Text style={styles.listItem}>- {element}</Text>;
                   })}
@@ -223,13 +222,13 @@ const Resume = React.memo((props) => {
 
   return (
     <>
-        <PDFDownloadLink document={<MyDocument />} fileName="resume.pdf">
-      {({ blob, url, loading, error }) => {
-        if (loading) return 'Loading...';
-        if (error) return 'Error occurred';
-        setPdfData(blob); // Set PDF data when available
-      }}
-    </PDFDownloadLink>
+      <PDFDownloadLink document={<MyDocument />} fileName="resume.pdf">
+        {({ blob, url, loading, error }) => {
+          if (loading) return 'Loading...';
+          if (error) return 'Error occurred';
+          setPdfData(blob); // Set PDF data when available
+        }}
+      </PDFDownloadLink>
       <PDFViewer style={{ width: "100%", height: "100%" }}>
         <MyDocument />
       </PDFViewer>

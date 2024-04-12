@@ -52,8 +52,7 @@ const steps = [
   "Skills",
   "Achievements",
   "Finish",
-];
-export default function UserInfoEntries() {
+];export default function UserInfoEntries() {
   const completed = useRef(null);
   const navigate = useNavigate();
 
@@ -95,7 +94,7 @@ export default function UserInfoEntries() {
       axios.get("http://localhost:4000/api/data/getDetailsByDetailId",{headers: {email: user.email, detailid: detailId.detailid}}).then((result)=>{
         
         console.log(result.data[0])
-        // setUserInfo(JSON.parse(result.data[0].details));
+        setUserInfo(JSON.parse(result.data[0].details));
       }).catch((error)=>{
           
       })
@@ -218,7 +217,7 @@ export default function UserInfoEntries() {
         designation: "",
         workCity: "",
         workCountry: "",
-        startDate: ('2024-11-11'),
+        startDate:  getCurrentDate().format('YYYY-MM-DD'),
         endDate: getCurrentDate().format('YYYY-MM-DD'),
         description: [""],
         working: false,
@@ -289,7 +288,7 @@ export default function UserInfoEntries() {
         workCountry: "",
         startDate: getCurrentDate().format('YYYY-MM-DD'),
         endDate:getCurrentDate().format('YYYY-MM-DD'),
-        description: "",
+        description: [""],
         working: false,
       }); // Add a new work experience with default values
       setUserInfo({ ...userInfo, workExperiences: newWorkExperiences });
@@ -929,7 +928,7 @@ export default function UserInfoEntries() {
                                       fullWidth: true,
                                     },
                                   }}
-                                  disabled={dayjs(workExperience.working)}
+                                  disabled={workExperience.working}
                                   // value={userInfo.endDate3}
                                   // onChange={(e) => setUserInfo({ ...userInfo, endDate3: e })}
                                   value={dayjs(workExperience.endDate)}
