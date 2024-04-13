@@ -49,6 +49,15 @@ const updateDetailsByDetailId = (req, res) => {
         res.status(200).send("Details updated successfully");
     });
 }
+const deleteDetailsByDetailId = (req, res) => {
+    const { email,detailId } = req.body;
+    console.log(`Deleteing for detailId: ${detailId} for email: ${email}`)
+
+    pool.query(queries.deleteDetailsByDetailId, [detailId, email,], (error, results) => {
+        if (error) throw error;
+        res.status(200).send("Details deleted successfully");
+    });
+}
 
 const addDetails =(req,res) => {
     console.log(req.body);
@@ -93,5 +102,6 @@ module.exports = {
     updateDetailsByDetailId,
     getDetailsByDetailId,
     getAllDetailsByEmail,
-    addDetails
+    addDetails,
+    deleteDetailsByDetailId
 }
