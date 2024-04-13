@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getCookie } from "../../cookies";
-import Navbar from "../Navbar";
 import temp from "../images/template.png";
-import { Button } from "@mui/joy";
-import Footer from "../Footer";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/joy";
 
 function formatTimeDifference(timeDifferenceInMinutes) {
   if (timeDifferenceInMinutes < 1) {
@@ -25,6 +23,7 @@ export default function Dashboard() {
   const [user, setUser] = useState();
   const [resumes, setResumes] = useState([]);
   const navigate = useNavigate();
+  const [reRenderDetails,setReRenderDetails]=useState(false);
 
   useEffect(() => {
     if (getCookie("auth")) {
@@ -61,7 +60,13 @@ export default function Dashboard() {
       .catch((error) => {
         // Handle error
       });
-  }, [user]); // Add user to dependency array if user may change
+  }, [user,reRenderDetails]); // Add user to dependency array if user may change
+
+  const deleteDetail=async (e)=>{
+    console.log(e.name);
+    await axios.post("http://localhost:4000/api/data/deleteDetailsByDetailId",{email:user.email,detailId:e.name});
+    setReRenderDetails(!reRenderDetails);
+  }
 
   return (
     <>
@@ -84,10 +89,13 @@ export default function Dashboard() {
                     <div className="mt-1">Last edited {e.lastModified}</div>
                   </div>
                 </div>
-                <div>
-                  <button onClick={()=>{navigate(`/buildresume/${e.name}/2`)}} className="bg-[#F0F2F5] rounded-[12px] py-0 px-[16px] h-[32px] w-[84px] text-[#121417] text-[16px] flex justify-center items-center">
+                <div className="flex space-x-2 py-5">
+                  <Button onClick={()=>{navigate(`/buildresume/${e.name}/2`)}} variant="soft" color="neutral">
                     Edit
-                  </button>
+                  </Button>
+                  <Button onClick={(element)=>{deleteDetail(e)}} variant="soft" color="danger">
+                    Delete
+                  </Button>
                 </div>
               </div>
             );

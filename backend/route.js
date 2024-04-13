@@ -9,5 +9,6 @@ router.get("/getAllDetailsByEmail", controller.getAllDetailsByEmail);
 router.post("/addDetails",controller.addDetails);
 router.get("/getDetailsByDetailId", controller.getDetailsByDetailId);
 router.post("/updateDetailsByDetailId", controller.updateDetailsByDetailId);
+router.post("/deleteDetailsByDetailId", controller.deleteDetailsByDetailId);
 
 module.exports = router;
