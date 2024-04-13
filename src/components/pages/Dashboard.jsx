@@ -97,14 +97,6 @@ export default function Dashboard() {
             Account Settings
           </div>
 
-          <div>
-            <div className="text-[18px] font-semibold  ">
-              Personal Information
-            </div>
-            <div className="text-[16px] font-light cursor-pointer hover:underline">
-              Update
-            </div>
-          </div>
 
           <div className="my-10">
             <div className="text-[18px] font-semibold  ">Change Password</div>
