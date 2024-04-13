@@ -1,13 +1,10 @@
-import React, { useRef } from "react";
+import React from "react";
 import { TextField } from "@mui/material";
 import { useState, useEffect } from "react";
 // import { signIn, useAuth } from "../../firebase";
-import { useNavigate, Link, Navigate } from "react-router-dom";
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
-import googleOneTap from "google-one-tap";
+import { useNavigate, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { setCookieWithExpiry } from "../cookies";
+import { setCookieWithExpiry } from "../../cookies";
 import axios from "axios";
 import Navbar from "./Navbar";
 import Footer from "./Footer"
@@ -17,7 +14,6 @@ function Login() {
   const [Password, setPass] = useState("");
   const [helperText, setHelperText] = useState("");
   const [error, setError] = useState(false);
-  const [Loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,22 +54,7 @@ function Login() {
       });
     navigate("/dashboard");
   }
-  //   const options = {
-  //     client_id: "953816291178-931blpsdt9nm709ellqqpjo55bsoodj7.apps.googleusercontent.com", // required
-  //     auto_select: false, // optional
-  //     cancel_on_tap_outside: false, // optional
-  //     context: 'signin' // optional
-  // };
 
-  // googleOneTap(options, (response) => {
-  //     // Send response to server
-  //     console.log(response);
-  // })
-  // const user = useAuth();
-
-  //   function sleep(ms) {
-  //     return new Promise((resolve) => setTimeout(resolve, ms));
-  //   }
   async function handleLogin() {
     const url = `http://localhost:4000/api/data/${Email}`;
     axios
@@ -101,30 +82,8 @@ function Login() {
       .catch((error) => {
         console.log("error: ", error);
       });
-    // setLoading(true);
-    // try {
-    //   await signIn(Email, Password);
-    //   console.log(user?.email);
-    //   navigate("/home");
-    // } catch {
-    //   setPass("");
-    //   setEmail("");
-    //   setError(true);
-    //   setHelperText("Invalid Email ID or Password");
-    // }
-    // setLoading(false);
   }
 
-  //   useEffect(() => {
-
-  //     // setLoading(true);
-  //       if (user) {
-  //         setLoading(false);
-  //         navigate("/home");
-  //       }
-  //       // setLoading(false);
-
-  //   }, [user]);
 
   return (
     <>
@@ -248,17 +207,6 @@ function Login() {
             </Link>
           </div>
         </div>
-        <Backdrop
-          sx={{
-            color: "#fff",
-            zIndex: (theme) => theme.zIndex.drawer + 1,
-            backdropFilter: "blur(20px)",
-          }}
-          open={Loading}
-          close={Loading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
       </div>
       <Footer />
     </>

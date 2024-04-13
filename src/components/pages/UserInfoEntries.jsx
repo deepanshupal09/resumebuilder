@@ -3,10 +3,8 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -18,7 +16,9 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import Resume from "./Resume";
+import Resume1 from "./Resume1";
+import Resume2 from "./Resume2";
+import Resume3 from "./Resume3";
 import Lottie from "lottie-web";
 import { useState, useEffect, useRef } from "react";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -37,10 +37,8 @@ import SkipNextIcon from "@mui/icons-material/SkipNext";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import axios from "axios";
-import { getCookie } from "../cookies";
+import { getCookie } from "../../cookies";
 import { FormHelperText } from "@mui/joy";
-import { InfoOutlined } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
@@ -52,20 +50,72 @@ const steps = [
   "Skills",
   "Achievements",
   "Finish",
-];export default function UserInfoEntries() {
+];
+
+
+export default function UserInfoEntries() {
+
+  const getCurrentDate = () => {
+    return dayjs();
+  };
+
   const completed = useRef(null);
-  const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [pdfData, setPdfData] = useState(null);
-  const [resumeName, setResumeName] = useState("");
   const [saved, setSaved] = useState(false);
   const [savedOverwrite, setSavedOverwrite] = useState(false);
   const [user, setUser] = useState();
   const [error, setError] = useState("");
-  const [detailId, setDetailId] = useState(useParams());
-  
+  const {detailid,templateid} = useParams();
+  const [userInfo, setUserInfo] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+    state: "",
+    city: "",
+    country: "",
+    pincode: "",
+    workExperiences: [
+      {
+        company: "",
+        designation: "",
+        workCity: "",
+        workCountry: "",
+        startDate:  getCurrentDate().format('YYYY-MM-DD'),
+        endDate: getCurrentDate().format('YYYY-MM-DD'),
+        description: [""],
+        working: false,
+      },
+    ],
+    projects: [
+      {
+        name: "",
+        startDate: getCurrentDate().format('YYYY-MM-DD'),
+        endDate: getCurrentDate().format('YYYY-MM-DD'),
+        link: "",
+        description: [""],
+      },
+    ],
+    achievements: [""],
+    education: [
+      {
+        school: "",
+        degree: "",
+        schoolCity: "",
+        schoolCountry: "",
+        schoolStartDate: getCurrentDate().format('YYYY-MM-DD'),
+        schoolEndDate:getCurrentDate().format('YYYY-MM-DD'),
+      },
+    ],
+    skills: [""],
+  });
+  const [userInfoPreview, setUserInfoPreview] = useState(userInfo);
+  const [resumeName, setResumeName] = useState(detailid);  
+  const template = [<Resume1 user={userInfoPreview} setPdfData={setPdfData} />, <Resume2 user={userInfoPreview} setPdfData={setPdfData} />, <Resume3 user={userInfoPreview} setPdfData={setPdfData} />];
 
   const downloadPdf = () => {
     if (pdfData) {
@@ -88,10 +138,10 @@ const steps = [
   }, []);
 
   useEffect(() => {
-    console.log(detailId)    
-    if (user && detailId) {
-      console.log("details: ",detailId)
-      axios.get("http://localhost:4000/api/data/getDetailsByDetailId",{headers: {email: user.email, detailid: detailId.detailid}}).then((result)=>{
+    console.log(detailid)    
+    if (user && detailid) {
+      console.log("details: ",detailid)
+      axios.get("http://localhost:4000/api/data/getDetailsByDetailId",{headers: {email: user.email, detailid: detailid}}).then((result)=>{
         
         console.log(result.data[0])
         setUserInfo(JSON.parse(result.data[0].details));
@@ -99,7 +149,7 @@ const steps = [
           
       })
   }
-  }, [user, detailId]);
+  }, [user, detailid]);
 
   const saveResume = async () => {
     const details = JSON.stringify(userInfo);
@@ -196,55 +246,9 @@ const steps = [
       });
   };
 
-  const date = new Date();
-  const getCurrentDate = () => {
-    return dayjs();
-  };
 
-  const [userInfo, setUserInfo] = React.useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
-    state: "",
-    city: "",
-    country: "",
-    pincode: "",
-    workExperiences: [
-      {
-        company: "",
-        designation: "",
-        workCity: "",
-        workCountry: "",
-        startDate:  getCurrentDate().format('YYYY-MM-DD'),
-        endDate: getCurrentDate().format('YYYY-MM-DD'),
-        description: [""],
-        working: false,
-      },
-    ],
-    projects: [
-      {
-        name: "",
-        startDate: getCurrentDate().format('YYYY-MM-DD'),
-        endDate: getCurrentDate().format('YYYY-MM-DD'),
-        link: "",
-        description: [""],
-      },
-    ],
-    achievements: [""],
-    education: [
-      {
-        school: "",
-        degree: "",
-        schoolCity: "",
-        schoolCountry: "",
-        schoolStartDate: getCurrentDate().format('YYYY-MM-DD'),
-        schoolEndDate:getCurrentDate().format('YYYY-MM-DD'),
-      },
-    ],
-    skills: [""],
-  });
+
+ 
 
   useEffect(() => {
     if (activeStep === 6) {
@@ -253,13 +257,12 @@ const steps = [
         renderer: "svg",
         loop: false,
         autoplay: true,
-        animationData: require("./completed.json"),
+        animationData: require("../animations/completed.json"),
       });
       return () => instance.destroy();
     }
   }, [activeStep]);
 
-  const [userInfoPreview, setUserInfoPreview] = useState(userInfo);
 
   //for work experience
   const isAnyWorkExperienceActive = userInfo.workExperiences.some(
@@ -365,7 +368,7 @@ const steps = [
         newSkills.pop(); // Remove the last skills
         return { ...prevUserInfo, skills: newSkills };
       } else {
-        return prevUserInfo; // Return the current state if there are no skill to delete
+        return { ...prevUserInfo, skills: [""] };
       }
     });
   };
@@ -384,7 +387,7 @@ const steps = [
         newAchievements.pop(); // Remove the last achievement
         return { ...prevUserInfo, achievements: newAchievements };
       } else {
-        return prevUserInfo; // Return the current state if there are no skill to delete
+        return { ...prevUserInfo, achievements: [""] }; // Return the current state if there are no skill to delete
       }
     });
   };
@@ -1401,7 +1404,7 @@ const steps = [
           </ModalDialog>
         </Modal>
         <div className="w-[50vw] h-[85vh] px-10">
-          <Resume user={userInfoPreview} setPdfData={setPdfData} />
+          {template[templateid]}
         </div>
       </div>
       <Footer />

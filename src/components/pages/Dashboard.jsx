@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getCookie } from "../cookies";
+import { getCookie } from "../../cookies";
 import Navbar from "./Navbar";
 import temp from "../images/template.png";
 import { Button } from "@mui/joy";

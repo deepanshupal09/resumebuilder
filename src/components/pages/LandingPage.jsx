@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import ScrollContainer from "react-indiana-drag-scroll";
@@ -11,6 +11,8 @@ import res3 from "../images/resume-3.jpeg";
 import res4 from "../images/resume-4.jpeg";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
+import { getCookie } from "../../cookies";
 
 function LandingPage() {
   const container = useRef(null);
@@ -19,6 +21,15 @@ function LandingPage() {
   const integrate = useRef(null);
   const multipletemplate = useRef(null);
   const faq = useRef(null);
+  const navigate = useNavigate();
+  const templates = [res1,res2,res3,res4];
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    if (getCookie("auth")) {
+      setUser(JSON.parse(getCookie("auth")));
+    }
+  }, []);
 
   useEffect(() => {
     const instance = Lottie.loadAnimation({
@@ -26,7 +37,7 @@ function LandingPage() {
       renderer: "svg",
       loop: true,
       autoplay: true,
-      animationData: require("./first-pic.json"),
+      animationData: require("../animations/first-pic.json"),
     });
     return () => instance.destroy();
   }, []);
@@ -37,7 +48,7 @@ function LandingPage() {
       renderer: "svg",
       loop: true,
       autoplay: true,
-      animationData: require("./64947-working-man.json"),
+      animationData: require("../animations/64947-working-man.json"),
     });
     return () => instance.destroy();
   }, []);
@@ -47,7 +58,7 @@ function LandingPage() {
       renderer: "svg",
       loop: true,
       autoplay: true,
-      animationData: require("./64947-working-man.json"),
+      animationData: require("../animations/64947-working-man.json"),
     });
     return () => instance.destroy();
   }, []);
@@ -58,7 +69,7 @@ function LandingPage() {
       renderer: "svg",
       loop: true,
       autoplay: true,
-      animationData: require("./cover-letter-builder.json"),
+      animationData: require("../animations/cover-letter-builder.json"),
     });
     return () => instance.destroy();
   }, []);
@@ -68,7 +79,7 @@ function LandingPage() {
       renderer: "svg",
       loop: true,
       autoplay: true,
-      animationData: require("./easy-to-use.json"),
+      animationData: require("../animations/easy-to-use.json"),
     });
     return () => instance.destroy();
   }, []);
@@ -79,7 +90,7 @@ function LandingPage() {
       renderer: "svg",
       loop: true,
       autoplay: true,
-      animationData: require("./multiple-templates.json"),
+      animationData: require("../animations/multiple-templates.json"),
     });
     return () => instance.destroy();
   }, []);
@@ -95,7 +106,7 @@ function LandingPage() {
     var an4 = document.getElementById("cd4");
     console.log(a.clientHeight);
 
-    if (a.clientHeight == "0") {
+    if (a.clientHeight === "0") {
       a.style.height = "auto";
       a.style.padding = "1rem";
       a.style.border = "1px solid #94A3B8";
@@ -128,7 +139,7 @@ function LandingPage() {
     var an3 = document.getElementById("cd3");
     var an4 = document.getElementById("cd4");
 
-    if (b.clientHeight == "0") {
+    if (b.clientHeight === "0") {
       b.style.height = "auto";
       b.style.padding = "1rem";
       b.style.border = "1px solid #94A3B8";
@@ -161,7 +172,7 @@ function LandingPage() {
     var an3 = document.getElementById("cd3");
     var an4 = document.getElementById("cd4");
 
-    if (c.clientHeight == "0") {
+    if (c.clientHeight === "0") {
       c.style.height = "auto";
       c.style.padding = "1rem";
       c.style.border = "1px solid #94A3B8";
@@ -195,7 +206,7 @@ function LandingPage() {
     var an2 = document.getElementById("cd2");
     var an3 = document.getElementById("cd3");
     var an4 = document.getElementById("cd4");
-    if (d.clientHeight == "0") {
+    if (d.clientHeight === "0") {
       d.style.height = "auto";
       d.style.padding = "1rem";
       d.style.border = "1px solid #94A3B8";
@@ -277,53 +288,29 @@ function LandingPage() {
           >
             <div
               className=" scroll-smooth template h-full mx-auto flex space-x-[3vw] mt-[5vh] flex-nowrap overflow-y-visible"
-              id="temp"
+              id="temp" onClick={()=>{  }}
             >
-              <div
+             {templates.map((template,index) => {
+              return (
+                <div key={index}
+                onClick={()=>{
+                  const time = (new Date()).toString();
+                  
+                  navigate(`/buildresume/${user.email}${time}/${index}`)
+                }}
                 className="h-[100%] w-[72%] px-1 md:px-2 py-4 md:w-[27%]"
                 style={{ flex: "0 0 auto" }}
               >
                 {" "}
                 <img src="" alt="" />
                 <img
-                  src={res1}
+                  src={template}
                   className="h-[100%] cursor-pointer hover:scale-[110%] transition-all duration-300  w-[100%] shadow-2xl"
                   alt=""
                 />{" "}
               </div>
-              <div
-                className="h-[100%] w-[72%] px-1 md:px-2 py-4 md:w-[27%]"
-                style={{ flex: "0 0 auto" }}
-              >
-                {" "}
-                <img
-                  src={res2}
-                  className="h-[100%] cursor-pointer hover:scale-[110%] transition-all duration-300  w-[100%] shadow-2xl"
-                  alt=""
-                />{" "}
-              </div>
-              <div
-                className="h-[100%] w-[72%] px-1 md:px-2 py-4 md:w-[27%]"
-                style={{ flex: "0 0 auto" }}
-              >
-                {" "}
-                <img
-                  src={res3}
-                  className="h-[100%] cursor-pointer hover:scale-[110%] transition-all duration-300  w-[100%] shadow-2xl"
-                  alt=""
-                />{" "}
-              </div>
-              <div
-                className="h-[100%] w-[72%] px-1 md:px-2 py-4 md:w-[27%]"
-                style={{ flex: "0 0 auto" }}
-              >
-                {" "}
-                <img
-                  src={res4}
-                  className="h-[100%]  cursor-pointer hover:scale-[110%] transition-all duration-300 w-[100%] shadow-2xl"
-                  alt=""
-                />{" "}
-              </div>
+              )
+             })}
             </div>
           </ScrollContainer>
         </div>

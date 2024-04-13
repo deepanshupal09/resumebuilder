@@ -11,7 +11,7 @@ import AOS from "aos";
 import resbuil from "../images/resumebuilder.png";
 import "aos/dist/aos.css";
 
-function footer() {
+const footer = React.memo((props) => {
   AOS.init();
   return (
     <div
@@ -75,13 +75,10 @@ function footer() {
           <FaTwitter className="hover:text-cyan-400 cursor-pointer"></FaTwitter>
           <FaLinkedin className="hover:text-blue-800 cursor-pointer"></FaLinkedin>
           <FaGithub className="hover:text-white cursor-pointer"></FaGithub>
-
-          {/* <FontAwesomeIcon icon={faFacebookF} /> */}
-          {/* <FontAwesomeIcon icon={faFacebook} /> */}
         </div>
       </div>
     </div>
   );
-}
+});
 
 export default footer;
