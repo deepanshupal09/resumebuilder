@@ -11,9 +11,8 @@ import { useEffect } from "react";
 import { delete_cookie, getCookie } from "../cookies";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const Navbar = () => {
+const Navbar = React.memo(({user}) => {
   const [open, setOpen] = useState("false");
-  const [user, setUser] = useState();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -44,11 +43,12 @@ const Navbar = () => {
     }
   };
 
-  useEffect(() => {
-    if (getCookie("auth")) {
-      setUser(JSON.parse(getCookie("auth")));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (getCookie("auth")) {
+  //     setUser(JSON.parse(getCookie("auth")));
+  //   }
+  // }, []);
+
 
   return (
     <>
@@ -200,6 +200,6 @@ const Navbar = () => {
       </div>
     </>
   );
-};
+});
 
 export default Navbar;

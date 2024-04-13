@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 // import { signIn, useAuth } from "../../firebase";
 import { useNavigate, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { setCookieWithExpiry } from "../../cookies";
+import { getCookie, setCookieWithExpiry } from "../../cookies";
 import axios from "axios";
+import Navbar from "../Navbar";
 
 function Login() {
   const [Email, setEmail] = useState("");
@@ -13,6 +14,12 @@ function Login() {
   const [helperText, setHelperText] = useState("");
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (getCookie("auth")) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   useEffect(() => {
     const google = window["google"];
@@ -85,6 +92,8 @@ function Login() {
 
   return (
     <>
+    
+    <Navbar  />
       <div
         id="l"
         //   style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/3/33/Microsoft_login_screen.svg)"

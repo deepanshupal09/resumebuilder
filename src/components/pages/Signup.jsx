@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 // import { signIn, useAuth } from "../../firebase";
 import { useNavigate,  } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { setCookieWithExpiry } from "../../cookies";
+import { getCookie, setCookieWithExpiry } from "../../cookies";
 import axios from "axios";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
@@ -19,6 +19,12 @@ function Signup() {
   const [helperTextPassConf, setHelperTextPassConf] = useState("");
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (getCookie("auth")) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   useEffect(() => {
     const google = window["google"];
@@ -108,6 +114,8 @@ function Signup() {
 
   return (
     <>
+    
+    <Navbar />
       <div
         id="l"
         className=" "

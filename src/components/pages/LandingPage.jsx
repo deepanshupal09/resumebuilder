@@ -11,6 +11,7 @@ import res3 from "../images/resume-3.jpg";
 import res4 from "../images/resume-4.jpg";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../cookies";
+import Navbar from "../Navbar";
 
 function LandingPage() {
   const container = useRef(null);
@@ -234,6 +235,8 @@ function LandingPage() {
   AOS.init();
   return (
     <>
+    
+    <Navbar user={user} />
       <div className=" first-component flex text-white h-[90vh]">
         <div className=" mx-12 slideleft">
           <div className=" relative top-[25%] text-3xl lg:text-5xl font-bold font-sans">

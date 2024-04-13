@@ -45,11 +45,12 @@ import Menu from '@mui/joy/Menu';
 import MenuItem from '@mui/joy/MenuItem';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import DialogActions from '@mui/joy/DialogActions';
-import DeleteForever from '@mui/icons-material/DeleteForever';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
-import { Save } from "@mui/icons-material";
 import Divider from '@mui/joy/Divider';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import Navbar from "../Navbar";
 
 const steps = [
   "Personal Info",
@@ -74,7 +75,7 @@ export default function UserInfoEntries() {
 
   const handleClick = () => {
     // console.info(`You clicked ${options[selectedIndex]}`);
-    switch(selectedIndex) {
+    switch (selectedIndex) {
       case 0:
         saveAndOverwrite();
         break;
@@ -106,6 +107,7 @@ export default function UserInfoEntries() {
   const [pdfData, setPdfData] = useState(null);
   const [saved, setSaved] = useState(false);
   const [savedOverwrite, setSavedOverwrite] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
   const [error, setError] = useState("");
   const { detailid, templateid } = useParams();
@@ -181,13 +183,15 @@ export default function UserInfoEntries() {
     console.log(detailid)
     if (user && detailid) {
       console.log("details: ", detailid)
+      setLoading(true)
       axios.get("http://localhost:4000/api/data/getDetailsByDetailId", { headers: { email: user.email, detailid: detailid } }).then((result) => {
-
+        setLoading(false)
         console.log(result.data[0])
         setUserInfo(JSON.parse(result.data[0].details));
         setUserInfoPreview(JSON.parse(result.data[0].details));
 
       }).catch((error) => {
+        setLoading(false)
 
       })
     }
@@ -510,6 +514,8 @@ export default function UserInfoEntries() {
 
   return (
     <>
+
+      <Navbar user={user} />
       <div className="flex my-5 bg-white pt-[10vh] w-full p-8 h-[100vh]">
         <div className="w-[50vw]">
           <Box sx={{ width: "100%" }}>
@@ -1346,7 +1352,7 @@ export default function UserInfoEntries() {
                     </div>
 
                     <ButtonGroup className="flex pt-4 px-10 justify-end">
-                      <ButtonJoy  variant="outlined" color="primary" onClick={()=>{setOpenReset(true)}}>
+                      <ButtonJoy variant="outlined" color="primary" onClick={() => { setOpenReset(true) }}>
                         <RestartAltIcon /> &nbsp; Reset
                       </ButtonJoy>
                       <ButtonJoy
@@ -1359,7 +1365,7 @@ export default function UserInfoEntries() {
                       </ButtonJoy>
 
                       <ButtonJoy color="primary" variant="outlined"
-                          ref={anchorRef} onClick={handleClick}>{selectedIndex === 0 ? (<SaveIcon />) : (selectedIndex===1) ? <SaveAsIcon />: <DownloadIcon />}&nbsp;{savedOverwrite?"Saved Successfully!":options[selectedIndex]} </ButtonJoy>
+                        ref={anchorRef} onClick={handleClick}>{selectedIndex === 0 ? (<SaveIcon />) : (selectedIndex === 1) ? <SaveAsIcon /> : <DownloadIcon />}&nbsp;{savedOverwrite ? "Saved Successfully!" : options[selectedIndex]} </ButtonJoy>
                       <IconButton color="primary" variant="outlined"
                         aria-controls={open ? 'split-button-menu' : undefined}
                         aria-expanded={open ? 'true' : undefined}
@@ -1385,7 +1391,7 @@ export default function UserInfoEntries() {
                           selected={index === selectedIndex}
                           onClick={(event) => handleMenuItemClick(event, index)}
                         >
-                          {index === 0 ? (<SaveIcon />) : (index===1) ? <SaveAsIcon />: <DownloadIcon />} &nbsp;{option}
+                          {index === 0 ? (<SaveIcon />) : (index === 1) ? <SaveAsIcon /> : <DownloadIcon />} &nbsp;{option}
                         </MenuItem>
                       ))}
                     </Menu>
@@ -1399,7 +1405,7 @@ export default function UserInfoEntries() {
               ) : (
                 <React.Fragment>
                   <ButtonGroup className="flex px-10 pt-4 justify-end">
-                    <ButtonJoy color="primary" onClick={()=>{setOpenReset(true)}}>
+                    <ButtonJoy color="primary" onClick={() => { setOpenReset(true) }}>
                       <RestartAltIcon /> &nbsp; Reset
                     </ButtonJoy>
                     <ButtonJoy
@@ -1450,7 +1456,7 @@ export default function UserInfoEntries() {
               <ButtonGroup className="" orientation="vertical">
                 <ButtonJoy
                   className="w-full"
-                  variant={saved ? "solid": "outlined"}
+                  variant={saved ? "solid" : "outlined"}
                   color={saved ? "success" : "primary"}
                   type="submit"
                   onClick={saveResume}
@@ -1472,25 +1478,31 @@ export default function UserInfoEntries() {
           </ModalDialog>
         </Modal>
         <Modal open={openReset} onClose={() => setOpenReset(false)}>
-        <ModalDialog variant="outlined" role="alertdialog">
-          <DialogTitle>
-            <WarningRoundedIcon />
-            Confirmation
-          </DialogTitle>
-          <Divider />
-          <DialogContent>
-            Are you sure you want to reset all the details?
-          </DialogContent>
-          <DialogActions>
-            <ButtonJoy variant="solid" color="danger" onClick={() => {handleReset();setOpenReset(false);}}>
-              Yes
-            </ButtonJoy>
-            <ButtonJoy variant="plain" color="neutral" onClick={() => setOpenReset(false)}>
-              No
-            </ButtonJoy>
-          </DialogActions>
-        </ModalDialog>
-      </Modal>
+          <ModalDialog variant="outlined" role="alertdialog">
+            <DialogTitle>
+              <WarningRoundedIcon />
+              Confirmation
+            </DialogTitle>
+            <Divider />
+            <DialogContent>
+              Are you sure you want to reset all the details?
+            </DialogContent>
+            <DialogActions>
+              <ButtonJoy variant="solid" color="danger" onClick={() => { handleReset(); setOpenReset(false); }}>
+                Yes
+              </ButtonJoy>
+              <ButtonJoy variant="plain" color="neutral" onClick={() => setOpenReset(false)}>
+                No
+              </ButtonJoy>
+            </DialogActions>
+          </ModalDialog>
+        </Modal>
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <div className="w-[50vw] h-[85vh] px-10">
           {template[templateid]}
         </div>

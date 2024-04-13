@@ -302,7 +302,7 @@ const MyDocument = ({ user }) => (
     </Page>
   </Document>
 );
-const Resume = ({setPdfData ,user}) => (
+const Resume = React.memo(({setPdfData ,user}) => (
   <>
   <PDFDownloadLink document={<MyDocument user={user} />} fileName="resume.pdf">
       {({ blob, url, loading, error }) => {
@@ -315,6 +315,6 @@ const Resume = ({setPdfData ,user}) => (
       <MyDocument user={user} />
     </PDFViewer>
   </>
-);
+));
 
 export default Resume;
