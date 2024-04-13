@@ -5,12 +5,10 @@ import ScrollContainer from "react-indiana-drag-scroll";
 import Lottie from "lottie-web";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import res1 from "../images/resume-1.jpeg";
-import res2 from "../images/resume-2.jpeg";
-import res3 from "../images/resume-3.jpeg";
-import res4 from "../images/resume-4.jpeg";
-import Navbar from "../Navbar";
-import Footer from "../Footer";
+import res1 from "../images/resume-1.jpg";
+import res2 from "../images/resume-2.jpg";
+import res3 from "../images/resume-3.jpg";
+import res4 from "../images/resume-4.jpg";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../cookies";
 

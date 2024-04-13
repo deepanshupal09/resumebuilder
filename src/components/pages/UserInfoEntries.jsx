@@ -14,11 +14,10 @@ import Checkbox from "@mui/material/Checkbox";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import Navbar from "../Navbar";
-import Footer from "../Footer";
 import Resume1 from "../Resume1";
 import Resume2 from "../Resume2";
 import Resume3 from "../Resume3";
+import Resume4 from "../Resume4";
 import Lottie from "lottie-web";
 import { useState, useEffect, useRef } from "react";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -41,6 +40,16 @@ import { getCookie } from "../../cookies";
 import { FormHelperText } from "@mui/joy";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import IconButton from '@mui/joy/IconButton';
+import Menu from '@mui/joy/Menu';
+import MenuItem from '@mui/joy/MenuItem';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import DialogActions from '@mui/joy/DialogActions';
+import DeleteForever from '@mui/icons-material/DeleteForever';
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
+import { Save } from "@mui/icons-material";
+import Divider from '@mui/joy/Divider';
 
 const steps = [
   "Personal Info",
@@ -55,6 +64,37 @@ const steps = [
 
 export default function UserInfoEntries() {
 
+  const options = ['Save', 'Save As..', 'Download'];
+
+  const [openSave, setOpenSave] = useState(false);
+  const actionRef = useRef(null);
+  const anchorRef = useRef(null);
+  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [openReset, setOpenReset] = useState();
+
+  const handleClick = () => {
+    // console.info(`You clicked ${options[selectedIndex]}`);
+    switch(selectedIndex) {
+      case 0:
+        saveAndOverwrite();
+        break;
+      case 1:
+        setOpen(true);
+        break;
+      case 2:
+        downloadPdf();
+        break;
+      default:
+    }
+  };
+
+  const handleMenuItemClick = (event, index) => {
+    setSelectedIndex(index);
+    setOpenSave(false);
+  };
+
+
+
   const getCurrentDate = () => {
     return dayjs();
   };
@@ -68,7 +108,7 @@ export default function UserInfoEntries() {
   const [savedOverwrite, setSavedOverwrite] = useState(false);
   const [user, setUser] = useState();
   const [error, setError] = useState("");
-  const {detailid,templateid} = useParams();
+  const { detailid, templateid } = useParams();
   const [userInfo, setUserInfo] = React.useState({
     firstName: "",
     lastName: "",
@@ -85,7 +125,7 @@ export default function UserInfoEntries() {
         designation: "",
         workCity: "",
         workCountry: "",
-        startDate:  getCurrentDate().format('YYYY-MM-DD'),
+        startDate: getCurrentDate().format('YYYY-MM-DD'),
         endDate: getCurrentDate().format('YYYY-MM-DD'),
         description: [""],
         working: false,
@@ -108,14 +148,14 @@ export default function UserInfoEntries() {
         schoolCity: "",
         schoolCountry: "",
         schoolStartDate: getCurrentDate().format('YYYY-MM-DD'),
-        schoolEndDate:getCurrentDate().format('YYYY-MM-DD'),
+        schoolEndDate: getCurrentDate().format('YYYY-MM-DD'),
       },
     ],
     skills: [""],
   });
   const [userInfoPreview, setUserInfoPreview] = useState(userInfo);
-  const [resumeName, setResumeName] = useState(detailid);  
-  const template = [<Resume1 user={userInfoPreview} setPdfData={setPdfData} />, <Resume2 user={userInfoPreview} setPdfData={setPdfData} />, <Resume3 user={userInfoPreview} setPdfData={setPdfData} />];
+  const [resumeName, setResumeName] = useState(detailid);
+  const template = [<Resume1 user={userInfoPreview} setPdfData={setPdfData} />, <Resume2 user={userInfoPreview} setPdfData={setPdfData} />, <Resume3 user={userInfoPreview} setPdfData={setPdfData} />, <Resume4 user={userInfoPreview} setPdfData={setPdfData} />];
 
   const downloadPdf = () => {
     if (pdfData) {
@@ -138,19 +178,19 @@ export default function UserInfoEntries() {
   }, []);
 
   useEffect(() => {
-    console.log(detailid)    
+    console.log(detailid)
     if (user && detailid) {
-      console.log("details: ",detailid)
-      axios.get("http://localhost:4000/api/data/getDetailsByDetailId",{headers: {email: user.email, detailid: detailid}}).then((result)=>{
-        
+      console.log("details: ", detailid)
+      axios.get("http://localhost:4000/api/data/getDetailsByDetailId", { headers: { email: user.email, detailid: detailid } }).then((result) => {
+
         console.log(result.data[0])
         setUserInfo(JSON.parse(result.data[0].details));
         setUserInfoPreview(JSON.parse(result.data[0].details));
-        
-      }).catch((error)=>{
-          
+
+      }).catch((error) => {
+
       })
-  }
+    }
   }, [user, detailid]);
 
   const saveResume = async () => {
@@ -190,7 +230,7 @@ export default function UserInfoEntries() {
               setTimeout(() => {
                 setOpen(false);
                 setSaved(false);
-              }, 500);
+              }, 1000);
             })
             .catch((error) => {
               setError("Internal Server Error");
@@ -234,7 +274,7 @@ export default function UserInfoEntries() {
               setTimeout(() => {
                 setSavedOverwrite(false);
                 setOpen(false);
-              }, 500);
+              }, 1000);
             })
             .catch((error) => {
               setError("Internal Server Error");
@@ -250,7 +290,7 @@ export default function UserInfoEntries() {
 
 
 
- 
+
 
   useEffect(() => {
     if (activeStep === 6) {
@@ -292,7 +332,7 @@ export default function UserInfoEntries() {
         workCity: "",
         workCountry: "",
         startDate: getCurrentDate().format('YYYY-MM-DD'),
-        endDate:getCurrentDate().format('YYYY-MM-DD'),
+        endDate: getCurrentDate().format('YYYY-MM-DD'),
         description: [""],
         working: false,
       }); // Add a new work experience with default values
@@ -347,7 +387,7 @@ export default function UserInfoEntries() {
       newProjects.push({
         name: "",
         startDate: getCurrentDate().format('YYYY-MM-DD'),
-        endDate:getCurrentDate().format('YYYY-MM-DD'),
+        endDate: getCurrentDate().format('YYYY-MM-DD'),
         link: "",
         description: [""],
       }); // Add a new project with default values
@@ -1121,7 +1161,7 @@ export default function UserInfoEntries() {
                                     },
                                   }}
                                   value={dayjs(project.endDate)}
-                                  onChange={(e) =>  {
+                                  onChange={(e) => {
                                     let newProjects = [...userInfo.projects];
                                     newProjects[index].endDate = e.format('YYYY-MM-DD');
                                     setUserInfo({
@@ -1306,33 +1346,60 @@ export default function UserInfoEntries() {
                     </div>
 
                     <ButtonGroup className="flex pt-4 px-10 justify-end">
-                      <ButtonJoy color="primary" onClick={handleReset}>
+                      <ButtonJoy  variant="outlined" color="primary" onClick={()=>{setOpenReset(true)}}>
                         <RestartAltIcon /> &nbsp; Reset
                       </ButtonJoy>
                       <ButtonJoy
                         color="primary"
+                        variant="outlined"
                         disabled={activeStep === 0}
                         onClick={handleBack}
                       >
                         <SkipPreviousIcon /> &nbsp; Back
                       </ButtonJoy>
-                      <ButtonJoy color="primary" onClick={() => setOpen(true)}>
-                        <SaveIcon />
-                        &nbsp;
-                        <span>Save</span>
-                      </ButtonJoy>
-                      <ButtonJoy color="primary" onClick={downloadPdf}>
+
+                      <ButtonJoy color="primary" variant="outlined"
+                          ref={anchorRef} onClick={handleClick}>{selectedIndex === 0 ? (<SaveIcon />) : (selectedIndex===1) ? <SaveAsIcon />: <DownloadIcon />}&nbsp;{savedOverwrite?"Saved Successfully!":options[selectedIndex]} </ButtonJoy>
+                      <IconButton color="primary" variant="outlined"
+                        aria-controls={open ? 'split-button-menu' : undefined}
+                        aria-expanded={open ? 'true' : undefined}
+                        aria-label="select merge strategy"
+                        aria-haspopup="menu"
+                        onMouseDown={() => {
+                          actionRef.current = () => setOpenSave(!open);
+                        }}
+                        onKeyDown={() => {
+                          actionRef.current = () => setOpenSave(!open);
+                        }}
+                        onClick={() => {
+                          actionRef.current?.();
+                        }}
+                      >
+                        <ArrowDropDownIcon />
+                      </IconButton>
+                    </ButtonGroup>
+                    <Menu color="primary" open={openSave} onClose={() => openSave(false)} anchorEl={anchorRef.current}>
+                      {options.map((option, index) => (
+                        <MenuItem
+                          key={option}
+                          selected={index === selectedIndex}
+                          onClick={(event) => handleMenuItemClick(event, index)}
+                        >
+                          {index === 0 ? (<SaveIcon />) : (index===1) ? <SaveAsIcon />: <DownloadIcon />} &nbsp;{option}
+                        </MenuItem>
+                      ))}
+                    </Menu>
+                    {/* <ButtonJoy color="primary" onClick={downloadPdf}>
                         <DownloadIcon />
                         &nbsp;
                         <span>Download</span>
-                      </ButtonJoy>
-                    </ButtonGroup>
+                      </ButtonJoy> */}
                   </div>
                 </div>
               ) : (
                 <React.Fragment>
                   <ButtonGroup className="flex px-10 pt-4 justify-end">
-                    <ButtonJoy color="primary" onClick={handleReset}>
+                    <ButtonJoy color="primary" onClick={()=>{setOpenReset(true)}}>
                       <RestartAltIcon /> &nbsp; Reset
                     </ButtonJoy>
                     <ButtonJoy
@@ -1382,15 +1449,15 @@ export default function UserInfoEntries() {
               </FormControl>
               <ButtonGroup className="" orientation="vertical">
                 <ButtonJoy
-                  variant="outlined"
                   className="w-full"
+                  variant={saved ? "solid": "outlined"}
                   color={saved ? "success" : "primary"}
                   type="submit"
                   onClick={saveResume}
                 >
                   {saved ? "Saved Successfully!" : "Save"}
                 </ButtonJoy>
-                <ButtonJoy
+                {/* <ButtonJoy
                   variant="outlined"
                   color={savedOverwrite ? "success" : "primary"}
                   className="w-full"
@@ -1398,12 +1465,32 @@ export default function UserInfoEntries() {
                 >
                   {savedOverwrite
                     ? "Saved Successfully!"
-                    : "Save and Overwrite!"}
-                </ButtonJoy>
+                    : "Save"}
+                </ButtonJoy> */}
               </ButtonGroup>
             </Stack>
           </ModalDialog>
         </Modal>
+        <Modal open={openReset} onClose={() => setOpenReset(false)}>
+        <ModalDialog variant="outlined" role="alertdialog">
+          <DialogTitle>
+            <WarningRoundedIcon />
+            Confirmation
+          </DialogTitle>
+          <Divider />
+          <DialogContent>
+            Are you sure you want to reset all the details?
+          </DialogContent>
+          <DialogActions>
+            <ButtonJoy variant="solid" color="danger" onClick={() => {handleReset();setOpenReset(false);}}>
+              Yes
+            </ButtonJoy>
+            <ButtonJoy variant="plain" color="neutral" onClick={() => setOpenReset(false)}>
+              No
+            </ButtonJoy>
+          </DialogActions>
+        </ModalDialog>
+      </Modal>
         <div className="w-[50vw] h-[85vh] px-10">
           {template[templateid]}
         </div>
