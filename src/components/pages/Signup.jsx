@@ -6,8 +6,8 @@ import { useNavigate,  } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { setCookieWithExpiry } from "../../cookies";
 import axios from "axios";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Navbar from "../Navbar";
+import Footer from "../Footer";
 
 function Signup() {
   const [Name, setName] = useState("");
@@ -108,7 +108,6 @@ function Signup() {
 
   return (
     <>
-    <Navbar />
       <div
         id="l"
         className=" "
@@ -356,7 +355,6 @@ function Signup() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

@@ -8,10 +8,10 @@ import { MdEmail } from "react-icons/md";
 import { BsTelephoneFill } from "react-icons/bs";
 import { ImLocation } from "react-icons/im";
 import AOS from "aos";
-import resbuil from "../images/resumebuilder.png";
+import resbuil from "./images/resumebuilder.png";
 import "aos/dist/aos.css";
 
-const footer = React.memo((props) => {
+const footer = (props) => {
   AOS.init();
   return (
     <div
@@ -79,6 +79,6 @@ const footer = React.memo((props) => {
       </div>
     </div>
   );
-});
+};
 
 export default footer;

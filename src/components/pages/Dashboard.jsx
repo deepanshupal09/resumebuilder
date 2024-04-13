@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getCookie } from "../../cookies";
-import Navbar from "./Navbar";
+import Navbar from "../Navbar";
 import temp from "../images/template.png";
 import { Button } from "@mui/joy";
-import Footer from "./Footer";
+import Footer from "../Footer";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -65,7 +65,6 @@ export default function Dashboard() {
 
   return (
     <>
-      <Navbar />
       <div className="mt-[7vh] h-fit ">
         <div className="my-[13vh] mx-[12vw] text-[#121417] font-manrope ">
           <div className="text-[40px] font-bold  ">
@@ -86,7 +85,7 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div>
-                  <button onClick={()=>{navigate(`/buildresume/${e.name}`)}} className="bg-[#F0F2F5] rounded-[12px] py-0 px-[16px] h-[32px] w-[84px] text-[#121417] text-[16px] flex justify-center items-center">
+                  <button onClick={()=>{navigate(`/buildresume/${e.name}/2`)}} className="bg-[#F0F2F5] rounded-[12px] py-0 px-[16px] h-[32px] w-[84px] text-[#121417] text-[16px] flex justify-center items-center">
                     Edit
                   </button>
                 </div>
@@ -122,7 +121,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

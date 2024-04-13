@@ -14,11 +14,11 @@ import Checkbox from "@mui/material/Checkbox";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import Resume1 from "./Resume1";
-import Resume2 from "./Resume2";
-import Resume3 from "./Resume3";
+import Navbar from "../Navbar";
+import Footer from "../Footer";
+import Resume1 from "../Resume1";
+import Resume2 from "../Resume2";
+import Resume3 from "../Resume3";
 import Lottie from "lottie-web";
 import { useState, useEffect, useRef } from "react";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -145,6 +145,8 @@ export default function UserInfoEntries() {
         
         console.log(result.data[0])
         setUserInfo(JSON.parse(result.data[0].details));
+        setUserInfoPreview(JSON.parse(result.data[0].details));
+        
       }).catch((error)=>{
           
       })
@@ -468,7 +470,6 @@ export default function UserInfoEntries() {
 
   return (
     <>
-      <Navbar />
       <div className="flex my-5 bg-white pt-[10vh] w-full p-8 h-[100vh]">
         <div className="w-[50vw]">
           <Box sx={{ width: "100%" }}>
@@ -1407,7 +1408,6 @@ export default function UserInfoEntries() {
           {template[templateid]}
         </div>
       </div>
-      <Footer />
     </>
   );
 }

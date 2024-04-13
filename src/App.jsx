@@ -5,11 +5,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./components/pages/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import Signup from "./components/pages/Signup";
-import Resume from "./components/pages/Resume2";
+import Resume from "./components/Resume2";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+
 function App() {
     return (
         <>
             <Router>
+        <Navbar />
                 <Routes>
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/login" element={<Login />} />
@@ -23,6 +27,7 @@ function App() {
                         <Route path="/resume" element={<Resume />} />
                     </Route>
                 </Routes>
+                <Footer />
             </Router>
         </>
     );

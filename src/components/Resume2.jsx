@@ -289,7 +289,7 @@ const MyDocument = ({ user }) => (
 );
 
 
-const Resume = ({ user, setPdfData }) => (
+const Resume =  ({ user, setPdfData }) => (
   <>
     <PDFDownloadLink document={<MyDocument user={user} />} fileName="resume.pdf">
       {({ blob, url, loading, error }) => {
@@ -298,7 +298,7 @@ const Resume = ({ user, setPdfData }) => (
         setPdfData(blob); // Set PDF data when available
       }}
     </PDFDownloadLink>
-    <PDFViewer style={{ width: "100%", height: "100vh" }}>
+    <PDFViewer style={{ width: "100%", height: "100%" }}>
       <MyDocument user={user} />
     </PDFViewer>
   </>

@@ -9,14 +9,8 @@ import {
   PDFViewer,
   PDFDownloadLink
 } from "@react-pdf/renderer";
-import ReactPDF from "@react-pdf/renderer";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import dayjs from 'dayjs';
-
-
-const defaultDate = '2021-11-11';
-
-
 
 
 Font.register({
@@ -317,7 +311,7 @@ const Resume = ({setPdfData ,user}) => (
         setPdfData(blob); // Set PDF data when available
       }}
     </PDFDownloadLink>
-    <PDFViewer style={{ width: "100%", height: "100vh" }}>
+    <PDFViewer style={{ width: "100%", height: "100%" }}>
       <MyDocument user={user} />
     </PDFViewer>
   </>

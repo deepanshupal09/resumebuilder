@@ -6,8 +6,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { setCookieWithExpiry } from "../../cookies";
 import axios from "axios";
-import Navbar from "./Navbar";
-import Footer from "./Footer"
 
 function Login() {
   const [Email, setEmail] = useState("");
@@ -87,7 +85,6 @@ function Login() {
 
   return (
     <>
-    <Navbar></Navbar>
       <div
         id="l"
         //   style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/3/33/Microsoft_login_screen.svg)"
@@ -208,7 +205,6 @@ function Login() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }
