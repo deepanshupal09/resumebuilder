@@ -19,7 +19,7 @@ function Login({user,setUser}) {
     if (user) {
       navigate("/dashboard");
     }
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     const google = window["google"];

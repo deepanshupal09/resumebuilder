@@ -187,9 +187,9 @@ function LandingPage({user}) {
                 return (
                   <div key={index}
                     onClick={() => {
-                      const time = (new Date()).toString();
+                      const time = (new Date()).getTime();
                       if (user)
-                        navigate(`/buildresume/${user.email}${time}/${index}`)
+                        navigate(`/buildresume/${time}/${index}`)
                       else navigate("/login")
                     }}
                     className="h-[100%] w-[72%] px-1 md:px-2 py-4 md:w-[27%]"

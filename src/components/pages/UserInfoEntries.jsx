@@ -552,8 +552,8 @@ export default function UserInfoEntries({ user }) {
   return (
     <>
 
-      <div className="flex my-5 bg-white pt-[10vh] w-full p-8 h-[100vh]">
-        <div className="w-[50vw]">
+      <div className="flex max-lg:flex-col my-5 bg-white pt-[10vh] w-full p-8 h-fit">
+        <div className="w-[50vw] max-lg:w-[100vw]">
           <Box sx={{ width: "100%" }}>
             <Stepper activeStep={activeStep}>
               {steps.map((label, index) => {
@@ -1539,7 +1539,7 @@ export default function UserInfoEntries({ user }) {
         >
           <CircularProgress color="inherit" />
         </Backdrop>
-        <div className="w-[50vw] h-[85vh] px-10">
+        <div className="w-[50vw] max-lg:w-[100vw] h-[85vh] px-2 lg:px-10">
           {template[templateid]}
         </div>
       </div>

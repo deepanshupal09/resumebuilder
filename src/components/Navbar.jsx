@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,8 +11,8 @@ import { useEffect } from "react";
 import { delete_cookie, getCookie } from "../cookies";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const Navbar = ({user,setUser}) => {
-  const [open, setOpen] = useState("false");
+const Navbar = ({ user, setUser }) => {
+  const [open, setOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -35,14 +35,31 @@ const Navbar = ({user,setUser}) => {
   };
 
   const showMenu = () => {
-    if (open === "false") {
+    if (open) {
       document.getElementById("menu").style.height = "100vh";
-      setOpen("true");
+      setOpen(false);
     } else {
       document.getElementById("menu").style.height = "0";
-      setOpen("false");
+      setOpen(true);
     }
   };
+
+  const dropref = useRef(null);
+
+
+
+  useEffect(() => {
+    document.body.addEventListener("click", (event) => {
+      if (
+        dropref.current &&
+        !event.composedPath().includes(dropref.current)
+      ) {
+        setIsOpen(false);
+      }
+    });
+  }, []);
+
+
 
   // useEffect(() => {
   //   if (getCookie("auth")) {
@@ -56,7 +73,7 @@ const Navbar = ({user,setUser}) => {
       <div>
         <div
           id="nav"
-          className=" lg:shadow-2xl  absolute top-0 justify backdrop-blur-lg backdrop-filter bg-opacity-30 z-10 w-screen flex justify-between h-[7vh] bg-black text-lg  text-white"
+          className=" lg:shadow-2xl  absolute top-0  backdrop-blur-lg backdrop-filter bg-opacity-30 z-10 w-full   flex justify-between h-[7vh] bg-black text-lg  text-white"
         >
           <div className="my-auto pl-10">
             <Link to="/">
@@ -64,14 +81,25 @@ const Navbar = ({user,setUser}) => {
             </Link>
           </div>
           <div className="lg:hidden text-2xl w-[10vw] flex items-center align-baseline justify-center cursor-pointer">
-            <button onClick={showMenu}>
-              <FontAwesomeIcon
-                className={`${open}?"hidden":"visible"`}
-                icon={faBars}
-              />
-            </button>
+            {user ? <>
+              <button
+                onClick={showMenu}
+                className={`px-2 overflow-hidden w-fit rounded-lg py-2 flex flex-row items-center space-x-5`}
+              >
+                <img
+                  className="h-full scale-75 max-sm:scale-125 rounded-full aspect-square border-white border"
+                  src={user?.picture}
+                  alt={user?.name}
+                ></img>
+              </button></> :
+              <button onClick={showMenu}>
+                <FontAwesomeIcon
+                  className={`${open}?"hidden":"visible"`}
+                  icon={faBars}
+                />
+              </button>}
           </div>
-          <div className="flex gap-y-2 p-2 mr-5 gap-x-4">
+          <div className="flex max-lg:hidden gap-y-2 p-2 mr-5 gap-x-4">
             <ul className=" hidden lg:flex  space-x-11  my-auto ">
               <HashLink smooth to={"/#Templates"}>
                 <div className="">
@@ -93,7 +121,7 @@ const Navbar = ({user,setUser}) => {
               <button className="px-2 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md py-2 ">
                 <li>About Us</li>
               </button>
-              {!user ? (
+              {!user && (
                 <>
                   <HashLink
                     to={"/login"}
@@ -108,25 +136,14 @@ const Navbar = ({user,setUser}) => {
                     </Link>
                   </button>
                 </>
-              ) : (
-                ""
-                // <button onClick={handleLogout}
-                // className="px-2 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md py-2 flex flex-row items-center space-x-5">
-                //   <div>{user?.name}</div>
-                //   <button
-
-                //   >
-                //     <img className="w-8 h-8 rounded-full" src={user?.picture}></img>
-                //     {/* <li>Logout</li> */}
-                //   </button>
-                // </button>
               )}
             </ul>
             {user && (
               <div className="">
                 <button
                   onClick={toggleDropdown}
-                  className="px-2 overflow-hidden w-fit bg-white bg-opacity-0 hover:bg-opacity-20 rounded-lg py-2 flex flex-row items-center space-x-5"
+                  ref={dropref}
+                  className={`px-2 overflow-hidden w-fit bg-white bg-opacity-0 hover:bg-opacity-20 rounded-lg py-2 flex flex-row items-center space-x-5`}
                 >
                   {/* <div>{user?.name}</div> */}
                   <img
@@ -175,27 +192,35 @@ const Navbar = ({user,setUser}) => {
         </div>
       </div>
       <div
-        className="flex lg:hidden flex-col divide-y-0 text-xl overflow-hidden text-white w-[100%] h-[0] fixed top-[7vh] z-10 transition-all duration-500 bg-black backdrop-blur-lg backdrop-filter bg-opacity-30 "
+        className="flex lg:hidden flex-col  text-xl overflow-hidden text-white w-[100%] h-[0] fixed top-[7vh] z-10 transition-all duration-500 bg-black backdrop-blur-lg backdrop-filter bg-opacity-30 "
         id="menu"
       >
-        <a href="#Templates">
+        <HashLink onClick={()=>{setOpen(false)}} smooth to={"/#Templates"} >
           <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10 mt-10 ">
             Build Your Resume
           </div>
-        </a>
-        <a href="#FAQ">
+        </HashLink>
+        <HashLink onClick={()=>{setOpen(false)}} to={"/#FAQ"} >
           <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10">
             FAQ
           </div>
-        </a>
+        </HashLink>
         <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10">
           About Us
         </div>
-        <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10">
-          Login
+        <div onClick={() => {
+          if (user) navigate("/dashboard")
+          else navigate("/login")
+        }} className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10">
+          {user ? 'Dashboard' : 'Login'}
         </div>
-        <div className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10">
-          Sign up
+        <div onClick={() => {
+          if (user)
+            handleLogout();
+          else navigate("/signup")
+        }} className="py-4 bg-white bg-opacity-0 hover:bg-opacity-20 rounded-md px-10">
+
+          {user ? 'Logout' : 'Sign Up'}
         </div>
       </div>
     </>

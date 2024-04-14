@@ -17,20 +17,22 @@ function App() {
     useEffect(() => {
         if (getCookie("auth")) {
             console.log(getCookie("auth"));
-          setUser(JSON.parse(getCookie("auth")));
+            setUser(JSON.parse(getCookie("auth")));
         }
-      }, []);
+    }, []);
 
     return (
         <>
             <Router>
                 <Navbar user={user} setUser={setUser} />
                 <Routes>
-                    <Route path="/" element={<LandingPage user={user}  />} />
-                    <Route path="/login"  element={<Login user={user} setUser={setUser} />} />
-                    <Route path="/signup"  element={<Signup user={user} setUser={setUser} />} />
+                    <Route path="/" element={<LandingPage user={user} />} />
+                        <Route path="/login" element={<Login user={user} setUser={setUser} />} />
+                        <Route path="/signup" element={<Signup user={user} setUser={setUser} />} />
+
+
                     <Route element={<PrivateRoute />}>
-                        <Route path="/dashboard"  element={<Dashboard user={user} />} />
+                        <Route path="/dashboard" element={<Dashboard user={user} />} />
                         <Route
                             path="/buildresume/:detailid/:templateid"
                             element={<UserInfoEntries user={user} />}

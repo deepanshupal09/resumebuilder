@@ -51,7 +51,7 @@ export default function Dashboard({ user }) {
 
   useEffect(() => {
     if (!user) navigate("/login")
-  }, [])
+  }, [user])
 
 
   useEffect(() => {
@@ -107,10 +107,10 @@ export default function Dashboard({ user }) {
               Your recent activity
             </div>
             <Button onClick={() => {
-              const time = (new Date()).toString();
-              setWorking(`${user.email}${time}`)
+              const time = (new Date()).getTime();
+              setWorking(`${time}`)
               setOpenTemplate(true)
-            }} color="primary" variant="solid" >
+            }} color="primary" variant="outlined" >
               <Add className="scale-[95%]" />&nbsp;Create New Resume&nbsp;
             </Button>
           </div>
@@ -120,22 +120,28 @@ export default function Dashboard({ user }) {
           )}
           {resumes.map((e) => {
             return (
-              <div className="my-10 flex flex-row justify-between">
-                <div className="flex flex-row">
+              <div className="my-10 flex flex-row items-start">
+                {/* Left section */}
+                <div className="flex flex-row items-start flex-grow">
                   <img className="w-20 h-20 rounded-lg" src={temp} />
-                  <div className="mx-5">
-                    <div className="mt-1 font-semibold">{e.name}</div>
-                    <div className="mt-1">Last edited {e.lastModified}</div>
+                  <div className={`mx-5 flex-grow min-w-0 max-sm:max-w-[30vw] max-w-[50vw] `}> {/* Use min-w-0 to allow the div to shrink */}
+                    <div className="mt-1  font-semibold truncate">{e.name}</div>
+                    <div className="mt-1 text-sm text-gray-500 truncate">Last edited {e.lastModified}</div>
                   </div>
                 </div>
-                <div className="flex space-x-2 py-5 ">
-                  {/* <button className="bg-[#F0F2F5] rounded-[12px] py-0 px-[16px] h-[32px] w-[84px] text-[#121417] text-[16px] flex justify-center items-center" onClick={() => { navigate(`/buildresume/${e.name}/2`) }} variant="soft" color="neutral">
-                    Edit
-                  </button> */}
-                  <Button variant="outlined" onClick={() => { setWorking(e.name); setOpenTemplate(true) }}
-                    color="neutral"><EditIcon className="scale-75" />&nbsp;Edit
+                {/* Right section */}
+                <div className="flex flex-col justify-start items-end ml-auto">
+                  <Button
+                    variant="outlined"
+                    className="w-[100px] h-[40px]"
+                    onClick={() => { setWorking(e.name); setOpenTemplate(true) }}
+                    color="neutral">
+                    <EditIcon className="scale-75" />&nbsp;Edit
                   </Button>
-                  <Button variant="outlined" onClick={() => { setWorking(e.name); setOpen(true) }}
+                  <Button
+                    variant="outlined"
+                    className="w-[100px] h-[40px] mt-2"
+                    onClick={() => { setWorking(e.name); setOpen(true) }}
                     color="danger">
                     <DeleteForever /> Delete
                   </Button>
@@ -143,6 +149,10 @@ export default function Dashboard({ user }) {
               </div>
             );
           })}
+
+
+
+
 
           <div className="text-[22px] font-extrabold my-10">
             Account Settings
@@ -224,7 +234,7 @@ export default function Dashboard({ user }) {
                 }[state],
               }}
             >
-              <DialogTitle ><div className="font-manrope text-6xl mx-auto py-5 text-slate-700">Select a Template</div></DialogTitle>
+              <DialogTitle ><div className="font-manrope text-3xl mx-auto py-5 text-slate-700">Select a Template</div></DialogTitle>
               <DialogContent>
                 <div>
                   <ScrollContainer
@@ -240,8 +250,6 @@ export default function Dashboard({ user }) {
                         return (
                           <div key={index}
                             onClick={() => {
-                              const time = (new Date()).toString();
-
                               navigate(`/buildresume/${working}/${index}`)
                             }}
                             className="h-[100%] w-[35%] px-1 md:px-2 py-4 "
