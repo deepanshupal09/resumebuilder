@@ -52,6 +52,7 @@ export default function Dashboard({ user, setUser }) {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [openDeleteAccount, setOpenDeleteAccount] = useState(false);
 
 
   useEffect(() => {
@@ -174,7 +175,7 @@ export default function Dashboard({ user, setUser }) {
             );
           })}
 
-          <div className="text-[22px] font-extrabold my-10">
+          <div className="text-[22px] font-extrabold my-3 py-5 border-b text-slate-700 border-slate-700">
             Account Settings
           </div>
           {user && 'password' in user && user.password !== null && (
@@ -195,17 +196,17 @@ export default function Dashboard({ user, setUser }) {
             }}>
               <div className="flex-col my-3">
                 <div className="text-[19px] font-semibold py-4 ">Change Password</div>
-                <div className="text-[15px] font-semibold px-1">Old password</div>
+                <div className="text-[15px] font-semibold px-1 py-2">Old password</div>
                 <div className="pb-4 w-96">
-                  <Input value={oldPassword} onChange={(e)=>{setOldPassword(e.target.value);}} placeholder="Type in here…" required/>
+                  <Input value={oldPassword} onChange={(e)=>{setOldPassword(e.target.value);}} placeholder="Type in here…" type="password" required/>
                 </div>
-                <div className="text-[15px] font-semibold px-1">New password</div>
+                <div className="text-[15px] font-semibold px-1 py-2">New password</div>
                 <div className="pb-4 w-96">
-                  <Input value={newPassword} onChange={(e)=>{setNewPassword(e.target.value);}} placeholder="Type in here…" required/>
+                  <Input value={newPassword} onChange={(e)=>{setNewPassword(e.target.value);}} placeholder="Type in here…" type="password" required/>
                 </div>
-                <div className="text-[15px] font-semibold px-1">Confirm new password</div>
+                <div className="text-[15px] font-semibold px-1 py-2">Confirm new password</div>
                 <div className="pb-4 w-96">
-                  <Input value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value);}} placeholder="Type in here…" required/>
+                  <Input value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value);}} placeholder="Type in here…" type="password" required/>
                 </div>
                 <div className="py-2">
                   <Button 
@@ -218,12 +219,12 @@ export default function Dashboard({ user, setUser }) {
             </form>
           )}
           
-          <div className="my-10">
+          <div className="">
           <div className="text-[19px] font-semibold py-4 text-red-600">Delete Account</div>
           <div className="text-[15px]">Once you delete your account, there is no going back. Please be certain.</div>
             <div className="py-2">
               <Button 
-                onClick={deleteAccount}
+                onClick={()=>{setOpenDeleteAccount(true)}}
                 variant="outlined" 
                 color="danger">&nbsp;Delete your account
               </Button>
@@ -331,6 +332,27 @@ export default function Dashboard({ user, setUser }) {
           </Modal>
         )}
       </Transition>
+      <Modal open={openDeleteAccount} onClose={() => setOpenDeleteAccount(false)}>
+        <ModalDialog variant="outlined" role="alertdialog">
+          <DialogTitle>
+            <WarningRoundedIcon />
+            Are you sure you want to delete your account?
+          </DialogTitle>
+          <Divider />
+          <DialogContent >
+            <div className="max-w-[500px]">
+          This action is irreversible and will delete all your data, including your resumes. Once deleted, your account cannot be recovered.</div>
+          </DialogContent>
+          <DialogActions>
+            <Button variant="solid" color="danger" onClick={() => { deleteAccount(); setOpenDeleteAccount(false);}}>
+              Yes
+            </Button>
+            <Button variant="plain" color="neutral" onClick={() => setOpenDeleteAccount(false)}>
+              No
+            </Button>
+          </DialogActions>
+        </ModalDialog>
+      </Modal>
     </>
   );
 }
