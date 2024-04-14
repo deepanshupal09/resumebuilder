@@ -1,16 +1,14 @@
 .first-component {
-  
-  background-image: url(background_hd.4a75645.svg);
-  background-image: -webkit-image-set(url(background_hd.4a75645.svg));
+  background-image: url(../images/bg.svg);
+  background-image: -webkit-image-set(url(../images/bg.svg));
   /* background-size: 100% 100%; */
   background-repeat: repeat;
   background-position: center bottom;
-
 }
 
 .footer {
-  background-image: url(wave-haikei.svg);
-  background-image: -webkit-image-set(url(wave-haikei.svg));
+  background-image: url(../images/wave.svg);
+  background-image: -webkit-image-set(url(../images/wave.svg));
   /* background-size: 100% 100%; */
   background-repeat: repeat;
   background-position: center bottom;

@@ -3,10 +3,8 @@ import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -16,9 +14,10 @@ import Checkbox from "@mui/material/Checkbox";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import Resume from "./Resume";
+import Resume1 from "../Resume1";
+import Resume2 from "../Resume2";
+import Resume3 from "../Resume3";
+import Resume4 from "../Resume4";
 import Lottie from "lottie-web";
 import { useState, useEffect, useRef } from "react";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -37,12 +36,21 @@ import SkipNextIcon from "@mui/icons-material/SkipNext";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import axios from "axios";
-import { getCookie } from "../cookies";
+import { getCookie } from "../../cookies";
 import { FormHelperText } from "@mui/joy";
-import { InfoOutlined } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import IconButton from '@mui/joy/IconButton';
+import Menu from '@mui/joy/Menu';
+import MenuItem from '@mui/joy/MenuItem';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import DialogActions from '@mui/joy/DialogActions';
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
+import Divider from '@mui/joy/Divider';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import Navbar from "../Navbar";
 
 const steps = [
   "Personal Info",
@@ -52,20 +60,104 @@ const steps = [
   "Skills",
   "Achievements",
   "Finish",
-];export default function UserInfoEntries() {
+];
+
+
+export default function UserInfoEntries() {
+
+  const options = ['Save', 'Save As..', 'Download'];
+
+  const [openSave, setOpenSave] = useState(false);
+  const actionRef = useRef(null);
+  const anchorRef = useRef(null);
+  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [openReset, setOpenReset] = useState();
+
+  const handleClick = () => {
+    // console.info(`You clicked ${options[selectedIndex]}`);
+    switch (selectedIndex) {
+      case 0:
+        saveAndOverwrite();
+        break;
+      case 1:
+        setOpen(true);
+        break;
+      case 2:
+        downloadPdf();
+        break;
+      default:
+    }
+  };
+
+  const handleMenuItemClick = (event, index) => {
+    setSelectedIndex(index);
+    setOpenSave(false);
+  };
+
+
+
+  const getCurrentDate = () => {
+    return dayjs();
+  };
+
   const completed = useRef(null);
-  const navigate = useNavigate();
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [pdfData, setPdfData] = useState(null);
-  const [resumeName, setResumeName] = useState("");
   const [saved, setSaved] = useState(false);
   const [savedOverwrite, setSavedOverwrite] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
   const [error, setError] = useState("");
-  const [detailId, setDetailId] = useState(useParams());
-  
+  const { detailid, templateid } = useParams();
+  const [userInfo, setUserInfo] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+    state: "",
+    city: "",
+    country: "",
+    pincode: "",
+    workExperiences: [
+      {
+        company: "",
+        designation: "",
+        workCity: "",
+        workCountry: "",
+        startDate: getCurrentDate().format('YYYY-MM-DD'),
+        endDate: getCurrentDate().format('YYYY-MM-DD'),
+        description: [""],
+        working: false,
+      },
+    ],
+    projects: [
+      {
+        name: "",
+        startDate: getCurrentDate().format('YYYY-MM-DD'),
+        endDate: getCurrentDate().format('YYYY-MM-DD'),
+        link: "",
+        description: [""],
+      },
+    ],
+    achievements: [""],
+    education: [
+      {
+        school: "",
+        degree: "",
+        schoolCity: "",
+        schoolCountry: "",
+        schoolStartDate: getCurrentDate().format('YYYY-MM-DD'),
+        schoolEndDate: getCurrentDate().format('YYYY-MM-DD'),
+      },
+    ],
+    skills: [""],
+  });
+  const [userInfoPreview, setUserInfoPreview] = useState(userInfo);
+  const [resumeName, setResumeName] = useState(detailid);
+  const template = [<Resume1 user={userInfoPreview} setPdfData={setPdfData} />, <Resume2 user={userInfoPreview} setPdfData={setPdfData} />, <Resume3 user={userInfoPreview} setPdfData={setPdfData} />, <Resume4 user={userInfoPreview} setPdfData={setPdfData} />];
 
   const downloadPdf = () => {
     if (pdfData) {
@@ -88,18 +180,22 @@ const steps = [
   }, []);
 
   useEffect(() => {
-    console.log(detailId)    
-    if (user && detailId) {
-      console.log("details: ",detailId)
-      axios.get("http://localhost:4000/api/data/getDetailsByDetailId",{headers: {email: user.email, detailid: detailId.detailid}}).then((result)=>{
-        
+    console.log(detailid)
+    if (user && detailid) {
+      console.log("details: ", detailid)
+      setLoading(true)
+      axios.get("http://localhost:4000/api/data/getDetailsByDetailId", { headers: { email: user.email, detailid: detailid } }).then((result) => {
+        setLoading(false)
         console.log(result.data[0])
         setUserInfo(JSON.parse(result.data[0].details));
-      }).catch((error)=>{
-          
+        setUserInfoPreview(JSON.parse(result.data[0].details));
+
+      }).catch((error) => {
+        setLoading(false)
+
       })
-  }
-  }, [user, detailId]);
+    }
+  }, [user, detailid]);
 
   const saveResume = async () => {
     const details = JSON.stringify(userInfo);
@@ -138,7 +234,7 @@ const steps = [
               setTimeout(() => {
                 setOpen(false);
                 setSaved(false);
-              }, 500);
+              }, 1000);
             })
             .catch((error) => {
               setError("Internal Server Error");
@@ -182,7 +278,7 @@ const steps = [
               setTimeout(() => {
                 setSavedOverwrite(false);
                 setOpen(false);
-              }, 500);
+              }, 1000);
             })
             .catch((error) => {
               setError("Internal Server Error");
@@ -196,55 +292,9 @@ const steps = [
       });
   };
 
-  const date = new Date();
-  const getCurrentDate = () => {
-    return dayjs();
-  };
 
-  const [userInfo, setUserInfo] = React.useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
-    state: "",
-    city: "",
-    country: "",
-    pincode: "",
-    workExperiences: [
-      {
-        company: "",
-        designation: "",
-        workCity: "",
-        workCountry: "",
-        startDate:  getCurrentDate().format('YYYY-MM-DD'),
-        endDate: getCurrentDate().format('YYYY-MM-DD'),
-        description: [""],
-        working: false,
-      },
-    ],
-    projects: [
-      {
-        name: "",
-        startDate: getCurrentDate().format('YYYY-MM-DD'),
-        endDate: getCurrentDate().format('YYYY-MM-DD'),
-        link: "",
-        description: [""],
-      },
-    ],
-    achievements: [""],
-    education: [
-      {
-        school: "",
-        degree: "",
-        schoolCity: "",
-        schoolCountry: "",
-        schoolStartDate: getCurrentDate().format('YYYY-MM-DD'),
-        schoolEndDate:getCurrentDate().format('YYYY-MM-DD'),
-      },
-    ],
-    skills: [""],
-  });
+
+
 
   useEffect(() => {
     if (activeStep === 6) {
@@ -253,13 +303,12 @@ const steps = [
         renderer: "svg",
         loop: false,
         autoplay: true,
-        animationData: require("./completed.json"),
+        animationData: require("../animations/completed.json"),
       });
       return () => instance.destroy();
     }
   }, [activeStep]);
 
-  const [userInfoPreview, setUserInfoPreview] = useState(userInfo);
 
   //for work experience
   const isAnyWorkExperienceActive = userInfo.workExperiences.some(
@@ -287,7 +336,7 @@ const steps = [
         workCity: "",
         workCountry: "",
         startDate: getCurrentDate().format('YYYY-MM-DD'),
-        endDate:getCurrentDate().format('YYYY-MM-DD'),
+        endDate: getCurrentDate().format('YYYY-MM-DD'),
         description: [""],
         working: false,
       }); // Add a new work experience with default values
@@ -342,7 +391,7 @@ const steps = [
       newProjects.push({
         name: "",
         startDate: getCurrentDate().format('YYYY-MM-DD'),
-        endDate:getCurrentDate().format('YYYY-MM-DD'),
+        endDate: getCurrentDate().format('YYYY-MM-DD'),
         link: "",
         description: [""],
       }); // Add a new project with default values
@@ -365,7 +414,7 @@ const steps = [
         newSkills.pop(); // Remove the last skills
         return { ...prevUserInfo, skills: newSkills };
       } else {
-        return prevUserInfo; // Return the current state if there are no skill to delete
+        return { ...prevUserInfo, skills: [""] };
       }
     });
   };
@@ -384,7 +433,7 @@ const steps = [
         newAchievements.pop(); // Remove the last achievement
         return { ...prevUserInfo, achievements: newAchievements };
       } else {
-        return prevUserInfo; // Return the current state if there are no skill to delete
+        return { ...prevUserInfo, achievements: [""] }; // Return the current state if there are no skill to delete
       }
     });
   };
@@ -465,7 +514,8 @@ const steps = [
 
   return (
     <>
-      <Navbar />
+
+      <Navbar user={user} />
       <div className="flex my-5 bg-white pt-[10vh] w-full p-8 h-[100vh]">
         <div className="w-[50vw]">
           <Box sx={{ width: "100%" }}>
@@ -1117,7 +1167,7 @@ const steps = [
                                     },
                                   }}
                                   value={dayjs(project.endDate)}
-                                  onChange={(e) =>  {
+                                  onChange={(e) => {
                                     let newProjects = [...userInfo.projects];
                                     newProjects[index].endDate = e.format('YYYY-MM-DD');
                                     setUserInfo({
@@ -1302,33 +1352,60 @@ const steps = [
                     </div>
 
                     <ButtonGroup className="flex pt-4 px-10 justify-end">
-                      <ButtonJoy color="primary" onClick={handleReset}>
+                      <ButtonJoy variant="outlined" color="primary" onClick={() => { setOpenReset(true) }}>
                         <RestartAltIcon /> &nbsp; Reset
                       </ButtonJoy>
                       <ButtonJoy
                         color="primary"
+                        variant="outlined"
                         disabled={activeStep === 0}
                         onClick={handleBack}
                       >
                         <SkipPreviousIcon /> &nbsp; Back
                       </ButtonJoy>
-                      <ButtonJoy color="primary" onClick={() => setOpen(true)}>
-                        <SaveIcon />
-                        &nbsp;
-                        <span>Save</span>
-                      </ButtonJoy>
-                      <ButtonJoy color="primary" onClick={downloadPdf}>
+
+                      <ButtonJoy color="primary" variant="outlined"
+                        ref={anchorRef} onClick={handleClick}>{selectedIndex === 0 ? (<SaveIcon />) : (selectedIndex === 1) ? <SaveAsIcon /> : <DownloadIcon />}&nbsp;{savedOverwrite ? "Saved Successfully!" : options[selectedIndex]} </ButtonJoy>
+                      <IconButton color="primary" variant="outlined"
+                        aria-controls={open ? 'split-button-menu' : undefined}
+                        aria-expanded={open ? 'true' : undefined}
+                        aria-label="select merge strategy"
+                        aria-haspopup="menu"
+                        onMouseDown={() => {
+                          actionRef.current = () => setOpenSave(!open);
+                        }}
+                        onKeyDown={() => {
+                          actionRef.current = () => setOpenSave(!open);
+                        }}
+                        onClick={() => {
+                          actionRef.current?.();
+                        }}
+                      >
+                        <ArrowDropDownIcon />
+                      </IconButton>
+                    </ButtonGroup>
+                    <Menu color="primary" open={openSave} onClose={() => openSave(false)} anchorEl={anchorRef.current}>
+                      {options.map((option, index) => (
+                        <MenuItem
+                          key={option}
+                          selected={index === selectedIndex}
+                          onClick={(event) => handleMenuItemClick(event, index)}
+                        >
+                          {index === 0 ? (<SaveIcon />) : (index === 1) ? <SaveAsIcon /> : <DownloadIcon />} &nbsp;{option}
+                        </MenuItem>
+                      ))}
+                    </Menu>
+                    {/* <ButtonJoy color="primary" onClick={downloadPdf}>
                         <DownloadIcon />
                         &nbsp;
                         <span>Download</span>
-                      </ButtonJoy>
-                    </ButtonGroup>
+                      </ButtonJoy> */}
                   </div>
                 </div>
               ) : (
                 <React.Fragment>
                   <ButtonGroup className="flex px-10 pt-4 justify-end">
-                    <ButtonJoy color="primary" onClick={handleReset}>
+                    <ButtonJoy color="primary" onClick={() => { setOpenReset(true) }}>
                       <RestartAltIcon /> &nbsp; Reset
                     </ButtonJoy>
                     <ButtonJoy
@@ -1378,15 +1455,15 @@ const steps = [
               </FormControl>
               <ButtonGroup className="" orientation="vertical">
                 <ButtonJoy
-                  variant="outlined"
                   className="w-full"
+                  variant={saved ? "solid" : "outlined"}
                   color={saved ? "success" : "primary"}
                   type="submit"
                   onClick={saveResume}
                 >
                   {saved ? "Saved Successfully!" : "Save"}
                 </ButtonJoy>
-                <ButtonJoy
+                {/* <ButtonJoy
                   variant="outlined"
                   color={savedOverwrite ? "success" : "primary"}
                   className="w-full"
@@ -1394,17 +1471,42 @@ const steps = [
                 >
                   {savedOverwrite
                     ? "Saved Successfully!"
-                    : "Save and Overwrite!"}
-                </ButtonJoy>
+                    : "Save"}
+                </ButtonJoy> */}
               </ButtonGroup>
             </Stack>
           </ModalDialog>
         </Modal>
+        <Modal open={openReset} onClose={() => setOpenReset(false)}>
+          <ModalDialog variant="outlined" role="alertdialog">
+            <DialogTitle>
+              <WarningRoundedIcon />
+              Confirmation
+            </DialogTitle>
+            <Divider />
+            <DialogContent>
+              Are you sure you want to reset all the details?
+            </DialogContent>
+            <DialogActions>
+              <ButtonJoy variant="solid" color="danger" onClick={() => { handleReset(); setOpenReset(false); }}>
+                Yes
+              </ButtonJoy>
+              <ButtonJoy variant="plain" color="neutral" onClick={() => setOpenReset(false)}>
+                No
+              </ButtonJoy>
+            </DialogActions>
+          </ModalDialog>
+        </Modal>
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <div className="w-[50vw] h-[85vh] px-10">
-          <Resume user={userInfoPreview} setPdfData={setPdfData} />
+          {template[templateid]}
         </div>
       </div>
-      <Footer />
     </>
   );
 }

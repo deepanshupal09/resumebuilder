@@ -1,11 +1,13 @@
-import LandingPage from "./components/LandingPage";
-import Login from "./components/Login";
-import UserInfoEntries from "./components/UserInfoEntries";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Dashboard from "./components/Dashboard";
+import LandingPage from "./components/pages/LandingPage";
+import Login from "./components/pages/Login";
+import UserInfoEntries from "./components/pages/UserInfoEntries";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Dashboard from "./components/pages/Dashboard";
 import PrivateRoute from "./PrivateRoute";
-import Signup from "./components/Signup";
-import Resume from "./components/Resume";
+import Signup from "./components/pages/Signup";
+import Resume from "./components/Resume2";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
     return (
@@ -18,12 +20,13 @@ function App() {
                     <Route element={<PrivateRoute />}>
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route
-                            path="/buildresume/:detailid"
+                            path="/buildresume/:detailid/:templateid"
                             element={<UserInfoEntries />}
                         />
                         <Route path="/resume" element={<Resume />} />
                     </Route>
                 </Routes>
+                <Footer />
             </Router>
         </>
     );

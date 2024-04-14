@@ -3,19 +3,16 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import resbuil from "../images/resumebuilder.png";
-import "./style.css";
+import resbuil from "./images/resumebuilder.png";
+import "./styles/style.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { useEffect } from "react";
 import { delete_cookie, getCookie } from "../cookies";
-import LaunchIcon from "@mui/icons-material/Launch";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const Navbar = React.memo(() => {
+const Navbar = React.memo(({user}) => {
   const [open, setOpen] = useState("false");
-  const [user, setUser] = useState();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -34,7 +31,6 @@ const Navbar = React.memo(() => {
       navigate(0);
     }
     console.log("logging out");
-    // navigate(0);
   };
 
   const showMenu = () => {
@@ -47,11 +43,12 @@ const Navbar = React.memo(() => {
     }
   };
 
-  useEffect(() => {
-    if (getCookie("auth")) {
-      setUser(JSON.parse(getCookie("auth")));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (getCookie("auth")) {
+  //     setUser(JSON.parse(getCookie("auth")));
+  //   }
+  // }, []);
+
 
   return (
     <>
