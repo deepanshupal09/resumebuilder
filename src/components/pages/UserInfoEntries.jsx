@@ -204,39 +204,43 @@ export default function UserInfoEntries() {
     const u = JSON.parse(details);
     console.log(u);
     setSaved(false);
+    setLoading(true);
     axios
-      .get("http://localhost:4000/api/data/getAllDetailsByEmail", {
-        headers: {
+    .get("http://localhost:4000/api/data/getAllDetailsByEmail", {
+      headers: {
+        email: user.email,
+      },
+    })
+    .then((res) => {
+      const data = res.data;
+      const result = data.filter((item) => item.detailid === resumeName);
+      console.log("result: ", result);
+      if (result.length > 0) {
+        setError("Name already exists");
+        setSaved(false);
+      } else {
+        const date = new Date();
+        
+        setLoading(false);
+        const body = {
           email: user.email,
-        },
-      })
-      .then((res) => {
-        const data = res.data;
-        const result = data.filter((item) => item.detailid === resumeName);
-        console.log("result: ", result);
-        if (result.length > 0) {
-          setError("Name already exists");
-          setSaved(false);
-        } else {
-          const date = new Date();
-
-          const body = {
-            email: user.email,
-            detailId: resumeName,
-            details: details,
-            modified: date.toString(),
-          };
-          axios
-            .post("http://localhost:4000/api/data/addDetails", body)
+          detailId: resumeName,
+          details: details,
+          modified: date.toString(),
+        };
+        axios
+        .post("http://localhost:4000/api/data/addDetails", body)
             .then((res) => {
               setSaved(true);
               console.log("Saved successfully!");
               setTimeout(() => {
+                setLoading(false);
                 setOpen(false);
                 setSaved(false);
               }, 1000);
             })
             .catch((error) => {
+              setLoading(false);
               setError("Internal Server Error");
               setSaved(false);
             });
@@ -250,13 +254,14 @@ export default function UserInfoEntries() {
   const saveAndOverwrite = async () => {
     setSavedOverwrite(false);
     const details = JSON.stringify(userInfo);
+    setLoading(true)
     axios
-      .get("http://localhost:4000/api/data/getAllDetailsByEmail", {
-        headers: {
-          email: user.email,
-        },
-      })
-      .then((res) => {
+    .get("http://localhost:4000/api/data/getAllDetailsByEmail", {
+      headers: {
+        email: user.email,
+      },
+    })
+    .then((res) => {
         const data = res.data;
         const result = data.filter((item) => item.detailid === resumeName);
         console.log("result: ", result);
@@ -269,11 +274,12 @@ export default function UserInfoEntries() {
             modified: date.toString(),
           };
           axios
-            .post(
+          .post(
               "http://localhost:4000/api/data/updateDetailsByDetailId",
               body
             )
             .then((res) => {
+              setLoading(false)
               setSavedOverwrite(true);
               setTimeout(() => {
                 setSavedOverwrite(false);
@@ -281,13 +287,15 @@ export default function UserInfoEntries() {
               }, 1000);
             })
             .catch((error) => {
+              setLoading(false)
               setError("Internal Server Error");
             });
-        } else {
-          saveResume();
-        }
-      })
-      .catch((error) => {
+          } else {
+            saveResume();
+          }
+        })
+        .catch((error) => {
+        setLoading(false)
         setError("Internal Server Error");
       });
   };

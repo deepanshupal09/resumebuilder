@@ -21,8 +21,39 @@ function LandingPage() {
   const multipletemplate = useRef(null);
   const faq = useRef(null);
   const navigate = useNavigate();
-  const templates = [res1,res2,res3,res4];
+  const templates = [res1, res2, res3, res4];
   const [user, setUser] = useState();
+
+  const faqData = [
+    {
+      id: "q1",
+      question: "What is Resume Builder?",
+      answer:
+        "Resume Builder is an online platform that assists individuals in creating professional resumes tailored to their skills, achievements, and career aspirations.",
+      icon: faChevronUp,
+    },
+    {
+      id: "q2",
+      question: "Do I need any prior experience in resume writing to use Resume Builder?",
+      answer:
+        "No, Resume Builder is designed to be user-friendly and intuitive, making it accessible to users with any level of experience in resume writing. Our platform provides templates, suggestions, and guidance throughout the process.",
+      icon: faChevronDown,
+    },
+    {
+      id: "q3",
+      question: "Are the templates provided by Resume Builder customizable?",
+      answer:
+        "Yes, Resume Builder offers a range of customizable templates to suit different industries and job positions. You can personalize the templates by changing fonts, colors, sections, and layouts to match your preferences.",
+      icon: faChevronDown,
+    },
+    {
+      id: "q4",
+      question: "Is there a free trial or a subscription fee for Resume Builder?",
+      answer:
+        "No, Resume Builder is completely free to use. You can create, customize, and download your professional resume without any cost.",
+      icon: faChevronDown,
+    },
+  ];
 
   useEffect(() => {
     if (getCookie("auth")) {
@@ -94,149 +125,18 @@ function LandingPage() {
     return () => instance.destroy();
   }, []);
 
-  const a1 = () => {
-    var a = document.getElementById("a1");
-    var b = document.getElementById("a2");
-    var c = document.getElementById("a3");
-    var d = document.getElementById("a4");
-    var an1 = document.getElementById("cd1");
-    var an2 = document.getElementById("cd2");
-    var an3 = document.getElementById("cd3");
-    var an4 = document.getElementById("cd4");
-    console.log(a.clientHeight);
+  const [expandedAnswerIndex, setExpandedAnswerIndex] = useState(0);
 
-    if (a.clientHeight === "0") {
-      a.style.height = "auto";
-      a.style.padding = "1rem";
-      a.style.border = "1px solid #94A3B8";
-      b.style.height = c.style.height = d.style.height = "0";
-      b.style.padding = c.style.padding = d.style.padding = "0";
-      b.style.border = c.style.border = d.style.border = "0";
-      an1.style.transform = "rotate(0deg)";
-      an1.style.transition = "0.3s";
-      an2.style.transform = "rotate(0deg)";
-      an2.style.transition = "0.3s";
-      an3.style.transform = "rotate(0deg)";
-      an3.style.transition = "0.3s";
-      an4.style.transform = "rotate(0deg)";
-      an4.style.transition = "0.3s";
-    } else {
-      a.style.height = "0";
-      a.style.padding = "0";
-      a.style.border = "0";
-      an1.style.transform = "rotate(-180deg)";
-      an1.style.transition = "0.3s";
-    }
-  };
-  const a2 = () => {
-    var a = document.getElementById("a1");
-    var b = document.getElementById("a2");
-    var c = document.getElementById("a3");
-    var d = document.getElementById("a4");
-    var an1 = document.getElementById("cd1");
-    var an2 = document.getElementById("cd2");
-    var an3 = document.getElementById("cd3");
-    var an4 = document.getElementById("cd4");
-
-    if (b.clientHeight === "0") {
-      b.style.height = "auto";
-      b.style.padding = "1rem";
-      b.style.border = "1px solid #94A3B8";
-      a.style.height = c.style.height = d.style.height = "0";
-      a.style.padding = c.style.padding = d.style.padding = "0";
-      a.style.border = c.style.border = d.style.border = "0";
-      an1.style.transform = "rotate(-180deg)";
-      an1.style.transition = "0.3s";
-      an2.style.transform = "rotate(180deg)";
-      an2.style.transition = "0.3s";
-      an3.style.transform = "rotate(0deg)";
-      an3.style.transition = "0.3s";
-      an4.style.transform = "rotate(0deg)";
-      an4.style.transition = "0.3s";
-    } else {
-      b.style.height = "0";
-      b.style.padding = "0";
-      b.style.border = "0";
-      an2.style.transform = "rotate(0deg)";
-      an2.style.transition = "0.3s";
-    }
-  };
-  const a3 = () => {
-    var a = document.getElementById("a1");
-    var b = document.getElementById("a2");
-    var c = document.getElementById("a3");
-    var d = document.getElementById("a4");
-    var an1 = document.getElementById("cd1");
-    var an2 = document.getElementById("cd2");
-    var an3 = document.getElementById("cd3");
-    var an4 = document.getElementById("cd4");
-
-    if (c.clientHeight === "0") {
-      c.style.height = "auto";
-      c.style.padding = "1rem";
-      c.style.border = "1px solid #94A3B8";
-      b.style.height = a.style.height = d.style.height = "0";
-      b.style.padding = a.style.padding = d.style.padding = "0";
-      b.style.border = a.style.border = d.style.border = "0";
-      an1.style.transform = "rotate(-180deg)";
-      an1.style.transition = "0.3s";
-      an2.style.transform = "rotate(0deg)";
-      an2.style.transition = "0.3s";
-      an3.style.transform = "rotate(180deg)";
-      an3.style.transition = "0.3s";
-      an4.style.transform = "rotate(0deg)";
-      an4.style.transition = "0.3s";
-    } else {
-      c.style.height = "0";
-      c.style.padding = "0";
-      c.style.border = "0";
-      an3.style.transform = "rotate(0deg)";
-      an3.style.transition = "0.3s";
-    }
+  const toggleAnswer = (index) => {
+    setExpandedAnswerIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
-  const a4 = () => {
-    var a = document.getElementById("a1");
-    var b = document.getElementById("a2");
-    var c = document.getElementById("a3");
-    var d = document.getElementById("a4");
-    var q = document.getElementById("q4");
-    var an1 = document.getElementById("cd1");
-    var an2 = document.getElementById("cd2");
-    var an3 = document.getElementById("cd3");
-    var an4 = document.getElementById("cd4");
-    if (d.clientHeight === "0") {
-      d.style.height = "auto";
-      d.style.padding = "1rem";
-      d.style.border = "1px solid #94A3B8";
-      b.style.height = c.style.height = a.style.height = "0";
-      b.style.padding = c.style.padding = a.style.padding = "0";
-      b.style.border = c.style.border = a.style.border = "0";
-      q.style.borderRadius = "0";
-      an1.style.transform = "rotate(-180deg)";
-      an1.style.transition = "0.3s";
-      an2.style.transform = "rotate(0deg)";
-      an2.style.transition = "0.3s";
-      an3.style.transform = "rotate(0deg)";
-      an3.style.transition = "0.3s";
-      an4.style.transform = "rotate(180deg)";
-      an4.style.transition = "0.3s";
-    } else {
-      d.style.height = "0";
-      d.style.padding = "0";
-      d.style.border = "0";
-      q.style.borderBottomLeftRadius = "0.5rem";
-      q.style.borderBottomRightRadius = "0.5rem";
-      an4.style.transform = "rotate(0deg)";
-      an4.style.transition = "0.3s";
-    }
-  };
 
   AOS.init();
   return (
     <>
-    
-    <Navbar user={user} />
+
+      <Navbar user={user} />
       <div className=" first-component flex text-white h-[90vh]">
         <div className=" mx-12 slideleft">
           <div className=" relative top-[25%] text-3xl lg:text-5xl font-bold font-sans">
@@ -288,29 +188,29 @@ function LandingPage() {
           >
             <div
               className=" scroll-smooth template h-full mx-auto flex space-x-[3vw] mt-[5vh] flex-nowrap overflow-y-visible"
-              id="temp" onClick={()=>{  }}
+              id="temp" onClick={() => { }}
             >
-             {templates.map((template,index) => {
-              return (
-                <div key={index}
-                onClick={()=>{
-                  const time = (new Date()).toString();
-                  
-                  navigate(`/buildresume/${user.email}${time}/${index}`)
-                }}
-                className="h-[100%] w-[72%] px-1 md:px-2 py-4 md:w-[27%]"
-                style={{ flex: "0 0 auto" }}
-              >
-                {" "}
-                <img src="" alt="" />
-                <img
-                  src={template}
-                  className="h-[100%] cursor-pointer hover:scale-[110%] transition-all duration-300  w-[100%] shadow-2xl"
-                  alt=""
-                />{" "}
-              </div>
-              )
-             })}
+              {templates.map((template, index) => {
+                return (
+                  <div key={index}
+                    onClick={() => {
+                      const time = (new Date()).toString();
+
+                      navigate(`/buildresume/${user.email}${time}/${index}`)
+                    }}
+                    className="h-[100%] w-[72%] px-1 md:px-2 py-4 md:w-[27%]"
+                    style={{ flex: "0 0 auto" }}
+                  >
+                    {" "}
+                    <img src="" alt="" />
+                    <img
+                      src={template}
+                      className="h-[100%] cursor-pointer hover:scale-[110%] transition-all duration-300  w-[100%] shadow-2xl"
+                      alt=""
+                    />{" "}
+                  </div>
+                )
+              })}
             </div>
           </ScrollContainer>
         </div>
@@ -392,118 +292,42 @@ function LandingPage() {
         </div>
       </div>
       <div id="FAQ"></div>
-      <div
-        data-aos="fade-up"
-        className="fourth-component py-20 px-10 lg:px-20 bg-white justify-between flex flex-col md:flex-row h-auto  "
-      >
-        <div className=" w-full lg:w-1/2">
-          <div className="text-5xl mx-auto  lg:text-6xl font-mons font-bold p-4 leading-[4rem]">
-            {" "}
+      <div className="fourth-component py-20 px-10 lg:px-20 bg-white justify-between flex flex-col md:flex-row">
+        <div className="w-full lg:w-1/2">
+          <div className="text-5xl mx-auto lg:text-6xl font-mons font-bold p-4 leading-[4rem]">
             <span className="font-bold text-red-600">F</span>requently{" "}
             <span className="font-bold text-red-600">A</span>sked{" "}
-            <span className="font-bold text-red-600">Q</span>uestions{" "}
+            <span className="font-bold text-red-600">Q</span>uestions
           </div>
-          <div
-            className="container h-[50vh] mx-auto lg:hidden "
-            ref={faq}
-          ></div>
           <div className="font-mons mt-8 text-xl lg:text-2xl">
-            <button
-              className="text-left w-full p-4 border border-1 rounded-t-lg border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 "
-              onClick={a1}
-            >
-              <div className="flex justify-between font-bold">
-                {" "}
-                <div> Q. What is Resume Builder ?</div>{" "}
-                <div id="cd1" className="my-auto">
-                  <FontAwesomeIcon icon={faChevronUp} />{" "}
+            {faqData.map((item, index) => (
+              <div key={item.id}>
+                <button
+                  className={`w-full p-4 border border-1  ${index===0?'rounded-t-lg':''} ${index===faqData.length-1&&expandedAnswerIndex!==index?'rounded-b-lg':''} border-slate-400 focus:border-blue-400 focus:shadow-sm focus:shadow-blue-200`}
+                  onClick={() => toggleAnswer(index)}
+                >
+                  <div className="flex justify-between font-bold">
+                    <div className="text-left">Q. {item.question}</div>
+                    <div>
+                    <FontAwesomeIcon
+                        icon={faChevronDown}
+                        className={`h-5 transition-transform w-5 ${expandedAnswerIndex === index ? 'rotate-180' : ''}`}
+                      />
+                    </div>
+                  </div>
+                </button>
+                <div
+                  className={`overflow-hidden transition-all duration-300 ${
+                    expandedAnswerIndex === index ? `border border-1 ${index===faqData.length-1?'rounded-b-lg':''} border-slate-400 p-4` : "h-0"
+                  }`}
+                >
+                  {item.answer}
                 </div>
               </div>
-            </button>
-            <div
-              id="a1"
-              className="overflow-hidden h-auto text-left  transition-all duration-300 w-full p-4 border border-1  border-slate-400 "
-            >
-              Resume Builder is an online platform that assists individuals in
-              creating professional resumes tailored to their skills,
-              achievements, and career aspirations.
-            </div>
-            <button
-              className="text-left w-full p-4 border border-1  border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 "
-              onClick={a2}
-            >
-              <div className="flex justify-between font-bold">
-                {" "}
-                <div>
-                  {" "}
-                  Q. Do I need any prior experience in resume writing to use
-                  Resume Builder ?{" "}
-                </div>{" "}
-                <div id="cd2" className="my-auto">
-                  <FontAwesomeIcon icon={faChevronDown} />{" "}
-                </div>
-              </div>
-            </button>
-            <div
-              id="a2"
-              className="overflow-hidden h-0 text-left  transition-all duration-300 w-full p-0  border-0  border-slate-400 "
-            >
-              No, Resume Builder is designed to be user-friendly and intuitive,
-              making it accessible to users with any level of experience in
-              resume writing. Our platform provides templates, suggestions, and
-              guidance throughout the process.
-            </div>
-            <button
-              className="text-left w-full p-4 border border-1  border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 "
-              onClick={a3}
-            >
-              <div className="flex justify-between font-bold">
-                {" "}
-                <div>
-                  {" "}
-                  Q. Are the templates provided by Resume Builder customizable?{" "}
-                </div>{" "}
-                <div id="cd3" className="my-auto">
-                  <FontAwesomeIcon icon={faChevronDown} />{" "}
-                </div>
-              </div>
-            </button>
-            <div
-              id="a3"
-              className="overflow-hidden h-0 text-left  transition-all duration-300 w-full p-0  border-0  border-slate-400 "
-            >
-              Yes, Resume Builder offers a range of customizable templates to
-              suit different industries and job positions. You can personalize
-              the templates by changing fonts, colors, sections, and layouts to
-              match your preferences.
-            </div>
-            <button
-              id="q4"
-              className="text-left w-full p-4 border border-1  border-slate-400 focus:border-blue-400 focus:shadow-sm  focus:shadow-blue-200 rounded-b-lg "
-              onClick={a4}
-            >
-              <div className="flex justify-between font-bold">
-                {" "}
-                <div>
-                  Q. Is there a free trial or a subscription fee for Resume
-                  Builder ?
-                </div>{" "}
-                <div id="cd4" className="my-auto">
-                  <FontAwesomeIcon icon={faChevronDown} />{" "}
-                </div>
-              </div>
-            </button>
-            <div
-              id="a4"
-              className="overflow-hidden h-0 text-left transition-all duration-300  w-full p-0  border-0 rounded-b-lg  border-slate-400 "
-            >
-              No, Resume Builder is completely free to use. You can create,
-              customize, and download your professional resume without any cost.
-            </div>
+            ))}
           </div>
         </div>
-
-        <div className=" w-1/2 h-auto lg:block hidden">
+        <div className="w-1/2 h-auto lg:block hidden">
           <div className="container" ref={container}></div>
         </div>
       </div>
