@@ -22,6 +22,7 @@ import res1 from "../images/resume-1.jpg";
 import res2 from "../images/resume-2.jpg";
 import res3 from "../images/resume-3.jpg";
 import res4 from "../images/resume-4.jpg";
+import Add from "@mui/icons-material/Add";
 
 
 function formatTimeDifference(timeDifferenceInMinutes) {
@@ -38,8 +39,7 @@ function formatTimeDifference(timeDifferenceInMinutes) {
   }
 }
 
-export default function Dashboard() {
-  const [user, setUser] = useState();
+export default function Dashboard({ user }) {
   const [resumes, setResumes] = useState([]);
   const navigate = useNavigate();
   const [reRenderDetails, setReRenderDetails] = useState(false);
@@ -47,14 +47,12 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [openTemplate, setOpenTemplate] = useState(false)
   const [working, setWorking] = useState("");
-  const templates = [res1,res2,res3,res4];
-
+  const templates = [res1, res2, res3, res4];
 
   useEffect(() => {
-    if (getCookie("auth")) {
-      setUser(JSON.parse(getCookie("auth")));
-    }
-  }, []);
+    if (!user) navigate("/login")
+  }, [])
+
 
   useEffect(() => {
     setLoading(true);
@@ -99,17 +97,27 @@ export default function Dashboard() {
 
   return (
     <>
-    
-    <Navbar user={user} />
       <div className="mt-[7vh] h-fit ">
         <div className="my-[13vh] mx-[12vw] text-[#121417] font-manrope ">
           <div className="text-[40px] font-bold  ">
             Welcome back, {user?.name}!
           </div>
-          <div className="text-[20px] font-semibold my-10">
-            Your recent activity
+          <div className="flex justify-between py-10">
+            <div className="text-[20px] font-semibold ">
+              Your recent activity
+            </div>
+            <Button onClick={() => {
+              const time = (new Date()).toString();
+              setWorking(`${user.email}${time}`)
+              setOpenTemplate(true)
+            }} color="primary" variant="solid" >
+              <Add className="scale-[95%]" />&nbsp;Create New Resume&nbsp;
+            </Button>
           </div>
 
+          {resumes.length === 0 && (
+            <div className="">   You don't have any resumes yet. Click the button above to create a new one!</div>
+          )}
           {resumes.map((e) => {
             return (
               <div className="my-10 flex flex-row justify-between">
@@ -124,12 +132,12 @@ export default function Dashboard() {
                   {/* <button className="bg-[#F0F2F5] rounded-[12px] py-0 px-[16px] h-[32px] w-[84px] text-[#121417] text-[16px] flex justify-center items-center" onClick={() => { navigate(`/buildresume/${e.name}/2`) }} variant="soft" color="neutral">
                     Edit
                   </button> */}
-                  <Button  variant="outlined" onClick={()=>{setWorking(e.name); setOpenTemplate(true)}}
+                  <Button variant="outlined" onClick={() => { setWorking(e.name); setOpenTemplate(true) }}
                     color="neutral"><EditIcon className="scale-75" />&nbsp;Edit
                   </Button>
-                  <Button variant="outlined" onClick={() => {setWorking(e.name);setOpen(true)}}
-                   color="danger">
-                   <DeleteForever /> Delete
+                  <Button variant="outlined" onClick={() => { setWorking(e.name); setOpen(true) }}
+                    color="danger">
+                    <DeleteForever /> Delete
                   </Button>
                 </div>
               </div>
@@ -167,7 +175,7 @@ export default function Dashboard() {
             Are you sure you want to delete this resume?
           </DialogContent>
           <DialogActions>
-            <Button variant="solid" color="danger" onClick={() => {deleteDetail(working);setOpen(false);setWorking("")}}>
+            <Button variant="solid" color="danger" onClick={() => { deleteDetail(working); setOpen(false); setWorking("") }}>
               Yes
             </Button>
             <Button variant="plain" color="neutral" onClick={() => setOpen(false)}>
@@ -179,7 +187,7 @@ export default function Dashboard() {
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loading}
-        // onClick={handleClose}
+      // onClick={handleClose}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -218,40 +226,40 @@ export default function Dashboard() {
             >
               <DialogTitle ><div className="font-manrope text-6xl mx-auto py-5 text-slate-700">Select a Template</div></DialogTitle>
               <DialogContent>
-              <div>
-              <ScrollContainer
-            vertical={false}
-            horizontal={true}
-            className="scroll-container h-fit overflow-x-hidden"
-          >
-            <div
-              className=" scroll-smooth template h-full mx-auto flex space-x-[3vw] mt-10 pb-10 flex-nowrap overflow-y-visible"
-              id="temp" onClick={()=>{  }}
-            >
-             {templates.map((template,index) => {
-              return (
-                <div key={index}
-                onClick={()=>{
-                  const time = (new Date()).toString();
-                  
-                  navigate(`/buildresume/${working}/${index}`)
-                }}
-                className="h-[100%] w-[35%] px-1 md:px-2 py-4 "
-                style={{ flex: "0 0 auto" }}
-              >
-                {" "}
-                <img src="" alt="" />
-                <img
-                  src={template}
-                  className="h-[100%] cursor-pointer hover:scale-[110%] transition-all duration-300  w-[100%] shadow-2xl"
-                  alt=""
-                />{" "}
-              </div>
-              )
-             })}
-            </div>
-          </ScrollContainer>
-              </div>
+                <div>
+                  <ScrollContainer
+                    vertical={false}
+                    horizontal={true}
+                    className="scroll-container h-fit overflow-x-hidden"
+                  >
+                    <div
+                      className=" scroll-smooth template h-full mx-auto flex space-x-[3vw] mt-10 pb-10 flex-nowrap overflow-y-visible"
+                      id="temp" onClick={() => { }}
+                    >
+                      {templates.map((template, index) => {
+                        return (
+                          <div key={index}
+                            onClick={() => {
+                              const time = (new Date()).toString();
+
+                              navigate(`/buildresume/${working}/${index}`)
+                            }}
+                            className="h-[100%] w-[35%] px-1 md:px-2 py-4 "
+                            style={{ flex: "0 0 auto" }}
+                          >
+                            {" "}
+                            <img src="" alt="" />
+                            <img
+                              src={template}
+                              className="h-[100%] cursor-pointer hover:scale-[110%] transition-all duration-300  w-[100%] shadow-2xl"
+                              alt=""
+                            />{" "}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </ScrollContainer>
+                </div>
               </DialogContent>
             </ModalDialog>
           </Modal>

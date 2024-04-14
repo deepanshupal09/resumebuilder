@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { getCookie } from "../../cookies";
 import Navbar from "../Navbar";
 
-function LandingPage() {
+function LandingPage({user}) {
   const container = useRef(null);
   const firstpic = useRef(null);
   const easytouse = useRef(null);
@@ -22,7 +22,6 @@ function LandingPage() {
   const faq = useRef(null);
   const navigate = useNavigate();
   const templates = [res1, res2, res3, res4];
-  const [user, setUser] = useState();
 
   const faqData = [
     {
@@ -55,11 +54,6 @@ function LandingPage() {
     },
   ];
 
-  useEffect(() => {
-    if (getCookie("auth")) {
-      setUser(JSON.parse(getCookie("auth")));
-    }
-  }, []);
 
   useEffect(() => {
     const instance = Lottie.loadAnimation({
@@ -136,7 +130,6 @@ function LandingPage() {
   return (
     <>
 
-      <Navbar user={user} />
       <div className=" first-component flex text-white h-[90vh]">
         <div className=" mx-12 slideleft">
           <div className=" relative top-[25%] text-3xl lg:text-5xl font-bold font-sans">
@@ -195,8 +188,9 @@ function LandingPage() {
                   <div key={index}
                     onClick={() => {
                       const time = (new Date()).toString();
-
-                      navigate(`/buildresume/${user.email}${time}/${index}`)
+                      if (user)
+                        navigate(`/buildresume/${user.email}${time}/${index}`)
+                      else navigate("/login")
                     }}
                     className="h-[100%] w-[72%] px-1 md:px-2 py-4 md:w-[27%]"
                     style={{ flex: "0 0 auto" }}

@@ -8,7 +8,7 @@ import { getCookie, setCookieWithExpiry } from "../../cookies";
 import axios from "axios";
 import Navbar from "../Navbar";
 
-function Login() {
+function Login({user,setUser}) {
   const [Email, setEmail] = useState("");
   const [Password, setPass] = useState("");
   const [helperText, setHelperText] = useState("");
@@ -16,7 +16,7 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (getCookie("auth")) {
+    if (user) {
       navigate("/dashboard");
     }
   }, []);
@@ -45,12 +45,13 @@ function Login() {
 
   function handleCallBackResponse(e) {
     console.log(jwtDecode(e.credential));
-    let user = jwtDecode(e.credential);
-    setCookieWithExpiry("auth", user, 2);
-    user = { ...user, password: null };
+    let usr = jwtDecode(e.credential);
+    setCookieWithExpiry("auth", usr, 2);
+    usr = { ...usr, password: null };
+    setUser(usr);
 
     axios
-      .post("http://localhost:4000/api/data/", user)
+      .post("http://localhost:4000/api/data/", usr)
       .then((res) => {
         console.log("logged in! ", res);
       })
@@ -61,9 +62,9 @@ function Login() {
   }
 
   async function handleLogin() {
-    const url = `http://localhost:4000/api/data/${Email}`;
+    const url = `http://localhost:4000/api/data/getUserByEmail`;
     axios
-      .get(url)
+      .get(url,{headers: {email: Email}})
       .then((res) => {
         if (res.data.length < 1) {
           console.log("Email Id not found");
@@ -78,8 +79,9 @@ function Login() {
             setHelperText("Incorrect Password");
           } else {
             console.log("Logged In");
-            const user = res.data;
-            setCookieWithExpiry("auth", user, 2);
+            const usr = res.data;
+            setCookieWithExpiry("auth", usr, 2);
+            setUser(usr);
             navigate("/dashboard");
           }
         }
@@ -93,7 +95,6 @@ function Login() {
   return (
     <>
     
-    <Navbar  />
       <div
         id="l"
         //   style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/3/33/Microsoft_login_screen.svg)"

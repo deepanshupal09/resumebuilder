@@ -36,7 +36,6 @@ import SkipNextIcon from "@mui/icons-material/SkipNext";
 import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import axios from "axios";
-import { getCookie } from "../../cookies";
 import { FormHelperText } from "@mui/joy";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -63,7 +62,7 @@ const steps = [
 ];
 
 
-export default function UserInfoEntries() {
+export default function UserInfoEntries({ user }) {
 
   const options = ['Save', 'Save As..', 'Download'];
 
@@ -108,52 +107,87 @@ export default function UserInfoEntries() {
   const [saved, setSaved] = useState(false);
   const [savedOverwrite, setSavedOverwrite] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState();
   const [error, setError] = useState("");
   const { detailid, templateid } = useParams();
   const [userInfo, setUserInfo] = React.useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
-    state: "",
-    city: "",
-    country: "",
-    pincode: "",
+    firstName: "John",
+    lastName: "Doe",
+    email: "johndoe@example.com",
+    phone: "123-456-7890",
+    address: "123 Main Street",
+    state: "California",
+    city: "Los Angeles",
+    country: "USA",
+    pincode: "90001",
     workExperiences: [
       {
-        company: "",
-        designation: "",
-        workCity: "",
-        workCountry: "",
-        startDate: getCurrentDate().format('YYYY-MM-DD'),
-        endDate: getCurrentDate().format('YYYY-MM-DD'),
-        description: [""],
-        working: false,
-      },
+        company: "Tech Innovations Ltd.",
+        designation: "Senior Software Engineer",
+        workCity: "San Francisco",
+        workCountry: "USA",
+        startDate: "2018-06-01",
+        endDate: "2022-12-31",
+        description: [
+          "Led the development of a groundbreaking AI-powered chatbot for customer support, reducing response time by 50%.",
+          "Implemented advanced machine learning algorithms for predictive analytics, resulting in a 30% increase in sales.",
+          "Mentored junior developers and conducted code reviews to maintain high code quality standards."
+        ],
+        working: false
+      }
     ],
     projects: [
       {
-        name: "",
-        startDate: getCurrentDate().format('YYYY-MM-DD'),
-        endDate: getCurrentDate().format('YYYY-MM-DD'),
-        link: "",
-        description: [""],
+        name: "EcoGuard",
+        startDate: "2021-03-15",
+        endDate: "2021-06-30",
+        link: "https://ecoguard.example.com",
+        description: [
+          "Developed a mobile application to track environmental pollution levels in real-time and provide recommendations for eco-friendly actions.",
+          "Integrated geolocation services to pinpoint pollution hotspots and visualize data on a map interface.",
+          "Collaborated with environmental experts to refine algorithms for pollution prediction and prevention."
+        ]
       },
+      {
+        name: "AdventureBuddy",
+        startDate: "2020-09-01",
+        endDate: "2021-01-31",
+        link: "https://adventurebuddy.example.com",
+        description: [
+          "Designed and implemented a social networking platform for outdoor enthusiasts to connect and plan adventures.",
+          "Utilized React Native for cross-platform development, ensuring a seamless user experience on both iOS and Android devices.",
+          "Implemented advanced search and filtering functionalities based on user preferences and location."
+        ]
+      }
     ],
-    achievements: [""],
+    achievements: [
+      "Received the Innovation Award for outstanding contributions to product development at Tech Innovations Ltd.",
+      "Published a research paper on artificial intelligence in a top-tier conference, gaining recognition from industry experts.",
+      "Achieved a perfect score in a competitive programming contest organized by a leading tech company.",
+      "Volunteered as a mentor for underprivileged youth in a coding bootcamp"
+    ],
     education: [
       {
-        school: "",
-        degree: "",
-        schoolCity: "",
-        schoolCountry: "",
-        schoolStartDate: getCurrentDate().format('YYYY-MM-DD'),
-        schoolEndDate: getCurrentDate().format('YYYY-MM-DD'),
+        school: "Institute of Technology",
+        degree: "Master of Science in Computer Science",
+        schoolCity: "Los Angeles",
+        schoolCountry: "USA",
+        schoolStartDate: "2016-09-01",
+        schoolEndDate: "2018-06-30"
       },
+      {
+        school: "Sunshine High School",
+        degree: "High School Diploma",
+        schoolCity: "Los Angeles",
+        schoolCountry: "USA",
+        schoolStartDate: "2012-09-01",
+        schoolEndDate: "2016-06-30"
+      }
     ],
-    skills: [""],
+    skills: [
+      "C++, HTML, CSS, JavaScript, Python, JAVA, Kotlin, SQL",
+      "ReactJS, ExpressJS, NodeJS, Android, TailwindCSS, Jetpack Compose",
+      "Git, VSCode, GitHub, Firebase, MongoDB"
+    ]
   });
   const [userInfoPreview, setUserInfoPreview] = useState(userInfo);
   const [resumeName, setResumeName] = useState(detailid);
@@ -172,12 +206,7 @@ export default function UserInfoEntries() {
     }
   };
 
-  useEffect(() => {
-    console.log(getCurrentDate().format('YYYY-MM-DD'))
-    if (getCookie("auth")) {
-      setUser(JSON.parse(getCookie("auth")));
-    }
-  }, []);
+
 
   useEffect(() => {
     console.log(detailid)
@@ -206,30 +235,30 @@ export default function UserInfoEntries() {
     setSaved(false);
     setLoading(true);
     axios
-    .get("http://localhost:4000/api/data/getAllDetailsByEmail", {
-      headers: {
-        email: user.email,
-      },
-    })
-    .then((res) => {
-      const data = res.data;
-      const result = data.filter((item) => item.detailid === resumeName);
-      console.log("result: ", result);
-      if (result.length > 0) {
-        setError("Name already exists");
-        setSaved(false);
-      } else {
-        const date = new Date();
-        
-        setLoading(false);
-        const body = {
+      .get("http://localhost:4000/api/data/getAllDetailsByEmail", {
+        headers: {
           email: user.email,
-          detailId: resumeName,
-          details: details,
-          modified: date.toString(),
-        };
-        axios
-        .post("http://localhost:4000/api/data/addDetails", body)
+        },
+      })
+      .then((res) => {
+        const data = res.data;
+        const result = data.filter((item) => item.detailid === resumeName);
+        console.log("result: ", result);
+        if (result.length > 0) {
+          setError("Name already exists");
+          setSaved(false);
+        } else {
+          const date = new Date();
+
+          setLoading(false);
+          const body = {
+            email: user.email,
+            detailId: resumeName,
+            details: details,
+            modified: date.toString(),
+          };
+          axios
+            .post("http://localhost:4000/api/data/addDetails", body)
             .then((res) => {
               setSaved(true);
               console.log("Saved successfully!");
@@ -256,12 +285,12 @@ export default function UserInfoEntries() {
     const details = JSON.stringify(userInfo);
     setLoading(true)
     axios
-    .get("http://localhost:4000/api/data/getAllDetailsByEmail", {
-      headers: {
-        email: user.email,
-      },
-    })
-    .then((res) => {
+      .get("http://localhost:4000/api/data/getAllDetailsByEmail", {
+        headers: {
+          email: user.email,
+        },
+      })
+      .then((res) => {
         const data = res.data;
         const result = data.filter((item) => item.detailid === resumeName);
         console.log("result: ", result);
@@ -274,7 +303,7 @@ export default function UserInfoEntries() {
             modified: date.toString(),
           };
           axios
-          .post(
+            .post(
               "http://localhost:4000/api/data/updateDetailsByDetailId",
               body
             )
@@ -290,11 +319,11 @@ export default function UserInfoEntries() {
               setLoading(false)
               setError("Internal Server Error");
             });
-          } else {
-            saveResume();
-          }
-        })
-        .catch((error) => {
+        } else {
+          saveResume();
+        }
+      })
+      .catch((error) => {
         setLoading(false)
         setError("Internal Server Error");
       });
@@ -523,7 +552,6 @@ export default function UserInfoEntries() {
   return (
     <>
 
-      <Navbar user={user} />
       <div className="flex my-5 bg-white pt-[10vh] w-full p-8 h-[100vh]">
         <div className="w-[50vw]">
           <Box sx={{ width: "100%" }}>

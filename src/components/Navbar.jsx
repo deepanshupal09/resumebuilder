@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import { delete_cookie, getCookie } from "../cookies";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const Navbar = React.memo(({user}) => {
+const Navbar = ({user,setUser}) => {
   const [open, setOpen] = useState("false");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -24,7 +24,8 @@ const Navbar = React.memo(({user}) => {
 
   const handleLogout = () => {
     delete_cookie("auth");
-    console.log("location: ", location.pathname);
+    // console.log("location: ", location.pathname);
+    setUser(null);
     if (location.pathname === "/dashboard") {
       navigate("/");
     } else {
@@ -53,7 +54,6 @@ const Navbar = React.memo(({user}) => {
   return (
     <>
       <div>
-        {console.log(1, user)}
         <div
           id="nav"
           className=" lg:shadow-2xl  absolute top-0 justify backdrop-blur-lg backdrop-filter bg-opacity-30 z-10 w-screen flex justify-between h-[7vh] bg-black text-lg  text-white"
@@ -146,12 +146,12 @@ const Navbar = React.memo(({user}) => {
                     >
                       <img
                         className="w-12 h-12 rounded-full border-white border-2"
-                        src={user?.picture}
-                        alt={user?.name}
+                        src={user.picture}
+                        alt={user.name}
                       />
                       <div className="flex flex-col gap-1 w-fit">
                         <div className="px-2 whitespace-nowrap overflow-hidden overflow-ellipsis ">
-                          {user?.name}
+                          {user.name}
                         </div>
                         <div className="px-2 text-sm  text-slate-600">
                           Account
@@ -200,6 +200,6 @@ const Navbar = React.memo(({user}) => {
       </div>
     </>
   );
-});
+};
 
 export default Navbar;
