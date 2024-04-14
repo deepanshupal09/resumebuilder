@@ -46,7 +46,7 @@ Font.register({
 const styles = StyleSheet.create({
   page: {
     fontFamily: "Roboto",
-    padding: 20,
+    padding: 5,
     fontSize: "11px",
     backgroundColor: "#f0f0f0",
   },
@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
   box2: {
     justifyContent: 'flex-start',
     padding: 20,
+    textAlign: "justify",
     // backgroundColor: '#f8f8f8',
     marginBottom: 20,
     borderRadius: 10,
@@ -93,6 +94,7 @@ const styles = StyleSheet.create({
   },
   text2: {
     color: '#555',
+    textAlign: "justify",
     fontSize: 16,
   },
   fonthead: {

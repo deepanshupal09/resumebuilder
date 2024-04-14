@@ -9,7 +9,7 @@ import axios from "axios";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 
-function Signup() {
+function Signup({user, setUser}) {
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
   const [Password, setPass] = useState("");
@@ -21,7 +21,7 @@ function Signup() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (getCookie("auth")) {
+    if (user) {
       navigate("/dashboard");
     }
   }, []);
@@ -50,11 +50,12 @@ function Signup() {
 
   function handleCallBackResponse(e) {
     console.log(jwtDecode(e.credential));
-    const user = jwtDecode(e.credential);
-    setCookieWithExpiry("auth", user, 2);
+    const usr = jwtDecode(e.credential);
+    setCookieWithExpiry("auth", usr, 2);
+    setUser(usr)
 
     axios
-      .post("http://localhost:4000/api/data/", user)
+      .post("http://localhost:4000/api/data/", usr)
       .then((res) => {
         console.log("logged in! ", res);
       })
@@ -75,11 +76,11 @@ function Signup() {
       return;
     }
 
-    const url = `http://localhost:4000/api/data/${Email}`;
+    const url = `http://localhost:4000/api/data/getUserByEmail`;
     console.log("URL: ", url);
 
     axios
-      .get(url)
+      .get(url,{headers: {email: Email}})
       .then((res) => {
         console.log("response: ", res);
         if (res.data.length > 0) {
@@ -87,7 +88,7 @@ function Signup() {
           setError(true);
           setHelperTextEmail("Email already exists!");
         } else {
-          const user = {
+          const usr = {
             email: Email,
             name: Name,
             picture:
@@ -95,10 +96,11 @@ function Signup() {
             password: Password,
           };
           axios
-            .post("http://localhost:4000/api/data/", user)
+            .post("http://localhost:4000/api/data/", usr)
             .then((res) => {
-              setCookieWithExpiry("auth", user, 2);
+              setCookieWithExpiry("auth", usr, 2);
               console.log("logged in! ", res);
+              setUser(usr);
               navigate("/dashboard");
             })
             .catch((error) => {
@@ -115,7 +117,6 @@ function Signup() {
   return (
     <>
     
-    <Navbar />
       <div
         id="l"
         className=" "

@@ -153,7 +153,7 @@ const Resume = React.memo((props) => {
             <Text style={styles.subHeading}>SKILLS</Text>
             <View style={styles.divider}></View>
             {user.skills.map((element, index) => {
-              return <Text style={styles.listItem}> - {element}</Text>;
+              return <Text style={styles.listItem}>{element}</Text>;
             })}
           </View>
         )}
@@ -177,7 +177,7 @@ const Resume = React.memo((props) => {
                     </Text>
                   </View>
                   {element.description.map((element, index) => {
-                    return <Text style={styles.listItem}>- {element}</Text>;
+                    return <Text style={styles.listItem}>{element}</Text>;
                   })}
                 </View>
               );
@@ -200,7 +200,7 @@ const Resume = React.memo((props) => {
                   </View>
                   <Link src={project.link} style={{ fontSize: 9 }}>{project.link}</Link>
                   {project.description.map((element, index) => {
-                    return <Text style={styles.listItem}>- {element}</Text>;
+                    return <Text style={styles.listItem}>{element}</Text>;
                   })}
                 </View>
               );
@@ -212,7 +212,7 @@ const Resume = React.memo((props) => {
             <Text style={styles.subHeading}>ACHIEVEMENTS </Text>
             <View style={styles.divider}></View>
             {user.achievements.map((achievement, index) => {
-              return <Text style={styles.listItem}>- {achievement} </Text>;
+              return <Text style={styles.listItem}>{achievement} </Text>;
             })}
           </View>
         )}
