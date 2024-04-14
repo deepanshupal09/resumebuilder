@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { getCookie } from "../../cookies";
 import temp from "../images/template.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +22,8 @@ import res2 from "../images/resume-2.jpg";
 import res3 from "../images/resume-3.jpg";
 import res4 from "../images/resume-4.jpg";
 import Add from "@mui/icons-material/Add";
+import Input from '@mui/joy/Input';
+import { delete_cookie, getCookie } from "../../cookies";
 
 
 function formatTimeDifference(timeDifferenceInMinutes) {
@@ -39,7 +40,7 @@ function formatTimeDifference(timeDifferenceInMinutes) {
   }
 }
 
-export default function Dashboard({ user }) {
+export default function Dashboard({ user, setUser }) {
   const [resumes, setResumes] = useState([]);
   const navigate = useNavigate();
   const [reRenderDetails, setReRenderDetails] = useState(false);
@@ -48,8 +49,13 @@ export default function Dashboard({ user }) {
   const [openTemplate, setOpenTemplate] = useState(false)
   const [working, setWorking] = useState("");
   const templates = [res1, res2, res3, res4];
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
 
   useEffect(() => {
+    console.log("user info : ", user);
     if (!user) navigate("/login")
   }, [])
 
@@ -94,6 +100,24 @@ export default function Dashboard({ user }) {
     setLoading(false);
     setReRenderDetails(!reRenderDetails);
   }
+
+  const deleteAccount = async () => {
+    setLoading(true);
+    await axios.post("http://localhost:4000/api/data/deleteUserAndDetails", { email: user.email });
+    setLoading(false);
+    handleLogout();
+  }
+
+  const handleLogout = () => {
+    delete_cookie("auth");
+    // console.log("location: ", location.pathname);
+    setUser(null);
+    navigate("/");
+    console.log("logging out");
+  };
+
+  
+
 
   return (
     <>
@@ -144,26 +168,64 @@ export default function Dashboard({ user }) {
             );
           })}
 
-          <div className="text-[22px] font-extrabold my-10">
+          <div className="text-[22px] font-extrabold my-3 pb-5 border-b border-slate-800">
             Account Settings
           </div>
+          {user && 'password' in user && user.password !== null && (
+            <form onSubmit={async(e)=>{
+              e.preventDefault();
+              if (oldPassword !== user.password) {
+                alert('Old password is not correct');
+                return;
+              }
+              if (newPassword !== confirmPassword) {
+                alert('New password and confirm password do not match');
+                return;
+              }
+              setLoading(true);
+              await axios.post("http://localhost:4000/api/data/updatePasswordFromUsers", { password:newPassword ,email: user.email });
+              setLoading(false);
 
-
+            }}>
+              <div className="flex-col my-3">
+                <div className="text-[19px] font-semibold py-4 ">Change Password</div>
+                <div className="text-[15px] font-semibold px-1">Old password</div>
+                <div className="pb-4 w-96">
+                  <Input value={oldPassword} onChange={(e)=>{setOldPassword(e.target.value);}} placeholder="Type in here…" required/>
+                </div>
+                <div className="text-[15px] font-semibold px-1">New password</div>
+                <div className="pb-4 w-96">
+                  <Input value={newPassword} onChange={(e)=>{setNewPassword(e.target.value);}} placeholder="Type in here…" required/>
+                </div>
+                <div className="text-[15px] font-semibold px-1">Confirm new password</div>
+                <div className="pb-4 w-96">
+                  <Input value={confirmPassword} onChange={(e)=>{setConfirmPassword(e.target.value);}} placeholder="Type in here…" required/>
+                </div>
+                <div className="py-2">
+                  <Button 
+                    type="submit"
+                    variant="outlined" 
+                    color="neutral">&nbsp;Update password
+                  </Button>
+                </div>
+              </div>
+            </form>
+          )}
+          
           <div className="my-10">
-            <div className="text-[18px] font-semibold  ">Change Password</div>
-            <div className="text-[16px] font-light cursor-pointer hover:underline">
-              Update
-            </div>
-          </div>
-
-          <div className="my-10">
-            <div className="text-[18px] font-semibold  ">Delete account</div>
-            <div className="text-[16px] font-light cursor-pointer hover:underline">
-              Update
+          <div className="text-[19px] font-semibold py-4 text-red-600">Delete Account</div>
+          <div className="text-[15px]">Once you delete your account, there is no going back. Please be certain.</div>
+            <div className="py-2">
+              <Button 
+                onClick={deleteAccount}
+                variant="outlined" 
+                color="danger">&nbsp;Delete your account
+              </Button>
             </div>
           </div>
         </div>
       </div>
+      
       <Modal open={open} onClose={() => setOpen(false)}>
         <ModalDialog variant="outlined" role="alertdialog">
           <DialogTitle>
