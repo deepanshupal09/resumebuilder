@@ -32,7 +32,7 @@ function App() {
 
 
                     <Route element={<PrivateRoute />}>
-                        <Route path="/dashboard" element={<Dashboard user={user} />} />
+                        <Route path="/dashboard"  element={<Dashboard user={user} setUser={setUser}/>} />
                         <Route
                             path="/buildresume/:detailid/:templateid"
                             element={<UserInfoEntries user={user} />}

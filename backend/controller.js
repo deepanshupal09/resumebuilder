@@ -95,6 +95,31 @@ const getDetailsByDetailId = (req, res) => {
     });
 };
 
+
+const deleteUserAndDetails = (req, res) => {
+    const email = req.body.email;
+    console.log(`Deleting user and details for email: ${email}`)
+
+    pool.query(queries.deleteUserFromUsers, [email], (error, results) => {
+        if (error) throw error;
+        pool.query(queries.deleteUserFromDetails, [email], (error, results) => {
+            if (error) throw error;
+            res.status(200).send("User and details deleted successfully");
+        });
+    });
+}
+
+const updatePasswordFromUsers = (req, res) => {
+    const { password,email } = req.body;
+    console.log(`password: ${password}`);
+
+    pool.query(queries.updatePasswordFromUsers, [password, email], (error, results) => {
+        if (error) throw error;
+        res.status(200).send("Password changed successfully");
+    });
+}
+
+
 module.exports = {
     getData,
     getUserByEmail,
@@ -103,5 +128,7 @@ module.exports = {
     getDetailsByDetailId,
     getAllDetailsByEmail,
     addDetails,
-    deleteDetailsByDetailId
+    deleteDetailsByDetailId,
+    deleteUserAndDetails,
+    updatePasswordFromUsers
 }
