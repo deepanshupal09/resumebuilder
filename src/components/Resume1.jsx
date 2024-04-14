@@ -10,7 +10,6 @@ import {
   PDFViewer,
   PDFDownloadLink
 } from "@react-pdf/renderer";
-import ReactPDF from "@react-pdf/renderer";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import dayjs from "dayjs";
 
@@ -232,7 +231,10 @@ const Resume = React.memo((props) => {
       <PDFViewer style={{ width: "100%", height: "100%" }}>
         <MyDocument />
       </PDFViewer>
+
     </>
+
+
   );
 });
 

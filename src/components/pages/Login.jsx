@@ -209,9 +209,9 @@ function Login({user,setUser}) {
               Sign In
             </button>
             <div id="signInDiv"></div>
-            <Link to="/getemail" className="self-end ">
+            {/* <Link to="/getemail" className="self-end ">
               Forgot Password?
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

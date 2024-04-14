@@ -11,7 +11,6 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog from '@mui/joy/ModalDialog';
 import DeleteForever from '@mui/icons-material/DeleteForever';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
-import EditIcon from '@mui/icons-material/Edit';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Transition } from 'react-transition-group';
@@ -53,6 +52,8 @@ export default function Dashboard({ user, setUser }) {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [openDeleteAccount, setOpenDeleteAccount] = useState(false);
+  const [openModal,setOpenModal]=useState(false)
+  const [Message,setMessage]=useState("");
 
 
   useEffect(() => {
@@ -145,32 +146,21 @@ export default function Dashboard({ user, setUser }) {
           )}
           {resumes.map((e) => {
             return (
-              <div className="my-10 flex flex-row items-start">
-                {/* Left section */}
-                <div className="flex flex-row items-start flex-grow">
+              <div className="my-10 flex flex-row items-center">
+                <div className="flex flex-row items-start flex-grow cursor-pointer" onClick={() => { setWorking(e.name); setOpenTemplate(true) }} >
                   <img className="w-20 h-20 rounded-lg" src={temp} />
                   <div className={`mx-5 flex-grow min-w-0 max-sm:max-w-[30vw] max-w-[50vw] `}> {/* Use min-w-0 to allow the div to shrink */}
                     <div className="mt-1  font-semibold truncate">{e.name}</div>
                     <div className="mt-1 text-sm text-gray-500 truncate">Last edited {e.lastModified}</div>
                   </div>
                 </div>
-                {/* Right section */}
-                <div className="flex flex-col justify-start items-end ml-auto">
                   <Button
                     variant="outlined"
-                    className="w-[100px] h-[40px]"
-                    onClick={() => { setWorking(e.name); setOpenTemplate(true) }}
-                    color="neutral">
-                    <EditIcon className="scale-75" />&nbsp;Edit
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    className="w-[100px] h-[40px] mt-2"
+                    className="w-[100px] h-[40px] "
                     onClick={() => { setWorking(e.name); setOpen(true) }}
                     color="danger">
                     <DeleteForever /> Delete
                   </Button>
-                </div>
               </div>
             );
           })}
@@ -182,16 +172,26 @@ export default function Dashboard({ user, setUser }) {
             <form onSubmit={async(e)=>{
               e.preventDefault();
               if (oldPassword !== user.password) {
-                alert('Old password is not correct');
+                setMessage('Old password is not correct');
+                setOpenModal(true);
                 return;
               }
               if (newPassword !== confirmPassword) {
-                alert('New password and confirm password do not match');
+                setMessage("Password confirmation doesn't match the password");
+                setOpenModal(true);
                 return;
               }
               setLoading(true);
-              await axios.post("http://localhost:4000/api/data/updatePasswordFromUsers", { password:newPassword ,email: user.email });
+             axios.post("http://localhost:4000/api/data/updatePasswordFromUsers", { password:newPassword ,email: user.email }).then(()=>{
               setLoading(false);
+              setMessage("Password Changed Successfully")
+              setOpenModal(true);
+             }).catch((error)=>{
+              setLoading(false);
+              setMessage("Couldnt Change Password Currently. Please try again Later");
+              setOpenModal(true);
+             });
+              
 
             }}>
               <div className="flex-col my-3">
@@ -349,6 +349,21 @@ export default function Dashboard({ user, setUser }) {
             </Button>
             <Button variant="plain" color="neutral" onClick={() => setOpenDeleteAccount(false)}>
               No
+            </Button>
+          </DialogActions>
+        </ModalDialog>
+      </Modal>
+      <Modal open={openModal} onClose={() => setOpenModal(false)}>
+        <ModalDialog variant="outlined" role="alertdialog">
+          <DialogContent >
+            <div className="">
+              {Message}
+          </div>
+          </DialogContent>
+          <DialogActions>
+            
+            <Button variant="solid" color="primary" onClick={() => setOpenModal(false)}>
+              Continue.
             </Button>
           </DialogActions>
         </ModalDialog>
