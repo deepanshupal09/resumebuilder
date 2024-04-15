@@ -8,6 +8,8 @@ import { getCookie, setCookieWithExpiry } from "../../cookies";
 import axios from "axios";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Signup({user, setUser}) {
   const [Name, setName] = useState("");
@@ -18,6 +20,7 @@ function Signup({user, setUser}) {
   const [helperTextPass, setHelperTextPass] = useState("");
   const [helperTextPassConf, setHelperTextPassConf] = useState("");
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -53,13 +56,20 @@ function Signup({user, setUser}) {
     const usr = jwtDecode(e.credential);
     setCookieWithExpiry("auth", usr, 2);
     setUser(usr)
-
+    setLoading(true);
+    
     axios
-      .post("http://localhost:4000/api/data/", usr)
-      .then((res) => {
+    .post("http://localhost:4000/api/data/", usr)
+    .then((res) => {
+        setLoading(false);
         console.log("logged in! ", res);
       })
       .catch((error) => {
+        setLoading(false);
+        setHelperTextEmail("Internal Server Error")
+        setHelperTextPass("Internal Server Error")
+        setHelperTextPassConf("Internal Server Error")
+        setError(true);
         console.log("error ", error);
       });
     navigate("/dashboard");
@@ -78,11 +88,13 @@ function Signup({user, setUser}) {
 
     const url = `http://localhost:4000/api/data/getUserByEmail`;
     console.log("URL: ", url);
+    setLoading(true)
 
     axios
       .get(url,{headers: {email: Email}})
       .then((res) => {
         console.log("response: ", res);
+        setLoading(false);
         if (res.data.length > 0) {
           setEmail("");
           setError(true);
@@ -92,23 +104,34 @@ function Signup({user, setUser}) {
             email: Email,
             name: Name,
             picture:
-              "https://media.istockphoto.com/id/1397556857/vector/avatar-13.jpg?s=612x612&w=0&k=20&c=n4kOY_OEVVIMkiCNOnFbCxM0yQBiKVea-ylQG62JErI=",
+            "https://media.istockphoto.com/id/1397556857/vector/avatar-13.jpg?s=612x612&w=0&k=20&c=n4kOY_OEVVIMkiCNOnFbCxM0yQBiKVea-ylQG62JErI=",
             password: Password,
           };
           axios
-            .post("http://localhost:4000/api/data/", usr)
-            .then((res) => {
+          .post("http://localhost:4000/api/data/", usr)
+          .then((res) => {
+              setLoading(false);
               setCookieWithExpiry("auth", usr, 2);
               console.log("logged in! ", res);
               setUser(usr);
               navigate("/dashboard");
             })
             .catch((error) => {
+              setLoading(false);
+              setHelperTextEmail("Internal Server Error")
+              setHelperTextPass("Internal Server Error")
+              setHelperTextPassConf("Internal Server Error")
+              setError(true);
               console.log("error ", error);
             });
-        }
-      })
-      .catch((error) => {
+          }
+        })
+        .catch((error) => {
+        setLoading(false);
+        setHelperTextEmail("Internal Server Error")
+        setHelperTextPass("Internal Server Error")
+        setHelperTextPassConf("Internal Server Error")
+        setError(true);
         console.log("error: ", error);
       });
   }
@@ -364,6 +387,13 @@ function Signup({user, setUser}) {
           </div>
         </div>
       </div>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      // onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 }
