@@ -56,6 +56,10 @@ export default function Dashboard({ user, setUser }) {
   const [Message,setMessage]=useState("");
 
 
+  // useEffect(() => {
+  //   window.scrollTo(0, 0); // Scrolls to the top when component is rendered
+  // }, []);
+
   useEffect(() => {
     console.log("user info : ", user);
     if (!user) navigate("/login")
@@ -91,6 +95,7 @@ export default function Dashboard({ user, setUser }) {
         setResumes(tempResume)
       })
       .catch((error) => {
+        console.log(error)
         // Handle error
       });
   }, [user, reRenderDetails]); // Add user to dependency array if user may change

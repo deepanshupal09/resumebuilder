@@ -5,6 +5,10 @@ function useNotFound() {
     const pic = useRef(null);
 
     useEffect(() => {
+        window.scrollTo(0, 0); // Scrolls to the top when component is rendered
+      }, []);
+
+    useEffect(() => {
         const instance = Lottie.loadAnimation({
             container: pic.current,
             renderer: "svg",

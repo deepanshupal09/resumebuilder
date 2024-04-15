@@ -30,6 +30,10 @@ function Signup({user, setUser}) {
   }, [user]);
 
   useEffect(() => {
+    window.scrollTo(0, 0); // Scrolls to the top when component is rendered
+  }, []);
+
+  useEffect(() => {
     const google = window["google"];
     google.accounts.id.initialize({
       client_id:

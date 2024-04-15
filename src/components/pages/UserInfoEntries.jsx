@@ -64,6 +64,10 @@ const steps = [
 
 export default function UserInfoEntries({ user }) {
 
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scrolls to the top when component is rendered
+  }, []);
+
   const options = ['Save', 'Save As..', 'Download'];
 
   const [openSave, setOpenSave] = useState(false);

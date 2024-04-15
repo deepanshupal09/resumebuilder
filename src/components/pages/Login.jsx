@@ -19,6 +19,10 @@ function Login({user,setUser}) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0); // Scrolls to the top when component is rendered
+  }, []);
+
+  useEffect(() => {
     if (user) {
       navigate("/dashboard");
     }
